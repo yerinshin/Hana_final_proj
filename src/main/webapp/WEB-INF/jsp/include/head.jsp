@@ -37,6 +37,7 @@
 	 }
 	 
 	 #head-top {
+	 
 	     max-width: 1500px;
 	 }
 	 
@@ -79,9 +80,6 @@
 	    line-height: 65px;
     }
     
-    section {
-    	width : 1000px;
-    }
 	 
 	 footer {
 	  	margin-top : 150px;

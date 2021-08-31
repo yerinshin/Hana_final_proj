@@ -102,16 +102,16 @@
      */
     
    .info-table {
-    margin : 30px 0 0 0px;
-    width : 1000px;
-    table-layout: fixed;
-    font-size : 19px;
-    text-align : center;
-    border-bottom: 1px solid #999999;
-    border-top: 2px solid #777777 !important;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-bottom : 40px;
+	    margin : 30px 0 0 0px;
+	    width : 1000px;
+	    table-layout: fixed;
+	    font-size : 19px;
+	    text-align : center;
+	    border-bottom: 1px solid #999999;
+	    border-top: 2px solid #777777 !important;
+	    border-collapse: separate;
+	    border-spacing: 0;
+	    margin-bottom : 40px;
 	}
 	
 	.info-table > thead > tr > th {
@@ -154,7 +154,6 @@
 	  background: url('${ pageContext.request.contextPath }/resources/icon/radio-background.png');
 	  background-repeat: no-repeat;
 	  background-size: 25px;
-s	
 	  margin-right: 0.1rem;
 	}
 	

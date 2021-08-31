@@ -16,6 +16,10 @@
 		justify-content : center;
 		margin-right: 30px;
 	}
+	
+	section {
+    	width : 1000px;
+    }
 </style>
 </head>
  <!-- body -->
