@@ -1,0 +1,61 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hanaroAccount.HanaroAccountDAO">
+
+	<resultMap type="accountVO" id="accountMap">
+		<result column="account_no" property="accountNo"/>
+		<result column="account_pwd" property="accountPwd"/>
+		<result column="account_owner" property="accountOwner"/>
+		<result column="account_type" property="accountType"/>
+		<result column="account_nickname" property="nickname"/>
+		<result column="bank_code" property="bankCode"/>
+		<result column="open_acc_date" property="openAccDate"/>
+	</resultMap>
+
+<!-- 	private String accountNo;
+	private int basicBalance;
+	private int consumptionBalance;
+	private int savingBalance; -->
+	
+	
+	<resultMap type="hanaroVO" id="hanaroMap">
+		<result column="account_no" property="accountNo"/>
+		<result column="basic_balance" property="basicBalance"/>
+		<result column="consumption_balance" property="consumptionBalance"/>
+		<result column="saving_balance" property="savingBalance"/>
+		
+	</resultMap>
+	
+	<!-- hanaro table 조회 -->
+	<select id="selectHanaroAcc" parameterType="int" resultMap="hanaroMap">
+		<!-- select t.account_no, t.account_pwd, t.balance, t.account_type, t.account_nickname, t.open_acc_date, t.user_code, 
+				h.basic_balance, h.consumption_balance, h.saving_balance
+    	from tbl_account t, tbl_hanaro_account h 
+   		where t.account_no = h.account_no 
+   		 		and h.account_no = 
+   		 							(select account_no from tbl_account 
+   		 								where account_type='하나로통장' and user_code= #{userCode});  -->
+   		 								
+   		 select account_no, basic_balance, consumption_balance, saving_balance
+    	from tbl_hanaro_account
+   		where account_no = (select account_no from tbl_account 
+   		 								where account_type='하나로통장' and user_code= #{userCode})
+	</select>
+	
+	<!-- account table 조회 (type='하나로통장') -->
+	<select id="selectHanaroInfo" parameterType="int" resultMap="accountMap">
+		select * from tbl_account where account_type='하나로통장' and user_code=#{userCode}
+	</select>
+	
+	<!-- 하나로 변경1 -->
+	<update id="changeType" parameterType="String">
+		update tbl_account set account_type='하나로통장' where account_no = #{accountNo}
+	</update>
+	<!--  하나로 변경2 -->	
+	<insert id="insert" parameterType="accountVO">
+		insert into tbl_hanaro_account(account_no, basic_balance) 
+		values(#{accountNo}, #{balance} )
+	</insert>
+	
+</mapper>

@@ -19,33 +19,6 @@
 		margin-right: 30px;
 	}
 	
-/* 	#side-menu {
-	
-	    margin: 0 120px 50px 20px;
-	    border-top: none;
-	    width: 350px;
-	    box-sizing: border-box;
-	}
-	
-	#side-menu .tit {
-		font-size: 28px;
-		font-weight : bold;
-	    color: #008485;
-	    border-bottom: 3px solid #008485;
-	    padding: 64px 0 16px 8px;
-	    }
-    
-    #side-menu li  {
-    margin: 0;
-    border-top: 1px solid #ddd;
-    }
-    
-    #side-menu li > a {
-        font-size: 22px;
-	    color: #637079;
-	    padding: 10px 25px 8px 8px;
-	    line-height: 65px;
-    } */
     
     #title {
     	color : black;
@@ -273,7 +246,7 @@ function changeToHanaro(accountNo) {
     			하나로 통장 전환
     		</div>
     		<div id="text-list"> 전환 가능 계좌 리스트 </div>
-    		<form action="${ pageContext.request.contextPath}/hanaro/termsOfService" method="post">
+    		<form action="${ pageContext.request.contextPath}/hanaro/changeToHanaro" method="post">
     		<table class="info-table">
 							
 							<colgroup>

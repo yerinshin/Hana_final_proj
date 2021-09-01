@@ -67,7 +67,7 @@
           
          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">             		  	
      	    <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/changeToHanaro/${loginMember.userCode}">통장전환</a></li>
-            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro">My하나로통장</a></li>
+            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/${loginMember.userCode}">My하나로통장</a></li>
             <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/dashBoard">대시보드</a></li>
          </ul>
          </li>
