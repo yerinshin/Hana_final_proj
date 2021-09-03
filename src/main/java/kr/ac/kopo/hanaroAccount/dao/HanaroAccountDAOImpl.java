@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.ac.kopo.account.vo.AccountVO;
 import kr.ac.kopo.hanaroAccount.vo.HanaroVO;
+import kr.ac.kopo.hanaroAccount.vo.SplitInfoVO;
 
 
 @Repository
@@ -38,6 +39,12 @@ public class HanaroAccountDAOImpl implements HanaroAccountDAO {
 	public void insert(AccountVO account) {
 		sqlSessionTemplate.insert("hanaroAccount.HanaroAccountDAO.insert", account);
 		
+	}
+	
+	public void splitMoney(SplitInfoVO splitInfo) {
+		System.out.println(splitInfo);
+		sqlSessionTemplate.update("hanaroAccount.HanaroAccountDAO.splitMoney", splitInfo);
+		System.out.println("dao");
 	}
 
 	

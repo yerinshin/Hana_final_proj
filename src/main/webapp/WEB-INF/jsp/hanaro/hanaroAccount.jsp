@@ -4,7 +4,12 @@
 <html lang="en">
 <head>	
  	<jsp:include page="/WEB-INF/jsp/include/head.jsp"></jsp:include>
-<!--  	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> 
+	  <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/bootstrap.min.css">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/style.css">
+	
 <style>
 
    .accountInfo {
@@ -20,17 +25,22 @@
     	margin: 30px 10px 50px 20px;
     	padding: 15px 0 15px 25px;
     }
-    
+     
+     h3 {
+     	margin-top : 7px;
+    	font-size : 20px;
+    }
     #accountType {
      font-size : 22px;
     }
     #balanceText {
      	padding-left : 20px;
     }
-    #balance2 {
+    .balance2 {
     	text-align : right;
  		padding-right: 50px;
     	font-size : 24px;
+    	font-weight : bold;
     }
 
  	#main-layout {
@@ -124,21 +134,159 @@
     #split-fromSaving {
   	 	background-color: rgba(231, 76, 60, 0.5);
     }
+    
+     .modals-default-cl {
+    	/* display : flex;
+		justify-content : center; */
+		
+		margin-top : 30px;
+    } 
+     .modal-dialog.modal-large .modal-content {
+    	padding: 70px 100px;
+    }
+    
+    .modal-content {
+    	padding : 40px 40px;
+    	margin-top: 300px;
+    	width: 850px;
+   		height: 600px;
+    }
+    
+    #btn-close {
+	    width: 40px;
+    	height: 40px;
+    	font-size: 32px;
+    	padding : 0 0 10px 0;
+    }
+    
+    .modal-large .modal-body h2 {
+    	font-size : 28px;
+    	color : black;
+    } 
+    
+    
+    .modal-large .modal-body p {
+   		font-size : 20px;
+   		color : black;
+    }
+      .modal-footer {
+
+    }
+    
+    .modal-footer > div > .btn-default {
+
+    	width: 200px;
+    	height : 50px;
+    	font-size : 25px;
+    }
+    
+    #close-btn {
+    	margin-right : 130px;
+    }
+    
+    serviceInfo {
+    	margin-top : 30px;
+    }
+    
+    	div.nice-select{
+		display : none;
+	}
+	
+	#splitTo {
+		height : 67px;
+		font-size : 23px;
+	}
+	
+	table {
+		width : 600px;
+		height : 330px;
+     	font-size : 25px;
+     }
+     		
+     th {
+     	text-align :center;
+        padding-right : 25px;
+     	width : 40%;
+     }
+     td {
+     	padding-left : 15px;
+     	}
+     		
+     input.form-control {
+     	height: 67px;
+     	font-size :23px;
+     	margin-top : 20px;
+     }
+     
+
 </style>
 <script>
 	$(document).ready(function() {
-		$('#split-fromBasic').click(function() {	
-			alert('dd')	
-		})	
 		
-		$('#split-fromConsumption').click(function() {	
-			alert('dd')
-		})	
+		getHanaroBalance()	
 		
-		$('#split-fromSaving').click(function() {	
-			alert('dd')
-		})	
+		$('.split-money').click(function(){
+			
+			let accountNo = '${ hanaroInfo.accountNo }'
+			let splitFrom = $('#splitFrom').val()
+			let splitTo = $('#splitTo').val()
+			let transMoney = $('#transMoney').val()
+			
+			console.log(accountNo)
+			console.log(splitFrom)
+			console.log(splitTo)
+			console.log(transMoney)
+			
+			let data = { accountNo : accountNo, splitFrom : splitFrom, splitTo : splitTo, transMoney : transMoney}
+			
+		 	$.ajax({
+				type : 'post',
+				contentType: 'application/json',
+				url : '${pageContext.request.contextPath}/hanaro/splitMoney',
+				data : JSON.stringify(data),
+				success : function() {
+					/* alert('잔액쪼개기 완료') */
+					getHanaroBalance() 
+					
+				}
+				
+			})  
+		})
+		
+
+		
+	 	
+	function getHanaroBalance() {
+			
+
+			let url= '${ pageContext.request.contextPath }/hanaro/ajax/${ loginMember.userCode }'
+			console.log(url)
+			$.ajax({
+				type: 'get',
+				url : url,
+				
+				success : function(hanaroAccount) {
+					console.log(hanaroAccount)
+					
+					let json = JSON.parse(hanaroAccount)
+					
+					if(hanaroAccount != null) {
+						console.log(hanaroAccount)
+						$('#basicBalance').html(json.basicBalance + " 원")
+						$('#consumptionBalance').html(json.consumptionBalance + " 원")
+						$('#savingBalance').html(json.savingBalance + " 원")
+						
+					}
+					
+					
+				}
+			})
+		}  
+		
 	})	
+</script>
+<script>
+
 </script>
 </head>
  <!-- body -->
@@ -184,14 +332,15 @@
                    <h3 id="accountNo">${ hanaroInfo.accountNo }</h3>
                    <div class="row">
 	                   <div  class="col-md-9" id="balanceText" >잔액 </div>
-	                   <div  class="col-md-3" id="balance2"><b>${ hanaroInfo.balance } 원</b></div>     
+	                   <div  class="col-md-3 balance2"><b>${ hanaroInfo.balance } 원</b></div>     
             	   </div>       
 	   		</div>	
 	   		
 	   		
 	   		
 	   		<div id="menu-title"> 잔액 쪼개기 현황 </div>
-
+			
+	
     		<div class= "row hanaro">
 	   			<div class="basic-balance accountInfo">					
                    <div id="accountType"> 
@@ -200,10 +349,10 @@
              	    <h3 id="accountNo">고정 지출 및 모든 입금과 출금</h3>
                    <div class="row">
 	                   <div  class="col-md-9" id="balanceText" >잔액 </div>
-	                   <div  class="col-md-3" id="balance2"><b>${ hanaro.basicBalance } 원</b></div>
+	                   <div  class="col-md-3 balance2" id="basicBalance"><b>${ hanaro.basicBalance } 원</b></div>
             	   </div>   
 	   			</div>	   			
-            	   <div  class="splitMoney" id="split-fromBasic">
+            	   <div  class="splitMoney" id="split-fromBasic"  data-toggle="modal" data-target="#basic-modal">
             	   <img src="${ pageContext.request.contextPath }/resources/icon/splitMoney.png"/>          	   
             	   <div><b>잔액이동</b></div>           	
             	   </div>  
@@ -217,10 +366,10 @@
  					<h3 id="accountNo">체크 카드로 사용으로 발생하는 생활 소비 관리</h3>
                    <div class="row">
 	                   <div  class="col-md-9" id="balanceText" >잔액 </div>
-	                   <div  class="col-md-3" id="balance2"><b>${ hanaro.consumptionBalance } 원</b></div>
+	                   <div  class="col-md-3 balance2" id="consumptionBalance"><b>${ hanaro.consumptionBalance } 원</b></div>
             	   </div> 
             	   </div>      
-            	   <div  class="splitMoney" id="split-fromConsumption">
+            	   <div  class="splitMoney" id="split-fromConsumption" data-toggle="modal" data-target="#consumption-modal">
             		   <img src="${ pageContext.request.contextPath }/resources/icon/splitMoney.png"/>          	
 					   <div><b>잔액이동</b></div> 
 					</div>    
@@ -234,15 +383,180 @@
 					<h3 id="accountNo">저축의 시작은 여기에서, 비상시 사용할 돈 보관</h3>
                    <div class="row">
 	                   <div  class="col-md-9" id="balanceText" >잔액 </div>
-	                   <div  class="col-md-3" id="balance2"><b> ${ hanaro.savingBalance } 원</b></div>
+	                   <div  class="col-md-3 balance2" id="savingBalance"><b> ${ hanaro.savingBalance } 원</b></div>
             	   </div>       
 	   			</div>	
-            	   <div  class="splitMoney" id="split-fromSaving">
+            	   <div  class="splitMoney" id="split-fromSaving" data-toggle="modal" data-target="#saving-modal">
             	   	 <img src="${ pageContext.request.contextPath }/resources/icon/splitMoney.png"/>          	
             	     <div><b>잔액이동</b></div> 
             	   </div>    
 	   		</div>	
-	   			
+	   		
+	   		<!-------------------- 모달 창 --------------------->
+	   		
+	   		<div class="modals-default-cl">
+	<!--          <div class="serviceInfo"> -->
+	   		 <div class="modal fade" id="basic-modal" role="dialog">
+	             <div class="modal-dialog modal-large">
+	                 <div class="modal-content">
+	                    <div class="modal-header">
+	                         <button id="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
+	                    </div>
+	                    <div class="modal-body">
+							<div class="choose_bg">
+          					<div class="white_bg">
+           
+		<%-- 	 <form class="main_form" action="${ pageContext.request.contextPath }/hanaro/splitMoney/${ loginMember.userCode }" method="post">  --%>
+			                  <!--   <form class="main_form" action="#" method="post"> -->
+			                    	<%--   <input type="hidden" name="accountNo" value="${ hanaroInfo.accountNo }"/>  --%>
+			                    <%-- 	<input type="hidden" name="accountNo" value="${ loginMember.userCode }"/> --%>
+			                          <table>
+			                           		<tr>
+				                         		 <th>기본금 에서 </th>
+			                           			<td>
+						                    	  <input type="hidden" id="splitFrom" name="splitFrom" value="basic_balance"/>
+			                           				<select id="splitTo" name="splitTo" class="form-select mb-3 form-control" aria-label="Default select example">
+													  <option selected></option>
+													  <option value="consumption_balance">생활금</option>
+													  <option value="saving_balance">비상금</option>
+													</select>										
+			                           			</td>                                               			
+			                           		</tr>
+			                           		<tr>		
+			                           		<th>이동 금액</th>
+			                           			<td>  <input class="form-control" placeholder="보낼 금액(원)" type="text" id="transMoney" name="transMoney"></td>
+			                           		</tr>	                          		
+			                           </table>   
+				                      <div class="modal-footer">
+				                    	<div class="col-md-6">
+				                         <!--   <button type="submit" class="splitMoney send btn btn-default" id="confirmService1">잔액 이동</button> -->
+				                          		<button class="split-money btn btn-default" id="splitFromBasic" data-dismiss="modal"
+				                          		data-toggle="modal" data-target="#confirm-modal">잔액 이동</button> 
+				                    	</div>
+				                    	<div class="col-md-6">
+				                        <button type="button" id="close-btn" class="btn btn-default" data-dismiss="modal">Close</button>
+				                    	</div>
+				                      </div>
+			                 <!--  </form>  -->
+			        		</div>	
+			      			</div>
+	                    </div>
+	                      
+	                  </div>
+	              </div>
+	          </div>
+	          
+	          
+	          
+	   		 <div class="modal fade" id="consumption-modal" role="dialog">
+	             <div class="modal-dialog modal-large">
+	                 <div class="modal-content">
+	                     <div class="modal-header">
+	                          <button id="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
+	                      </div>
+	                      <div class="modal-body">
+							<div class="choose_bg">
+          					<div class="white_bg">
+			                          <table>
+			                           		<tr>
+				                         		 <th>생활금 에서 </th>
+			                           			<td>
+						                    	    <input type="hidden" id="splitFrom" name="splitFrom" value="consumption_balance"/>
+			                           				<select id="splitTo" name="splitTo" class="form-select mb-3 form-control" aria-label="Default select example">
+													  <option selected></option>
+													  <option value="basic_balance">기본금</option>
+													  <option value="saving_balance">비상금</option>
+													</select>										
+			                           			</td>                                               			
+			                           		</tr>
+			                           		<tr>		
+			                           		<th>이동 금액</th>
+			                           			<td>  <input class="form-control" placeholder="보낼 금액(원)" type="text" id="transMoney" name="transMoney"></td>
+			                           		</tr>	                          		
+			                           </table>   
+				                      <div class="modal-footer">
+				                    	<div class="col-md-6">
+				                          		<button class="split-money btn btn-default" data-dismiss="modal">잔액 이동</button> 
+				                    	</div>
+				                    	<div class="col-md-6">
+				                        <button type="button" id="close-btn" class="btn btn-default" data-dismiss="modal">Close</button>
+				                    	</div>
+				                      </div>
+			        		</div>	
+			      			</div>
+	                    </div>
+	                  </div>
+	              </div>
+	          </div>
+	          
+	   		 <div class="modal fade" id="saving-modal" role="dialog">
+	             <div class="modal-dialog modal-large">
+	                 <div class="modal-content">
+	                     <div class="modal-header">
+	                          <button id="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
+	                      </div>
+	                <div class="choose_bg">
+          					<div class="white_bg">
+			                          <table>
+			                           		<tr>
+				                         		<th>비상금 에서 </th>
+			                           			<td>
+						                    	    <input type="hidden" id="splitFrom" name="splitFrom" value="saving_balance"/>
+			                           				<select id="splitTo" name="splitTo" class="form-select mb-3 form-control" aria-label="Default select example">
+													  <option selected></option>
+													  <option value="basic_balance">기본금</option>
+													  <option value="consumption_balance">생활금</option>
+													</select>										
+			                           			</td>                                               			
+			                           		</tr>
+			                           		<tr>		
+			                           		<th>이동 금액</th>
+			                           			<td>  <input class="form-control" placeholder="보낼 금액(원)" type="text" id="transMoney" name="transMoney"></td>
+			                           		</tr>	                          		
+			                           </table>   
+				                      <div class="modal-footer">
+				                    	<div class="col-md-6">
+				                          		<button class="split-money btn btn-default" data-dismiss="modal">잔액 이동</button> 
+				                    	</div>
+				                    	<div class="col-md-6">
+				                        <button type="button" id="close-btn" class="btn btn-default" data-dismiss="modal">Close</button>
+				                    	</div>
+				                      </div>
+			        		</div>	
+			      			</div>
+	                  </div>
+	              </div>
+	          </div>
+	          
+	          
+	   		 <div class="modal fade" id="confirm-modal" role="dialog">
+	             <div class="modal-dialog modal-large">
+	                 <div class="modal-content">
+	                     <div class="modal-header">
+	                          <button id="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
+	                      </div>
+	                <div class="choose_bg">
+          					<div class="white_bg">
+			                          <table>
+			                           	                          		
+			                           </table>   
+				                      <div class="modal-footer">
+				                    	<div class="col-md-12">
+				                          		<button class="split-money btn btn-default" data-dismiss="modal">잔액 이동</button> 
+				                    	</div>
+				                    	
+				                      </div>
+			        		</div>	
+			      			</div>
+	                  </div>
+	              </div>
+	          </div>
+	          
+	          
+
+	          
+	  <!--  		</div> -->
+	   		</div>
 	   		
     			
 	<%--      	<div id = "accountList">
@@ -262,7 +576,11 @@
                   	
 	    		</div>
 			</div> 				 --%>
-			
+			<script src="${ pageContext.request.contextPath }/resources/template/js/vendor/jquery-1.12.4.min.js"></script>
+   			 <!-- bootstrap JS
+		============================================ -->
+  			  <script src="${ pageContext.request.contextPath }/resources/template/js/bootstrap.min.js"></script>	
+  			  
         </section>
         </div>
         </div>

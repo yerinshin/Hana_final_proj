@@ -7,6 +7,7 @@ import kr.ac.kopo.account.dao.AccountDAO;
 import kr.ac.kopo.account.vo.AccountVO;
 import kr.ac.kopo.hanaroAccount.dao.HanaroAccountDAO;
 import kr.ac.kopo.hanaroAccount.vo.HanaroVO;
+import kr.ac.kopo.hanaroAccount.vo.SplitInfoVO;
 
 @Service
 public class HanaroAccountServiceImpl implements HanaroAccountService {
@@ -41,6 +42,13 @@ public class HanaroAccountServiceImpl implements HanaroAccountService {
 		//2. hanaro통장 table에 insert
 			hanaroAccountDAO.insert(account);
 		
+	}
+	
+	//잔액이동
+	public void splitMoney(SplitInfoVO splitInfo) {
+		
+		hanaroAccountDAO.splitMoney(splitInfo);
+		System.out.println("서비스");
 	}
 
 
