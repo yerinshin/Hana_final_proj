@@ -11,4 +11,10 @@ public class DashBoardController {
 		
 		return "dashBoard/budgetAnalysis";
 	}
+	
+	@GetMapping("/dashBoard/savingAnalysis")
+	public String savingAnalysis() {
+		
+		return "dashBoard/savingAnalysis";
+	}
 }
