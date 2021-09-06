@@ -11,5 +11,8 @@ public interface FixedExpenseService {
 	
 	//고정지출 추가
 	void insert(FixedExpenseVO fixedExpense);
+	
+	//고정지출 삭제
+	void delete(int expenseCode);
 
 }

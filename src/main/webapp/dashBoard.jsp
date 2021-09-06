@@ -97,10 +97,10 @@
 			
 			<div class="widget-tabs-list">
 			<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#menu1" aria-expanded="true">고정지출</a></li>
-			<li class=""><a data-toggle="tab" href="#menu1" aria-expanded="false">예산 현황</a></li>
-			<li class=""><a data-toggle="tab" href="#menu2" aria-expanded="false">저축 현황</a></li>
-			<li class=""><a data-toggle="tab" href="#menu2" aria-expanded="false">추천 상품</a></li>
+		<li class="active"><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">고정지출</a></li>
+			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >예산 현황</a></li>
+			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/savingAnalysis">저축 현황</a></li>
+			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li>
 			</ul>
 			<div class="tab-content tab-custom-st">
 			<div id="home" class="tab-pane fade active in">

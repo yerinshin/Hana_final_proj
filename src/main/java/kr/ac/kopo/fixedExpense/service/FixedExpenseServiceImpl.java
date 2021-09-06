@@ -25,4 +25,8 @@ public class FixedExpenseServiceImpl implements FixedExpenseService {
 		dao.insert(fixedExpense);
 	}
 
+	public void delete(int expenseCode) {
+		dao.delete(expenseCode);
+	}
+
 }

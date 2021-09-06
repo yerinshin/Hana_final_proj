@@ -33,4 +33,9 @@
 		values(fixed_transfer_seq_no.nextval, #{expenseInfo} , #{transMoney}, #{transDate}, #{myAccNo})
 	
 	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from fixed_transfer_list 
+		where fixed_transfer_list_code = #{expenseCode}
+	</delete>
 </mapper>

@@ -9,4 +9,6 @@ public interface FixedExpenseDAO {
 		List<FixedExpenseVO> selectAll(String accountNo);
 		
 		void insert(FixedExpenseVO fixedExpense);
+		
+		void delete(int expenseCode);
 }

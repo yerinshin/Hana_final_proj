@@ -86,7 +86,9 @@
 	.border-box {
 		padding : 30px;
 		border : 2px solid #dddddd; 
+		border-radius : 5px;
 		margin-bottom : 30px;
+		margin-top : 30px;
 	}
 	
 	#btn-plus {
@@ -100,19 +102,19 @@
 	     font-size: 30px;
      }
 	
-	#trans-info-col {
+/* 	#trans-info-col {
 		width : 25%;
 		text-align : center;
 		
-	}
+	} */
 	
-	#btn-add{
-		margin: 5px 0 0 10px;
-		width : 40px;
+	#btn-add, .btn-delete {
+		margin: 0px 0 0 10px;
+		width : 35px;
 		padding :0px;
 	}
 	
-	#trans-money-col {
+/* 	#trans-money-col {
 		text-align : right ;
 		padding-right :150px;
 	}
@@ -120,14 +122,13 @@
 	
 	th#trans-date-col{
 		width : 40%;
-		/* padding-left : 40px; */
 		text-align : center;
 	}
 	th#send-trans-money {
 		color : #d74351;
 		text-align:right;
 		padding-right :150px;
-	}
+	} */
 	
 /* 	th#receive-trans-money {
 		color : #0c7ffa;
@@ -135,10 +136,10 @@
 		padding-right :150px;
 	} */
 	
-	th#trans-date-col, th#trans-info-col ,th#trans-money-col {
+/* 	th#trans-date-col, th#trans-info-col ,th#trans-money-col {
 		font-size: 21px;
    		line-height: 40px;
-}
+} */
 	
 /* 	
  	#addFixedExpense {
@@ -239,11 +240,43 @@ $(document).ready(function() {
 			success : function() {
 				alert('추가완료')
 				getFixedExpense()
+		 		$('#expenseInfo').val('')
+				$('#transDate').val('')
+				$('#transMoney').val('')
+		
 			}
 		})
 		
 		
 	})	
+	
+/* 	$('.btn-remove').click(function() {
+		alert('dd')
+	/* 	let expenseCode = $(this).attr('id')
+		console.log(expenseCode) 
+		
+	})
+	 */
+	$(document).on("click", ".btn-delete", function (e) { 
+		let expenseCode = $(this).attr('id')
+		console.log(expenseCode) 
+		
+		let data = { code : expenseCode }
+		
+		$.ajax({
+			type : 'post',
+			contentType : 'application/json',
+			url : '${pageContext.request.contextPath}/deleteFixedExpense',
+			data : JSON.stringify(data),
+			success : function() {
+				alert('삭제완료')
+				getFixedExpense()
+				
+			}
+			
+		})
+	})
+
 	
 	function getFixedExpense() {
 		
@@ -274,6 +307,7 @@ $(document).ready(function() {
 						temp = temp.replace(/\{transInfo\}/gi, fixedExpense.expenseInfo)
 									.replace(/\{transDate\}/gi, fixedExpense.transDate)
 									.replace(/\{transMoney\}/gi, fixedExpense.transMoney)
+									.replace(/\{expenseCode\}/gi, fixedExpense.code)
 									
 						console.log(temp)
 				/* 		totalExpense += fixedExpense.transMoney */
@@ -354,6 +388,24 @@ function numberWithCommas(x) {
 				
 			});
 			
+			//(고정지출 삭제시)
+			$(document).on("click", ".btn-delete", function (e) { 
+				let sum = parseInt($('#fixed_sum').val());		// 고정지출
+				console.log(sum)
+				let result = parseInt($('#cal_result').val());	// 지출합계
+				let add = parseInt( $(this).closest("div").attr('id'));		// 고정지출 삭제 금액
+				
+				sum = parseInt(sum - add);			// 고정지출 합계 갱신
+				result = parseInt(result
+						+ add);	// 지출합계 갱신
+				
+				$('#fixed_sum').val(sum);			// 값 변경
+				$('#fixed_sum2').val(numberWithCommas(sum));	//콤마찍어서 보여줌
+				$('#cal_result').val(result);
+				$('#cal_result2').val(result);
+				
+				
+			});
 			
 			// 총 지출 합계(dom 구성시)
 			cal_result = parseInt(totalBudget - fixed_sum)
@@ -416,12 +468,22 @@ function numberWithCommas(x) {
 	});
 </script>
 <script id = "fixedExpenseTemplate" type="text/template">
-<table class="table">
+<table class="table" id="table">
  <tbody>
 	    <tr>
-			<th id="trans-date-col">{transInfo}</td>
-			<th id="trans-info-col">{transDate}일</td>    
-			<th id="trans-money-col" class="fixedTransMoney"> {transMoney} 원</th>
+			<input type="hidden" value="{expenseCode}">
+			<td width="40%">{transInfo}</td>
+			<td width="20%">{transDate}일</td>    
+			<td>
+		      <div class="row">
+					      <div class="col-md-9" >
+					      {transMoney} 원
+					      </div>
+					      <div class="col-md-2" id="{transMoney}">
+					      <img class="btn-delete" src="${pageContext.request.contextPath}/resources/icon/remove.png" id="{expenseCode}"/>
+			  </div>
+				</div>
+			</td>
 		</tr>
 </tbody>
 </table>
@@ -475,14 +537,11 @@ function numberWithCommas(x) {
 			
 			<div class="widget-tabs-list">
 			<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="/hanaro/dashBoard" aria-expanded="true">고정지출</a></li>
-			<li class=""><a data-toggle="tab" href="/hanaro/dashBoard" aria-expanded="false">예산 현황</a></li>
-			<li class=""><a data-toggle="tab" href="#menu2" aria-expanded="false">저축 현황</a></li>
-			<li class=""><a data-toggle="tab" href="#menu2" aria-expanded="false">추천 상품</a></li>
+			<li class="active"><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">고정지출</a></li>
+			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >예산 현황</a></li>
+			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/savingAnalysis">저축 현황</a></li>
+			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li>
 			</ul>
-			<div class="tab-content tab-custom-st">
-			<div id="home" class="tab-pane fade active in">
-			<div class="tab-ctn">
 			
 			  <div class="border-box">
 				<!-- *******한달 예산****** -->
@@ -523,15 +582,21 @@ function numberWithCommas(x) {
 					</div>
                   	<div class="col" id="totalExpenseDiv2">
 						</div>
-                  <table class="table">
+                  <table class="table" id="table">
                   	<c:forEach items="${ fixedExpenseList }" var="fixedExpense" varStatus="loop">
                   	<input type="hidden" class="fixedTransMoney" value="${ fixedExpense.transMoney }">
 					 </c:forEach>
 					  <thead>
 					    <tr>
-					      <th scope="col" id="trans-date-col">예산명</th>
-					      <th scope="col" id="trans-info-col">이체일</th>
-					      <th scope="col" id="trans-money-col">금액</th>
+					      <th scope="col" width="40%">예산명</th>
+					      <th scope="col" width="20%">이체일</th>
+					      <th scope="col" >
+					      <div class="col-md-9">
+					      	금액
+					      </div>
+					      <div class="col-md-3">
+					      </div>
+					      	</th>
 					    </tr>
 					  </thead>
 					  </table>
@@ -558,11 +623,11 @@ function numberWithCommas(x) {
 					<div id="addFixedExpense2"></div>
 					<div id="addFixedExpense">
 				
-					 <table class="table">
+					 <table class="table" id="table">
 					  <tbody>
 					    <tr>
-					      <th scope="col" id="trans-date-col"><input id="expenseInfo" class="form-control" type="text"></th>
-					      <th scope="col" id="trans-info-col"><select class="form-control" name="setDate" id="transDate" 
+					      <th scope="col" width="40%"><input id="expenseInfo" class="form-control" type="text"></th>
+					      <th scope="col" width="20%"><select class="form-control" name="setDate" id="transDate" 
 														aria-label="Example select with button addon">
 															<option value="없음" selected>매달 O일</option>
 															<c:forEach begin="1" end="28" var="x">
@@ -707,22 +772,11 @@ function numberWithCommas(x) {
           </div>
       
 			</div>
-			</div>
+			
 			
 			<!-- -------------------------------------------------------------------- -->
 			
-				<div id="menu1" class="tab-pane fade">
-				<div class="tab-ctn">
-					고정지출
-				</div>
-				</div>
-				<div id="menu2" class="tab-pane fade">
-				<div class="tab-ctn">
-					고정지출
-				</div>
-				</div>
-			</div>
-			</div>
+		
       </section> 
 			</div>
 		

@@ -24,6 +24,10 @@ public class FixedExpenseDAOImpl implements FixedExpenseDAO {
 	public void insert(FixedExpenseVO fixedExpense) {
 		sqlSessionTemplate.insert("fixedExpense.FixedExpenseDAO.insert", fixedExpense);
 	}
+
+	public void delete(int expenseCode) {
+		sqlSessionTemplate.delete("fixedExpense.FixedExpenseDAO.delete", expenseCode);
+	}
 	
 
 }

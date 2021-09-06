@@ -192,6 +192,18 @@ public class HanaroAccountController {
 			fixedExpenseService.insert(fixedExpense);
 			
 		}
+		
+		@ResponseBody
+		@PostMapping("/deleteFixedExpense")
+		public void deleteFixedExpense(@RequestBody FixedExpenseVO fixedExpense) {
+			System.out.println(fixedExpense);
+			
+			int expenseCode = fixedExpense.getCode();
+			fixedExpenseService.delete(expenseCode);
+	
+		}
+		
+		
 
 	
 }
