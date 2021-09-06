@@ -81,7 +81,6 @@
       </header>
       <!-- end header -->
       
-      <body class="main-layout">
       <div class="row main">
       <aside id="side-menu">
 			<div id="diyLnb" class="on">

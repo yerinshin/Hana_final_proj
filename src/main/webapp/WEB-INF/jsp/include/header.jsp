@@ -78,7 +78,7 @@
            	 내 소비
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/account/accountOpen.do">가계부</a></li>
+            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/spending/myCalendar">가계부</a></li>
             <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/account/accountList.do">소비현황</a></li>
             <li><a class="dropdown-item" href="#">도전하기</a></li>
           </ul>
