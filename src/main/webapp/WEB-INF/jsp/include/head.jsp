@@ -66,6 +66,7 @@
 	    color: #008485;
 	    border-bottom: 3px solid #008485;
 	    padding: 64px 0 16px 8px;
+	    margin: 0;
 	    }
     
     #side-menu li  {

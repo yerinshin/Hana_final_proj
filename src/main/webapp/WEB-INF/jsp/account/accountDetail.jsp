@@ -47,9 +47,9 @@
 		padding-bottom : 0px;
 	}
 	
-	.product .title h2:after {
+/* 	.product .title h2:after {
 		width : 1140px;
-	}
+	} */
 	
 	.product .title h2 {
 		font-size : 40px;

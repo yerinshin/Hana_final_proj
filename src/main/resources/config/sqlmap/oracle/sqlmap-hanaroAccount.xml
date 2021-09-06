@@ -60,4 +60,5 @@
 			set ${splitFrom} = ${splitFrom} - #{transMoney}, ${splitTo} = ${splitTo} + #{transMoney}
 		where account_no = #{accountNo}
 	</update>
+	
 </mapper>

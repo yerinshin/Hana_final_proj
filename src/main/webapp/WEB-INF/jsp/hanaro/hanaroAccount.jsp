@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/style.css">
 	
 <style>
+	#head-top {
+       width: 1500px;
+   	   margin: 0 460px 0 350px;
+}
 
    .accountInfo {
     	font-size : 20px;

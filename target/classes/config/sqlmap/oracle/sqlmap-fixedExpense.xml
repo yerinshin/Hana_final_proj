@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fixedExpense.FixedExpenseDAO">
+
+	<resultMap type="fixedExpenseVO" id="fixedExpenseMap">
+		<result column="fixed_transfer_list_code" property="code" />
+		<result column="account_no_to_transfer" property="accNoToTransfer"/>
+		<result column="transfer_info" property="expenseInfo"/>
+		<result column="trans_money" property="transMoney"/>
+		<result column="transfer_date" property="transDate"/>
+		<result column="my_acc_no" property="myAccNo"/>
+	</resultMap>
+
+<!-- 	<resultMap type="accountVO" id="accountMap">
+		<result column="account_no" property="accountNo"/>
+		<result column="account_pwd" property="accountPwd"/>
+		<result column="account_owner" property="accountOwner"/>
+		<result column="account_type" property="accountType"/>
+		<result column="account_nickname" property="nickname"/>
+		<result column="bank_code" property="bankCode"/>
+		<result column="open_acc_date" property="openAccDate"/>
+	</resultMap> -->
+	
+	<select id="selectAll" parameterType="String" resultMap="fixedExpenseMap">
+		select * From fixed_transfer_list where my_acc_no = #{accountNo} order by transfer_date
+	</select>
+	
+	<insert id="insert" parameterType="fixedExpenseVO">
+		insert into fixed_transfer_list(fixed_transfer_list_code, transfer_info,
+				 trans_money, transfer_date, my_acc_no)
+		values(fixed_transfer_seq_no.nextval, #{expenseInfo} , #{transMoney}, #{transDate}, #{myAccNo})
+	
+	</insert>
+</mapper>

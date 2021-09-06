@@ -4,7 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="account.AccountDAO">
 
-<!-- private String accountNo;
+<!--
+	private String accountNo;
 	private String accountPwd;
 	private String accountOwner;
 	private int balance;

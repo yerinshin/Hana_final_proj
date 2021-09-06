@@ -13,9 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.kopo.account.service.AccountService;
 import kr.ac.kopo.account.vo.AccountVO;
+import kr.ac.kopo.fixedExpense.service.FixedExpenseService;
+import kr.ac.kopo.fixedExpense.vo.FixedExpenseVO;
 import kr.ac.kopo.hanaroAccount.service.HanaroAccountService;
 import kr.ac.kopo.hanaroAccount.vo.HanaroVO;
 import kr.ac.kopo.hanaroAccount.vo.SplitInfoVO;
+import kr.ac.kopo.member.vo.MemberVO;
 
 @Controller
 public class HanaroAccountController {
@@ -25,6 +28,9 @@ public class HanaroAccountController {
 	
 	@Autowired
 	private HanaroAccountService hanaroAccService;
+	
+	@Autowired
+	private FixedExpenseService fixedExpenseService;
 	
 	//내 하나로 통장 조회
 	@GetMapping("/hanaro/{userCode}")
@@ -128,5 +134,64 @@ public class HanaroAccountController {
 		 return "redirect:/hanaro/" + userCode; 
 	}
 */
+	
+	//=======================대시보드 ? 하나로 ? ============================
+	
+	//고정 출금, 고정 잔액이동 설정page
+	
+	/*
+		@GetMapping("/hanaro/dashBoard")
+		public String setFixedBudget() {
+			/*
+			 * List<FixedExpenseVO> list = fixedExpense(); 
+			 * System.out.println(list);
+			 
+			
+		//	List<FixedExpenseVO> list = fixedExpenseService.selectAll("081000000010");
+			return "dashBoard/fixedBudget";
+		}
+*/
+		
+		@GetMapping("/hanaro/dashBoard/{userCode}")
+		public ModelAndView setFixedBudget(@PathVariable("userCode") int userCode) {
+			AccountVO account = hanaroAccService.selectHanaroInfo(userCode);
+			String accountNo = account.getAccountNo();
+			System.out.println(accountNo);
+			
+			List<FixedExpenseVO> fixedExpenseList = fixedExpenseService.selectAll(accountNo);
+			ModelAndView mav = new ModelAndView("dashBoard/fixedBudget");
+			mav.addObject("fixedExpenseList", fixedExpenseList);
+			mav.addObject(accountNo);
+			
+			return mav;
+		}
+		
+		
+		
+		@ResponseBody
+		@PostMapping("/hanaro/fixedExpense")
+		public List<FixedExpenseVO> fixedExpense(@RequestBody MemberVO member){
+			/* System.out.println(userCode); */
+			/*
+			 * List<FixedExpenseVO> fixedExpenseList =
+			 * fixedExpenseService.selectAll(accountNo);
+			 */
+			
+			AccountVO account = hanaroAccService.selectHanaroInfo(member.getUserCode());
+			String accountNo = account.getAccountNo();
+			List<FixedExpenseVO> fixedExpenseList = fixedExpenseService.selectAll(accountNo);
+			
+			return fixedExpenseList;
+		}
+			
+		@ResponseBody
+		@PostMapping("/addFixedExpense")
+		public void addFixedExpense(@RequestBody FixedExpenseVO fixedExpense) {
+			System.out.println(fixedExpense);
+			
+			fixedExpenseService.insert(fixedExpense);
+			
+		}
+
 	
 }

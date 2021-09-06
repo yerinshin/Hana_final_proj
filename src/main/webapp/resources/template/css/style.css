@@ -55,7 +55,7 @@
 /*  1.  Theme default CSS
 /*----------------------------------------*/
 html, body {font-family: 'Roboto', sans-serif;font-weight:400;}
-body {background:#F6F8FA;}
+/* body {background:#F6F8FA;} */
 .floatleft {float:left}
 .floatright {float:right}
 .alignleft {float:left;margin-right:15px;margin-bottom: 15px}
@@ -84,7 +84,6 @@ margin: 0;
 padding: 0
 }
 .clear{clear:both}
-body {}
 .mg-tb-40{
 	margin:40px 0px;
 }

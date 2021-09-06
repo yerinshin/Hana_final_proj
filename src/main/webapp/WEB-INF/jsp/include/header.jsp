@@ -48,7 +48,7 @@
    
              <li class="active"> <a href="${ pageContext.request.contextPath }">Home</a> </li>
                           <%--     <li> <a href="/about.jsp">계좌생성</a> </li> --%>
-		
+		<!-- 
 		<li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             계좌관리
@@ -59,6 +59,7 @@
             <li><a class="dropdown-item" href="#">계좌송금</a></li>
           </ul>
       	</li>
+      	-->
          
          <li class="nav-item dropdown">
          <a class="nav-link dropdown-toggle" href="${ pageContext.request.contextPath }/hanaro" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -68,34 +69,26 @@
          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">             		  	
      	    <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/changeToHanaro/${loginMember.userCode}">통장전환</a></li>
             <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/${loginMember.userCode}">My하나로통장</a></li>
-            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/dashBoard">대시보드</a></li>
+            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/dashBoard/${loginMember.userCode}">대시보드</a></li>
          </ul>
          </li>
+         
+         	<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           	 내 소비
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/account/accountOpen.do">가계부</a></li>
+            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/account/accountList.do">소비현황</a></li>
+            <li><a class="dropdown-item" href="#">도전하기</a></li>
+          </ul>
+      	</li>
         
-        <c:choose>
-	        <c:when test="${ empty loginMember }">
-	        	<li> <a href="${ pageContext.request.contextPath }/board/boardList.do">Q&A</a> </li>
-            </c:when>
-	        <c:otherwise>
-	            <li> <a href="/product.jsp">MyPage</a> </li>
-	        </c:otherwise>	
-        </c:choose>
-                       	       	
-                               
+      
+	    <li> <a href="${ pageContext.request.contextPath }/hanaro/dashBoard">대시보드</a> </li>
+	              
       </ul>
       </nav>
-                         <!-- 
-                        <nav class="main-menu">
-                           <ul class="menu-area-main">
-                              <li class="active"> <a href="${ pageContext.request.contextPath }">Home</a> </li>
-                              <li> <a href="${ pageContext.request.contextPath }/about.jsp">Account</a> </li>
-                              <li> <a href="${ pageContext.request.contextPath }/blog.jsp">Q&A</a> </li>
-                             	<li class="mean-last"> <a href="${ pageContext.request.contextPath }/contact.jsp">signup</a> </li>
-                       	     
-                       	       		<li> <a href="${ pageContext.request.contextPath }/product.jsp">MyPage</a> </li>
-                            </ul>
-                        </nav>
-                        -->
                      </div>
                   </div>
                </div>
