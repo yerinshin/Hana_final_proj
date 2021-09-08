@@ -42,7 +42,7 @@
     }
 	
 	section {
-    	width : 1000px;
+    	width : 1100px;
     }
     .nav-tabs>li {
 	    border: 2px solid lightgray;
@@ -67,6 +67,29 @@
 		background-color :#00c292;
 
 } */
+
+.fc-day-number {
+    float: right;
+    font-size: 30px;
+}
+
+.fc-toolbar .fc-button {
+    background: #2961ff;
+    color: #fff;
+    border: none;
+    width: 70px;
+    height: 37px;
+    font-size: 18px;
+  }
+  
+  .fc td, .fc th {
+ 
+    font-size: 20px;
+}
+
+.card-body, .waves-effect {
+    font-size: 20px;
+ }
 </style>
 </head>
 
@@ -82,7 +105,7 @@
       </header>
       
       <div class="row main">
-      <aside id="side-menu">
+    <aside id="side-menu">
 			<div id="diyLnb" class="on">
 			<h2 class="tit">하나로통장</h2>
 			<ul class="depth1">
@@ -95,7 +118,7 @@
 	
 				</ul>
 				</div>
-		</aside>
+		</aside> 
    
       <section>
 			<div id="title" class="titlepage">대시보드</div>
@@ -126,8 +149,8 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="">
-                                <div class="row">
-                                    <div class="col-lg-3 border-right p-r-0">
+                               
+                                    <div class="border-right p-r-0">
                                         <div class="card-body border-bottom">
                                             <h4 class="card-title m-t-10">Drag & Drop Event</h4>
                                         </div>
@@ -152,12 +175,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-9">
+                                    
+                                    <div class="">
                                         <div class="card-body b-l calender-sidebar">
                                             <div id="calendar"></div>
                                         </div>
                                     </div>
-                                </div>
+                              
                             </div>
                         </div>
                     </div>
@@ -226,7 +250,7 @@
  
 						</div>
 				
-			
+			</div>
 			</div>
 			</div>
 			
@@ -237,11 +261,11 @@
       </section> 
       </div>
    
-    <script src="${ pageContext.request.contextPath }/resources/template2/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="${ pageContext.request.contextPath }/resources/template2/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="${ pageContext.request.contextPath }/resources/template2/dist/js/jquery-ui.min.js"></script>
     <script src="${ pageContext.request.contextPath }/resources/template2/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!--Custom JavaScript -->
-    <script src="${ pageContext.request.contextPath }/resources/template2/dist/js/custom.min.js"></script>
+   <%--  <script src="${ pageContext.request.contextPath }/resources/template2/dist/js/custom.min.js"></script> --%>
      <!-- this page js -->
     <script src="${ pageContext.request.contextPath }/resources/template2/assets/libs/moment/min/moment.min.js"></script>
     <script src="${ pageContext.request.contextPath }/resources/template2/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>

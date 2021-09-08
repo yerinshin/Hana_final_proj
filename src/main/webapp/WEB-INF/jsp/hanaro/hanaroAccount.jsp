@@ -541,12 +541,13 @@
 	                      </div>
 	                <div class="choose_bg">
           					<div class="white_bg">
+          					잔액이동 완료
 			                          <table>
 			                           	                          		
 			                           </table>   
 				                      <div class="modal-footer">
 				                    	<div class="col-md-12">
-				                          		<button class="split-money btn btn-default" data-dismiss="modal">잔액 이동</button> 
+				                          		<button class="btn btn-default" data-dismiss="modal">확인</button> 
 				                    	</div>
 				                    	
 				                      </div>

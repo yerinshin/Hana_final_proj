@@ -44,6 +44,11 @@
 		select * from tbl_account where account_type='하나로통장' and user_code=#{userCode}
 	</select>
 	
+		<!-- account table 조회 (type='하나로통장') -->
+	<select id="selectHanaroInfoById" parameterType="String" resultMap="accountMap">
+		select * from tbl_account where account_type='하나로통장' and user_id=#{id}
+	</select>
+	
 	<!-- 하나로 변경1 -->
 	<update id="changeType" parameterType="String">
 		update tbl_account set account_type='하나로통장' where account_no = #{accountNo}

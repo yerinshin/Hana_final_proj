@@ -30,6 +30,11 @@ public class HanaroAccountDAOImpl implements HanaroAccountDAO {
 		return account;
 	}
 	
+	public AccountVO selectHanaroInfoById(String id) {	
+		AccountVO account = sqlSessionTemplate.selectOne("hanaroAccount.HanaroAccountDAO.selectHanaroInfoById", id);
+		return account;
+	}
+	
 	public void updateType(String accountNo) {
 		
 		sqlSessionTemplate.update("hanaroAccount.HanaroAccountDAO.changeType", accountNo);
@@ -46,6 +51,7 @@ public class HanaroAccountDAOImpl implements HanaroAccountDAO {
 		sqlSessionTemplate.update("hanaroAccount.HanaroAccountDAO.splitMoney", splitInfo);
 		System.out.println("dao");
 	}
+
 
 	
 	

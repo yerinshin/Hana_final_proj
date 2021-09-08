@@ -9,5 +9,8 @@
 		<typeAlias type="kr.ac.kopo.hanaroAccount.vo.HanaroVO" alias="hanaroVO" />
 		<typeAlias type="kr.ac.kopo.hanaroAccount.vo.SplitInfoVO" alias="splitInfoVO" />
 		<typeAlias type="kr.ac.kopo.fixedExpense.vo.FixedExpenseVO" alias="fixedExpenseVO" />
+		<typeAlias type="kr.ac.kopo.hanaroAccount.vo.AutoSplitVO" alias="autoSplitVO" />
+		<typeAlias type="kr.ac.kopo.hanaroAccount.vo.AutoSplitVO" alias="autoSplitVO" />
+		<typeAlias type="kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO" alias="monthlyBudgetVO" />		
 	</typeAliases>
 </configuration>

@@ -81,7 +81,7 @@
       </header>
       <!-- end header -->
       
-      <body class="main-layout">
+
       <div class="row main">
       <aside id="side-menu">
 			<div id="diyLnb" class="on">
@@ -123,7 +123,7 @@
   			  <script src="${ pageContext.request.contextPath }/resources/template/js/bootstrap.min.js"></script>	
       </section> 
       </div>
-</body>
+
       <%-- footer --%>
       <footer>
          <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
@@ -133,4 +133,7 @@
       <!-- Javascript files--> 
   		<jsp:include page="/WEB-INF/jsp/include/javascriptFiles.jsp"></jsp:include>
 </body>
+<script>
+
+</script>
 </html>

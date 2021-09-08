@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dashBoard.DashBoardDAO">
+
+	<resultMap type="fixedExpenseVO" id="fixedExpenseMap">
+		<result column="fixed_transfer_list_code" property="code" />
+		<result column="account_no_to_transfer" property="accNoToTransfer"/>
+		<result column="transfer_info" property="expenseInfo"/>
+		<result column="trans_money" property="transMoney"/>
+		<result column="transfer_date" property="transDate"/>
+		<result column="my_acc_no" property="myAccNo"/>
+	</resultMap>
+	
+
+	<resultMap type="autoSplitVO" id="autoSplitMap">
+		<result column="account_no" property="accountNo" />
+		<result column="money_to_consumption" property="moneyToConsumption" />
+		<result column="money_to_saving" property="moneyToSaving" />
+		<result column="split_date" property="splitDate" />
+	</resultMap>
+	
+	<!-- 내 예산 구성 select -->
+	<!-- 내 한달 설정 소비예산(생활금), 저축액(비상금) 조회-->
+	<select id="myMonthlySplit" parameterType="string" resultMap="autoSplitMap">
+		select * from tbl_auto_split where account_no= #{accountNo}
+	</select>
+	
+	<!-- 내 한달 고정 지출액 조회(기본금) -->
+	<select id="myMonthlyFixedExpense" parameterType="string" resultMap="fixedExpenseMap">
+		select sum(trans_money) as trans_money from fixed_transfer_list where my_acc_no= #{accountNo}
+	</select>
+	
+	<!-- 또래 예산 구성 select -->
+	<select id="agesAvgSplit" parameterType="int" resultType="monthlyBudgetVO">
+		select AVG(MONEY_TO_CONSUMPTION) as consumption, AVG(MONEY_TO_SAVING) as saving 
+		from tbl_auto_split 
+		where account_no IN 
+				(select account_no FROM TBL_ACCOUNT where user_id IN
+						(select id 
+						from tbl_member 
+						where trunc(to_char(sysdate, 'rrrr')
+							- to_char(to_date(ss1), 'rrrr'), -1) = #{ageGroup}))
+	</select>
+	
+	<!-- 또래 한달 고정 지출액 조회(기본금) (만원까지 표시)-->
+	<select id="agesAvgFixedExpense" parameterType="int" resultType="monthlyBudgetVO">
+		select trunc(AVG(SUM(trans_money)), -4) as fixedExpense
+		from fixed_transfer_list where my_acc_no 
+			IN (select account_no from tbl_account where user_id IN
+					(select id from tbl_member 
+					where trunc(to_char(sysdate, 'rrrr') 
+						- to_char(to_date(ss1), 'rrrr'), -1) = #{ageGroup}) and account_type ='하나로통장') 
+		group by my_acc_no
+	</select>
+	
+</mapper>

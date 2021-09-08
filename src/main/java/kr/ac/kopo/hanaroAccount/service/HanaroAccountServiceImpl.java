@@ -31,6 +31,14 @@ public class HanaroAccountServiceImpl implements HanaroAccountService {
 		return account;
 	}
 	
+	
+	public AccountVO selectHanaroInfoById(String id) {
+		
+		AccountVO account = hanaroAccountDAO.selectHanaroInfoById(id);
+		return account;
+	}
+	
+	
 	public void changeToHanaro(String accountNo) {
 		
 		//1. accountType변경

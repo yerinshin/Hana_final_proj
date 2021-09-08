@@ -452,7 +452,7 @@ function numberWithCommas(x) {
 				let totalBudget = $('#totalBudget').val();
 				cal_result = parseInt(totalBudget - fixed_sum)
 				
-				cal_result = Number(cal_result - sub1 - sub2);
+				cal_result = Number(cal_result - sub1 - sub2)
 				
 				$('#cal_result').val(cal_result);
 				$('#cal_result2').val(numberWithCommas(cal_result))
@@ -460,10 +460,16 @@ function numberWithCommas(x) {
 			
 			
 			// 총 예산 변경
-			$('#totalBudget').on('change keydown' ,function(){
+			$('#totalBudget').on('change keyup' ,function(){
 				let totalBudget = $('#totalBudget').val();	// 한달 예산의 값
 				$('#cal_total').val(totalBudget);		// 총 예산의 값을 변경
 				$('#cal_total2').val(numberWithCommas(totalBudget));
+				
+				
+				cal_result = parseInt(totalBudget - fixed_sum)
+				$('#cal_result').val(cal_result);
+				$('#cal_result2').val(numberWithCommas(cal_result))
+				
 			});
 	});
 </script>
@@ -477,7 +483,7 @@ function numberWithCommas(x) {
 			<td>
 		      <div class="row">
 					      <div class="col-md-9" >
-					      {transMoney} 원
+					      <b>{transMoney}</b> 원
 					      </div>
 					      <div class="col-md-2" id="{transMoney}">
 					      <img class="btn-delete" src="${pageContext.request.contextPath}/resources/icon/remove.png" id="{expenseCode}"/>

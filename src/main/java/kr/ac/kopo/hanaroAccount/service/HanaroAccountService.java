@@ -9,6 +9,8 @@ public interface HanaroAccountService {
 	HanaroVO selectHanaroAcc(int userCode);		//내 하나로통장 조회
 	AccountVO selectHanaroInfo(int userCode);
 	
+	AccountVO selectHanaroInfoById(String id);
+	
 	void changeToHanaro(String accountNo);		//하나로 통장으로 전환
 	
 	void splitMoney(SplitInfoVO splitInfo);		//잔액 이동

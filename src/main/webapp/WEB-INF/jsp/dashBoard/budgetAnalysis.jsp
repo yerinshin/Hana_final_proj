@@ -100,7 +100,7 @@
       </header>
       <!-- end header -->
       
-      <body class="main-layout">
+
       <div class="row main">
       <aside id="side-menu">
 			<div id="diyLnb" class="on">
@@ -210,7 +210,7 @@
 	    <!-- Charts JS
 			============================================ -->
 	    <script src="${ pageContext.request.contextPath }/resources/template/js/charts/Chart.js"></script>
-	    <script src="${ pageContext.request.contextPath }/resources/template/js/charts/bar-chart.js"></script>
+<%-- 	    <script src="${ pageContext.request.contextPath }/resources/template/js/charts/bar-chart.js"></script> --%>
     
       	<script src="${ pageContext.request.contextPath }/resources/template/js/vendor/jquery-1.12.4.min.js"></script>
    			 <!-- bootstrap JS
@@ -218,7 +218,7 @@
   			  <script src="${ pageContext.request.contextPath }/resources/template/js/bootstrap.min.js"></script>	
       </section> 
       </div>
-</body>
+
       <%-- footer --%>
       <footer>
          <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
@@ -228,4 +228,140 @@
       <!-- Javascript files--> 
   		<jsp:include page="/WEB-INF/jsp/include/javascriptFiles.jsp"></jsp:include>
 </body>
+<script>
+(function ($) {
+	 "use strict";
+
+		/*----------------------------------------*/
+		/*  2.  Bar Chart vertical
+		/*----------------------------------------*/
+		var ctx = document.getElementById("barchart1");
+		
+		/*만원단위*/
+		let myFixedExpense= ${myMonthlyBudget.fixedExpense}/10000
+		let myConsumption = ${myMonthlyBudget.consumption}/10000
+		let mySaving = ${myMonthlyBudget.saving}/10000
+		
+		let agesAvgFixedExpense = ${agesAvgBudget.fixedExpense}/10000
+		let agesAvgConsumption = ${agesAvgBudget.consumption}/10000
+		let agesAvgSaving = ${agesAvgBudget.saving}/10000
+		console.log(agesAvgFixedExpense)
+		console.log(agesAvgConsumption)
+		console.log(agesAvgSaving)
+		
+		var barchart1 = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ["기본금", "생활금", "비상금"],
+				datasets: [{
+	                label: '또래 사용자',
+					data: [agesAvgFixedExpense, agesAvgConsumption, agesAvgSaving],
+					borderWidth: 1,
+	                backgroundColor: [
+						'rgba(255, 99, 132, 0.4)',
+						'rgba(255, 99, 132, 0.4)',
+						'rgba(255, 99, 132, 0.4)',
+					],
+					borderColor: [
+						'rgba(255,99,132,1)',
+						'rgba(255,99,132,1)',
+						'rgba(255,99,132,1)',
+						
+					],
+	            }, {
+	                label: '나',
+					data: [myFixedExpense, myConsumption, mySaving],
+	                backgroundColor: [
+						'rgb(50,205,50, 0.4)',
+						'rgb(50,205,50, 0.4)',
+						'rgb(50,205,50, 0.4)'
+					],
+					borderColor: [
+						'rgba(54, 162, 235, 1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(54, 162, 235, 1)',
+					],
+					borderWidth: 1
+	            }]
+			},
+			options: {
+				responsive: true,
+					scales: {
+					yAxes: [{
+						ticks: {
+							min : 0,
+							position: 'top',
+							
+						}
+					}]
+				},
+			
+				title: {
+					display: true,
+					text: 'Bar Chart Vertical'
+				}
+			}
+		});
+		
+		
+		/*----------------------------------------*/
+		/*  2.  Bar Chart vertical
+		/*----------------------------------------*/
+		var ctx = document.getElementById("barchart2");
+		var barchart2 = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ["기본금", "생활금", "비상금"],
+				datasets: [{
+	                label: '또래 사용자',
+					data: [180, 140, 150],
+					borderWidth: 1,
+	                backgroundColor: [
+						'rgba(255, 99, 132, 0.4)',
+						'rgba(255, 99, 132, 0.4)',
+						'rgba(255, 99, 132, 0.4)',
+					],
+					borderColor: [
+						'rgba(255,99,132,1)',
+						'rgba(255,99,132,1)',
+						'rgba(255,99,132,1)',
+						
+					],
+	            }, {
+	                label: '나',
+					data: [myFixedExpense, myConsumption, mySaving],
+	                backgroundColor: [
+						'rgb(50,205,50, 0.4)',
+						'rgb(50,205,50, 0.4)',
+						'rgb(50,205,50, 0.4)'
+					],
+					borderColor: [
+						'rgba(54, 162, 235, 1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(54, 162, 235, 1)',
+					],
+					borderWidth: 1
+	            }]
+			},
+			options: {
+				responsive: true,
+					scales: {
+					yAxes: [{
+						ticks: {
+							min : 0,
+							position: 'top',
+							
+						}
+					}]
+				},
+			
+				title: {
+					display: true,
+					text: 'Bar Chart Vertical'
+				}
+			}
+		});
+		
+})(jQuery); 
+</script>
 </html>
