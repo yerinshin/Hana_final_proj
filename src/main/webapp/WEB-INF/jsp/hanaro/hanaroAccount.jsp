@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>	
@@ -173,9 +174,6 @@
    		font-size : 20px;
    		color : black;
     }
-      .modal-footer {
-
-    }
     
     .modal-footer > div > .btn-default {
 
@@ -196,7 +194,7 @@
 		display : none;
 	}
 	
-	#splitTo {
+	#splitTo, #splitTo2, #splitTo3 {
 		height : 67px;
 		font-size : 23px;
 	}
@@ -221,8 +219,13 @@
      	font-size :23px;
      	margin-top : 20px;
      }
-     
-
+     .choose_bg {
+    background: none;
+}
+.choose_bg .white_bg {
+  	height : 460px;
+  	text-align : center;
+}
 </style>
 <script>
 	$(document).ready(function() {
@@ -230,11 +233,29 @@
 		getHanaroBalance()	
 		
 		$('.split-money').click(function(){
-			
+			var id_check = $(this).attr('id')
+			console.log(id_check)
 			let accountNo = '${ hanaroInfo.accountNo }'
-			let splitFrom = $('#splitFrom').val()
-			let splitTo = $('#splitTo').val()
-			let transMoney = $('#transMoney').val()
+			let splitFrom =''
+			let splitTo =''
+			let transMoney =''
+	 		if(id_check == 'splitFromBasic'){
+				splitFrom = 'basic_balance'
+				splitTo = $('#splitTo').val()
+				transMoney = $('#transMoney').val()
+			} else if(id_check == 'splitFromConsumption'){
+				splitFrom = 'consumption_balance'
+				splitTo = $('#splitTo2').val()
+				transMoney = $('#transMoney2').val()
+			} else if(id_check == 'splitFromSaving') {
+				splitFrom = 'saving_balance'
+				splitTo = $('#splitTo3').val()
+				transMoney = $('#transMoney3').val()
+			}
+			
+		//	let splitFrom = $('#splitFrom').val()
+		//	let splitTo = $('#splitTo').val()
+		//	let transMoney = $('#transMoney').val()
 			
 			console.log(accountNo)
 			console.log(splitFrom)
@@ -256,7 +277,6 @@
 				
 			})  
 		})
-		
 
 		
 	 	
@@ -276,7 +296,9 @@
 					
 					if(hanaroAccount != null) {
 						console.log(hanaroAccount)
-						$('#basicBalance').html(json.basicBalance + " 원")
+					//	basicBalance = json.basicBalance
+	
+						$('#basicBalance').html( json.basicBalance+ " 원")
 						$('#consumptionBalance').html(json.consumptionBalance + " 원")
 						$('#savingBalance').html(json.savingBalance + " 원")
 						
@@ -336,7 +358,10 @@
                    <h3 id="accountNo">${ hanaroInfo.accountNo }</h3>
                    <div class="row">
 	                   <div  class="col-md-9" id="balanceText" >잔액 </div>
-	                   <div  class="col-md-3 balance2"><b>${ hanaroInfo.balance } 원</b></div>     
+	                   <div  class="col-md-3 balance2">
+	                   <b>
+	                    <fmt:formatNumber value="${ hanaroInfo.balance }" type="number"/>원
+	                 </b></div>     
             	   </div>       
 	   		</div>	
 	   		
@@ -353,7 +378,10 @@
              	    <h3 id="accountNo">고정 지출 및 모든 입금과 출금</h3>
                    <div class="row">
 	                   <div  class="col-md-9" id="balanceText" >잔액 </div>
-	                   <div  class="col-md-3 balance2" id="basicBalance"><b>${ hanaro.basicBalance } 원</b></div>
+	                   <div  class="col-md-3 balance2" id="basicBalance">
+	                   <b>
+	                   <fmt:formatNumber value="${ hanaro.basicBalance }" pattern="#,###"/> 원
+	                   </b></div>
             	   </div>   
 	   			</div>	   			
             	   <div  class="splitMoney" id="split-fromBasic"  data-toggle="modal" data-target="#basic-modal">
@@ -466,7 +494,7 @@
 				                         		 <th>생활금 에서 </th>
 			                           			<td>
 						                    	    <input type="hidden" id="splitFrom" name="splitFrom" value="consumption_balance"/>
-			                           				<select id="splitTo" name="splitTo" class="form-select mb-3 form-control" aria-label="Default select example">
+			                           				<select id="splitTo2" name="splitTo" class="form-select mb-3 form-control" aria-label="Default select example">
 													  <option selected></option>
 													  <option value="basic_balance">기본금</option>
 													  <option value="saving_balance">비상금</option>
@@ -475,12 +503,13 @@
 			                           		</tr>
 			                           		<tr>		
 			                           		<th>이동 금액</th>
-			                           			<td>  <input class="form-control" placeholder="보낼 금액(원)" type="text" id="transMoney" name="transMoney"></td>
+			                           			<td>  <input class="form-control" placeholder="보낼 금액(원)" type="text" id="transMoney2" name="transMoney"></td>
 			                           		</tr>	                          		
 			                           </table>   
 				                      <div class="modal-footer">
 				                    	<div class="col-md-6">
-				                          		<button class="split-money btn btn-default" data-dismiss="modal">잔액 이동</button> 
+				                          		<button class="split-money btn btn-default" id="splitFromConsumption" data-dismiss="modal"
+				                          		data-toggle="modal" data-target="#confirm-modal">잔액 이동</button> 
 				                    	</div>
 				                    	<div class="col-md-6">
 				                        <button type="button" id="close-btn" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -506,7 +535,7 @@
 				                         		<th>비상금 에서 </th>
 			                           			<td>
 						                    	    <input type="hidden" id="splitFrom" name="splitFrom" value="saving_balance"/>
-			                           				<select id="splitTo" name="splitTo" class="form-select mb-3 form-control" aria-label="Default select example">
+			                           				<select id="splitTo3" name="splitTo" class="form-select mb-3 form-control" aria-label="Default select example">
 													  <option selected></option>
 													  <option value="basic_balance">기본금</option>
 													  <option value="consumption_balance">생활금</option>
@@ -515,12 +544,13 @@
 			                           		</tr>
 			                           		<tr>		
 			                           		<th>이동 금액</th>
-			                           			<td>  <input class="form-control" placeholder="보낼 금액(원)" type="text" id="transMoney" name="transMoney"></td>
+			                           			<td>  <input class="form-control" placeholder="보낼 금액(원)" type="text" id="transMoney3" name="transMoney"></td>
 			                           		</tr>	                          		
 			                           </table>   
 				                      <div class="modal-footer">
 				                    	<div class="col-md-6">
-				                          		<button class="split-money btn btn-default" data-dismiss="modal">잔액 이동</button> 
+				                          		<button class="split-money btn btn-default" id="splitFromSaving" data-dismiss="modal"
+				                          		data-toggle="modal" data-target="#confirm-modal">잔액 이동</button> 
 				                    	</div>
 				                    	<div class="col-md-6">
 				                        <button type="button" id="close-btn" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -539,17 +569,17 @@
 	                     <div class="modal-header">
 	                          <button id="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
 	                      </div>
-	                <div class="choose_bg">
+	             <div class="choose_bg">
           					<div class="white_bg">
-          					잔액이동 완료
-			                          <table>
-			                           	                          		
-			                           </table>   
+			                          
+			                            <h2> 잔액이동이 완료되었습니다</h2>            		
+			                           
 				                      <div class="modal-footer">
 				                    	<div class="col-md-12">
-				                          		<button class="btn btn-default" data-dismiss="modal">확인</button> 
+				                          		<button class=" btn btn-default" id="splitFromSaving" data-dismiss="modal"
+				                          		data-toggle="modal">확인</button> 
 				                    	</div>
-				                    	
+				                    
 				                      </div>
 			        		</div>	
 			      			</div>

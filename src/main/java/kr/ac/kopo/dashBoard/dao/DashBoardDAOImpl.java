@@ -1,12 +1,13 @@
 package kr.ac.kopo.dashBoard.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO;
-import kr.ac.kopo.fixedExpense.vo.FixedExpenseVO;
-import kr.ac.kopo.hanaroAccount.vo.AutoSplitVO;
+import kr.ac.kopo.hanaroAccount.vo.SplitHistoryVO;
 
 @Repository
 public class DashBoardDAOImpl implements DashBoardDAO {
@@ -14,15 +15,28 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public AutoSplitVO myMonthlySplit(String accountNo) {
+	/*
+	 * public AutoSplitVO myMonthlySplit(String accountNo) {
+	 * 
+	 * AutoSplitVO monthlySplit =
+	 * sqlSessionTemplate.selectOne("dashBoard.DashBoardDAO.myMonthlySplit",
+	 * accountNo); System.out.println("dao : "+monthlySplit); return monthlySplit; }
+	 * 
+	 * public FixedExpenseVO myMonthlyFixedExpense(String accountNo) {
+	 * FixedExpenseVO monthlyFixedExpense =
+	 * sqlSessionTemplate.selectOne("dashBoard.DashBoardDAO.myMonthlyFixedExpense",
+	 * accountNo); System.out.println("dao : "+monthlyFixedExpense); return
+	 * monthlyFixedExpense; }
+	 */
+	public MonthlyBudgetVO myMonthlySplit(String accountNo) {
 		
-		AutoSplitVO monthlySplit = sqlSessionTemplate.selectOne("dashBoard.DashBoardDAO.myMonthlySplit", accountNo);
+		MonthlyBudgetVO monthlySplit = sqlSessionTemplate.selectOne("dashBoard.DashBoardDAO.myMonthlySplit", accountNo);
 		System.out.println("dao : "+monthlySplit);
 		return monthlySplit;
 	}
-
-	public FixedExpenseVO myMonthlyFixedExpense(String accountNo) {
-		FixedExpenseVO monthlyFixedExpense = sqlSessionTemplate.selectOne("dashBoard.DashBoardDAO.myMonthlyFixedExpense", accountNo);
+	
+	public MonthlyBudgetVO myMonthlyFixedExpense(String accountNo) {
+		MonthlyBudgetVO monthlyFixedExpense = sqlSessionTemplate.selectOne("dashBoard.DashBoardDAO.myMonthlyFixedExpense", accountNo);
 		System.out.println("dao : "+monthlyFixedExpense);
 		return monthlyFixedExpense;
 	}
@@ -43,5 +57,14 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 		
 		return agesAvgFixedExpense;
 	}
+
+	public List<SplitHistoryVO> monthlySaving(String accountNo) {
+		List<SplitHistoryVO> savingSplitList = sqlSessionTemplate.selectList("dashBoard.DashBoardDAO.monthlySaving", accountNo);
+		
+		System.out.println(savingSplitList);
+		return savingSplitList;
+	}
+	
+	
 
 }

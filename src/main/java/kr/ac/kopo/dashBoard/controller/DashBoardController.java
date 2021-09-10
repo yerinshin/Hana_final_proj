@@ -1,6 +1,7 @@
 package kr.ac.kopo.dashBoard.controller;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,11 +9,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.kopo.dashBoard.service.DashBoardService;
 import kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO;
+import kr.ac.kopo.dashBoard.vo.MonthlySavingVO;
 import kr.ac.kopo.hanaroAccount.service.HanaroAccountService;
+import kr.ac.kopo.hanaroAccount.vo.HanaroVO;
 import kr.ac.kopo.member.vo.MemberVO;
 
 @Controller
@@ -67,8 +73,37 @@ public class DashBoardController {
 	
 	
 	@GetMapping("/dashBoard/savingAnalysis")
-	public String savingAnalysis() {
+	public ModelAndView savingAnalysis(HttpServletRequest request) throws Exception{		
+		HttpSession session = request.getSession();
+		MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
+		int userCode = loginMember.getUserCode();
+	//	System.out.println(id);
 		
-		return "dashBoard/savingAnalysis";
+	
+	//	List<MonthlySavingVO> monthlySavingList = dashBoardservice.monthlySaving("081000000010");
+	//	System.out.println("controller : "+monthlySavingList);
+	//	ModelAndView mav = new ModelAndView("dashBoard/savingAnalysis");
+		
+	//	mav.addObject("monthlySavingList", monthlySavingList);
+		HanaroVO hanaro = hanaroAccService.selectHanaroAcc(userCode);
+		System.out.println(hanaro);
+		ModelAndView mav = new ModelAndView("dashBoard/savingAnalysis");
+		mav.addObject("savingBalance", hanaro.getSavingBalance());
+		
+	//	return "dashBoard/savingAnalysis";
+		return mav;
+	}
+	
+	//monthlySaving 조회
+	@ResponseBody
+	@PostMapping("/dashBoard/monthlySaving")
+	public List<MonthlySavingVO> monthlySaving(@RequestBody MemberVO member) {
+	//	System.out.println("ajax..???" + member.getUserCode());
+		int userCode = member.getUserCode();
+		String accountNo = hanaroAccService.selectHanaroInfo(userCode).getAccountNo();
+		
+		List<MonthlySavingVO> monthlySavingList = dashBoardservice.monthlySaving(accountNo);
+		System.out.println("controller : "+monthlySavingList);
+		return monthlySavingList;
 	}
 }
