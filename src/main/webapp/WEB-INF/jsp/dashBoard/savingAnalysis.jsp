@@ -228,7 +228,8 @@ $(document).ready(function(){
 						 </div>
 						 <div class="col-md-6">
 						 <div class="progress">
-						  <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" id="progressBar" role="progressbar" style="width: ${savingBalance/5000000*100}%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+						  <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" id="progressBar" role="progressbar" style="width: ${savingBalance/5000000*100}%" 
+						  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" >
 					  		<span style="font-size: 18px">
 					  			<fmt:formatNumber value="${savingBalance/5000000}" type="percent"/>
 					  		</span>

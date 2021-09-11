@@ -22,7 +22,7 @@
     	color : black;
     	width : 950px;
     	height : 150px;
-    	background-color : rgba(224, 224, 224, 0.42);
+    	background-color : rgba(224, 224, 224, 0.5);
     	border-top: 1px solid #dde2e3;
    		border-bottom: 1px solid #dde2e3;
 /*     	background-color : #e8f4f3; */

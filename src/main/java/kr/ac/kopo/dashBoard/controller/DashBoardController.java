@@ -35,20 +35,25 @@ public class DashBoardController {
 		
 		HttpSession session = request.getSession();
 		MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
-		String id = loginMember.getId();
-	//	System.out.println(id);
+		int userCode = loginMember.getUserCode();
 		
-		String accountNo = hanaroAccService.selectHanaroInfoById(id).getAccountNo();
-	//	System.out.println(accountNo);
 		 
-		MonthlyBudgetVO myMonthlyBudget = dashBoardservice.myMonthlyBudget(accountNo);
-	//	System.out.println(monthlyBudget);
-			
 		ModelAndView mav = new ModelAndView("dashBoard/budgetAnalysis");
+
+		//내 하나로통장 잔액 조회
+		HanaroVO hanaro = hanaroAccService.selectHanaroAcc(userCode);
+		mav.addObject("hanaro",hanaro);
+		
+		
+		//-------------------- 내 설정 예산 조회 ----------------------------
+		//계좌번호 select
+		String accountNo = hanaroAccService.selectHanaroInfo(userCode).getAccountNo();
+		//내 설정 고정, 생활, 비상금 조회
+		MonthlyBudgetVO myMonthlyBudget = dashBoardservice.myMonthlyBudget(accountNo);
+	
 		mav.addObject("myMonthlyBudget", myMonthlyBudget);
-		
-		
-		//또래 평균 설정 예산 조회
+
+		//-------------------- 또래 평균 설정 예산 조회 ----------------------------
 		//나이대 선택
 		int birthYear = Integer.parseInt(loginMember.getSs1().substring(0, 2));
 		System.out.println(birthYear);
@@ -94,7 +99,7 @@ public class DashBoardController {
 		return mav;
 	}
 	
-	//monthlySaving 조회
+	//월 별 저축액 조회
 	@ResponseBody
 	@PostMapping("/dashBoard/monthlySaving")
 	public List<MonthlySavingVO> monthlySaving(@RequestBody MemberVO member) {

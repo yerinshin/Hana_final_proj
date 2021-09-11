@@ -32,12 +32,12 @@ public class HanaroAccountServiceImpl implements HanaroAccountService {
 	}
 	
 	
-	public AccountVO selectHanaroInfoById(String id) {
-		
-		AccountVO account = hanaroAccountDAO.selectHanaroInfoById(id);
-		return account;
-	}
-	
+	/*
+	 * public AccountVO selectHanaroInfoById(String id) {
+	 * 
+	 * AccountVO account = hanaroAccountDAO.selectHanaroInfoById(id); return
+	 * account; }
+	 */
 	
 	public void changeToHanaro(String accountNo) {
 		

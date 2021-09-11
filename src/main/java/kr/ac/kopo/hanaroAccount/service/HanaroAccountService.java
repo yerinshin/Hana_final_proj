@@ -9,7 +9,7 @@ public interface HanaroAccountService {
 	HanaroVO selectHanaroAcc(int userCode);		//내 하나로통장 조회
 	AccountVO selectHanaroInfo(int userCode);
 	
-	AccountVO selectHanaroInfoById(String id);
+	/* AccountVO selectHanaroInfoById(String id); */
 	
 	void changeToHanaro(String accountNo);		//하나로 통장으로 전환
 	
