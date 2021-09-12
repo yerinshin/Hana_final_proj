@@ -1,12 +1,15 @@
 package kr.ac.kopo.hanaroAccount.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.ac.kopo.account.vo.AccountVO;
 import kr.ac.kopo.hanaroAccount.vo.HanaroVO;
-import kr.ac.kopo.hanaroAccount.vo.SplitInfoVO;
+import kr.ac.kopo.hanaroAccount.vo.SplitHistoryVO;
+import kr.ac.kopo.hanaroAccount.vo.SplitKindInfoVO;
 
 
 @Repository
@@ -30,10 +33,11 @@ public class HanaroAccountDAOImpl implements HanaroAccountDAO {
 		return account;
 	}
 	
-	public AccountVO selectHanaroInfoById(String id) {	
-		AccountVO account = sqlSessionTemplate.selectOne("hanaroAccount.HanaroAccountDAO.selectHanaroInfoById", id);
-		return account;
-	}
+	/*
+	 * public AccountVO selectHanaroInfoById(String id) { AccountVO account =
+	 * sqlSessionTemplate.selectOne(
+	 * "hanaroAccount.HanaroAccountDAO.selectHanaroInfoById", id); return account; }
+	 */
 	
 	public void updateType(String accountNo) {
 		
@@ -46,14 +50,34 @@ public class HanaroAccountDAOImpl implements HanaroAccountDAO {
 		
 	}
 	
-	public void splitMoney(SplitInfoVO splitInfo) {
-		System.out.println(splitInfo);
-		sqlSessionTemplate.update("hanaroAccount.HanaroAccountDAO.splitMoney", splitInfo);
-		System.out.println("dao");
+	public void splitMoney(SplitHistoryVO splitHistory) {
+		System.out.println("splitInfo"+splitHistory);
+		sqlSessionTemplate.update("hanaroAccount.HanaroAccountDAO.splitMoney", splitHistory);
+		
+		
+		//System.out.println("dao");
 	}
 
+	/*
+	 * public void splitMoney(SplitInfoVO splitInfo) {
+	 * System.out.println("splitInfo"+splitInfo);
+	 * sqlSessionTemplate.update("hanaroAccount.HanaroAccountDAO.splitMoney",
+	 * splitInfo);
+	 * 
+	 * 
+	 * //System.out.println("dao"); }
+	 */
+	public void insertSplitHistory(SplitHistoryVO splitHistory) {
+		System.out.println("splitHistory : "+splitHistory);
+		sqlSessionTemplate.insert("hanaroAccount.HanaroAccountDAO.insertSplitHistory", splitHistory);
+	}
 
-	
+	public List<SplitHistoryVO> historyByKind(SplitKindInfoVO splitKindInfo) {
+		
+		List<SplitHistoryVO> historyList = sqlSessionTemplate.selectList("hanaroAccount.HanaroAccountDAO.splitHistoryByKind", splitKindInfo);
+		
+		return historyList;
+	}
 	
 
 }

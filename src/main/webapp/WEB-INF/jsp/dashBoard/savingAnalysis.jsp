@@ -16,12 +16,12 @@
 
 <style>
 	 #main-layout {
-		width : 75%;
+		width : 90%;
 		margin: 0 auto;
 	}
 	
 	.main {
-		display : flex;
+		width : 90%;
 		justify-content : center;
 		margin-right: 30px;
 	}
@@ -45,7 +45,7 @@
     }
 	
 	section {
-    	width : 1000px;
+    	width : 1200px;
     }
     .nav-tabs>li {
 	    border: 2px solid lightgray;
@@ -90,7 +90,7 @@
 	
 	.progress {
 		margin-top: 45px;
-		height : 25px;
+		height : 30px;
 		background-color: darkgray;
 	
 	}
@@ -99,22 +99,22 @@
 		margin-top : 25px;
 		text-align : right;
 		padding-right : 45px;
-		font-size: 26px;
+		font-size: 28px;
 		font-weight : bold;
 	}
 	
 	
 	#money > h5 {
-		font-size : 14px;
+		font-size : 16px;
 		margin : 0;
 		padding : 0;
 		color : red;
 	}
 	
 	#divCaution {
-		margin : 30px 0;
+		margin : 45px 20px;
 		padding-left : 35px;
-		font-size: 22px;
+		font-size: 24px;
 		font-weight : bold;
 		
 	}
@@ -126,8 +126,15 @@
 	}
 	
 	#grayDiv {
+	margin: 10px 20px;
+	height: 110px;
 	background-color : #dddddd99; 
 	border-radius : 7px;
+	}
+	
+	.send {
+		margin-top : 15px;
+		margin-left :20px;
 	}
 /* 	
 	.skill .progress-bar > span {
@@ -230,7 +237,7 @@ $(document).ready(function(){
 						 <div class="progress">
 						  <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" id="progressBar" role="progressbar" style="width: ${savingBalance/5000000*100}%" 
 						  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" >
-					  		<span style="font-size: 18px">
+					  		<span style="font-size: 21px">
 					  			<fmt:formatNumber value="${savingBalance/5000000}" type="percent"/>
 					  		</span>
 					  	  </div>

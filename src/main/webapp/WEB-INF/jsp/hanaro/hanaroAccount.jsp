@@ -48,17 +48,17 @@
     	font-weight : bold;
     }
 
- 	#main-layout {
-		width : 75%;
+ 	 #main-layout {
+		width : 90%;
 		margin: 0 auto;
-	} 
+	}
 	
 	.main {
+	width : 90%;
 		display : flex;
 		justify-content : center;
 		margin-right: 30px;
 	}
-
 
     
   	 #title {
@@ -230,7 +230,12 @@
 <script>
 	$(document).ready(function() {
 		
+		
 		getHanaroBalance()	
+		
+		//console.log(basicBalance)
+		//console.log(consumptionBalance)
+		//console.log(savingBalance)
 		
 		$('.split-money').click(function(){
 			var id_check = $(this).attr('id')
@@ -239,31 +244,58 @@
 			let splitFrom =''
 			let splitTo =''
 			let transMoney =''
+			let b_balance = parseInt($('#b_balance').val())
+			let c_balance = parseInt($('#c_balance').val())
+			let s_balance = parseInt($('#s_balance').val())
+			
 	 		if(id_check == 'splitFromBasic'){
 				splitFrom = 'basic_balance'
 				splitTo = $('#splitTo').val()
-				transMoney = $('#transMoney').val()
+				transMoney = parseInt($('#transMoney').val())
+				
+				b_balance -=  transMoney
+				if(splitTo == 'consumption_balance'){
+					c_balance += transMoney
+				}else if(splitTo == 'saving_balance'){
+					s_balance += transMoney
+				}
+				
 			} else if(id_check == 'splitFromConsumption'){
 				splitFrom = 'consumption_balance'
 				splitTo = $('#splitTo2').val()
-				transMoney = $('#transMoney2').val()
+				transMoney = parseInt($('#transMoney2').val())
+				c_balance -= transMoney
+					if(splitTo == 'basic_balance'){
+						b_balance += transMoney
+					}else if(splitTo == 'saving_balance'){
+						s_balance += transMoney
+					}
 			} else if(id_check == 'splitFromSaving') {
 				splitFrom = 'saving_balance'
 				splitTo = $('#splitTo3').val()
-				transMoney = $('#transMoney3').val()
+				transMoney = parseInt($('#transMoney3').val())
+				s_balance -= transMoney
+					if(splitTo == 'basic_balance'){
+						b_balance += transMoney
+					}else if(splitTo == 'consumption_balance'){
+						c_balance += transMoney
+					}
 			}
 			
 		//	let splitFrom = $('#splitFrom').val()
 		//	let splitTo = $('#splitTo').val()
 		//	let transMoney = $('#transMoney').val()
 			
+		
+		//	console.log(s_balance)
 			console.log(accountNo)
 			console.log(splitFrom)
 			console.log(splitTo)
 			console.log(transMoney)
 			
-			let data = { accountNo : accountNo, splitFrom : splitFrom, splitTo : splitTo, transMoney : transMoney}
-			
+			/* let data = { accountNo : accountNo, splitFrom : splitFrom, splitTo : splitTo, transMoney : transMoney} */
+			 let data = { accountNo : accountNo, splitFrom : splitFrom, splitTo : splitTo, transMoney : transMoney , basicBalance : b_balance, consumptionBalance : c_balance, savingBalance : s_balance}
+				console.log(data)
 		 	$.ajax({
 				type : 'post',
 				contentType: 'application/json',
@@ -297,10 +329,14 @@
 					if(hanaroAccount != null) {
 						console.log(hanaroAccount)
 					//	basicBalance = json.basicBalance
-	
 						$('#basicBalance').html( json.basicBalance+ " 원")
 						$('#consumptionBalance').html(json.consumptionBalance + " 원")
 						$('#savingBalance').html(json.savingBalance + " 원")
+						
+						$('#b_balance').val(json.basicBalance)
+						$('#c_balance').val(json.consumptionBalance)
+						$('#s_balance').val(json.savingBalance)
+						
 						
 					}
 					
@@ -312,7 +348,17 @@
 	})	
 </script>
 <script>
-
+$(document).ready(function() {
+$('#basic-balance').click(function(){
+	location.href="${ pageContext.request.contextPath }/hanaro/detail/basic"
+})
+$('#consumption-balance').click(function(){
+	location.href="${ pageContext.request.contextPath }/hanaro/detail/consumption"
+})
+$('#saving-balance').click(function(){
+	location.href="${ pageContext.request.contextPath }/hanaro/detail/saving"
+})
+})
 </script>
 </head>
  <!-- body -->
@@ -371,7 +417,7 @@
 			
 	
     		<div class= "row hanaro">
-	   			<div class="basic-balance accountInfo">					
+	   			<div class="basic-balance accountInfo" id="basic-balance">					
                    <div id="accountType"> 
                    <div> <b> 기본금</b></div> 
              	   </div>
@@ -380,8 +426,10 @@
 	                   <div  class="col-md-9" id="balanceText" >잔액 </div>
 	                   <div  class="col-md-3 balance2" id="basicBalance">
 	                   <b>
-	                   <fmt:formatNumber value="${ hanaro.basicBalance }" pattern="#,###"/> 원
+	            <%--        <fmt:formatNumber value="${ hanaro.basicBalance }" pattern="#,###"/>  --%>
+	                   원
 	                   </b></div>
+	                       <input id="b_balance" type="hidden" value=""/>
             	   </div>   
 	   			</div>	   			
             	   <div  class="splitMoney" id="split-fromBasic"  data-toggle="modal" data-target="#basic-modal">
@@ -391,14 +439,17 @@
 	   		</div>	
 	   		
 	   		<div class= "row hanaro">
-				<div class="consumption-balance accountInfo">					
+				<div class="consumption-balance accountInfo" id="consumption-balance">					
                    <div id="accountType"> 
                    <div> <b> 생활금</b></div> 
              	   </div>            
  					<h3 id="accountNo">체크 카드로 사용으로 발생하는 생활 소비 관리</h3>
                    <div class="row">
 	                   <div  class="col-md-9" id="balanceText" >잔액 </div>
-	                   <div  class="col-md-3 balance2" id="consumptionBalance"><b>${ hanaro.consumptionBalance } 원</b></div>
+	                   <div  class="col-md-3 balance2" id="consumptionBalance"><b>
+	                 <%--   ${ hanaro.consumptionBalance }  --%>
+	                   원</b></div>
+	                   <input id="c_balance" type="hidden" value=""/>
             	   </div> 
             	   </div>      
             	   <div  class="splitMoney" id="split-fromConsumption" data-toggle="modal" data-target="#consumption-modal">
@@ -408,14 +459,17 @@
 	   		</div>	
 	   		
 	   		<div class= "row hanaro">
-	   			<div class="saving-balance accountInfo">					
+	   			<div class="saving-balance accountInfo" id="saving-balance">					
                    <div id="accountType"> 
                    <div> <b> 비상금</b></div> 
              	   </div>             	   
 					<h3 id="accountNo">저축의 시작은 여기에서, 비상시 사용할 돈 보관</h3>
                    <div class="row">
 	                   <div  class="col-md-9" id="balanceText" >잔액 </div>
-	                   <div  class="col-md-3 balance2" id="savingBalance"><b> ${ hanaro.savingBalance } 원</b></div>
+	                   <div  class="col-md-3 balance2" id="savingBalance"><b> 
+	           <%--         ${ hanaro.savingBalance }  --%>
+	                   원</b></div>
+	                    <input id="s_balance" type="hidden" value=""/>
             	   </div>       
 	   			</div>	
             	   <div  class="splitMoney" id="split-fromSaving" data-toggle="modal" data-target="#saving-modal">

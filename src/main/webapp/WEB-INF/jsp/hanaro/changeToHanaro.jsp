@@ -9,11 +9,12 @@
 <style>
     		
  	#main-layout {
-		width : 75%;
+		width : 90%;
 		margin: 0 auto;
 	} 
 	
 	.main {
+		width : 90%;
 		display : flex;
 		justify-content : center;
 		margin-right: 30px;

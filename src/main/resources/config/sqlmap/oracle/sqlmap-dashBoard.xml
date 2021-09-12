@@ -90,7 +90,7 @@
 	<!-- 최근 6개월 달별 저축액 -->
 	<select id="monthlySaving" parameterType="string" resultMap="splitHistoryMap">
 		  select to_char(transaction_date, 'yyyy/mm') as split_date, split_from, split_to, sum(trans_money) as trans_money from tbl_split_history
-		 where account_no='081000000010' and (split_from='saving' or split_to='saving') and (to_char(transaction_date, 'yyyy/mm') between to_char(add_months(sysdate, -6), 'yyyy/mm')and to_char(sysdate, 'yyyy/mm'))
+		 where account_no='081000000010' and (split_from='saving_balance' or split_to='saving_balance') and (to_char(transaction_date, 'yyyy/mm') between to_char(add_months(sysdate, -6), 'yyyy/mm')and to_char(sysdate, 'yyyy/mm'))
 		 group by(split_to, split_from, to_char(transaction_date, 'yyyy/mm')) order by split_date
 	</select>
 	

@@ -2,6 +2,9 @@ package kr.ac.kopo.hanaroAccount.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +20,8 @@ import kr.ac.kopo.fixedExpense.service.FixedExpenseService;
 import kr.ac.kopo.fixedExpense.vo.FixedExpenseVO;
 import kr.ac.kopo.hanaroAccount.service.HanaroAccountService;
 import kr.ac.kopo.hanaroAccount.vo.HanaroVO;
-import kr.ac.kopo.hanaroAccount.vo.SplitInfoVO;
+import kr.ac.kopo.hanaroAccount.vo.SplitHistoryVO;
+import kr.ac.kopo.hanaroAccount.vo.SplitKindInfoVO;
 import kr.ac.kopo.member.vo.MemberVO;
 
 @Controller
@@ -112,12 +116,12 @@ public class HanaroAccountController {
 	}
 	
 	
-//	@RequestMapping(value="/hanaro/splitMoney", method = RequestMethod.POST)
 	@ResponseBody
 	@PostMapping("/hanaro/splitMoney")
-	public void splitMoneyAjax(@RequestBody SplitInfoVO splitInfo) {
-		System.out.println(splitInfo);
-		hanaroAccService.splitMoney(splitInfo);
+	public void splitMoneyAjax(@RequestBody SplitHistoryVO splitHistory) {
+		System.out.println(splitHistory);
+		hanaroAccService.splitMoney(splitHistory);
+//		hanaroAccService.splitMoney(splitInfo);
 		System.out.println("컨트롤러");
 		
 	}
@@ -133,7 +137,34 @@ public class HanaroAccountController {
 		
 		 return "redirect:/hanaro/" + userCode; 
 	}
-*/
+*/	
+	
+	@GetMapping("/hanaro/detail/{splitKind}")
+	public ModelAndView basicDetail(@PathVariable("splitKind") String splitKind, HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
+		int userCode = loginMember.getUserCode();
+		HanaroVO hanaro = hanaroAccService.selectHanaroAcc(userCode);
+		
+		System.out.println(splitKind);
+		ModelAndView mav = new ModelAndView("hanaro/"+splitKind+"Detail");
+		
+		mav.addObject("hanaro",hanaro);
+		String accountNo = hanaro.getAccountNo();
+		
+		splitKind = splitKind + "_balance";
+		SplitKindInfoVO splitKindInfo = new SplitKindInfoVO(accountNo, splitKind);
+		List<SplitHistoryVO> historyList = hanaroAccService.historyByKind(splitKindInfo);
+		/*
+		 * List<SplitHistoryVO> basicHistoryList = hanaroAccService.basicHistory(accountNo);
+		 */		
+		mav.addObject("historyList", historyList);
+		System.out.println("컨트롤러!!! : " +historyList);
+		
+		System.out.println("디테일 컨트롤러");
+		
+		return mav;
+	}
 	
 	//=======================대시보드 ? 하나로 ? ============================
 	

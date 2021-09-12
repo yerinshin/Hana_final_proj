@@ -15,11 +15,12 @@
 
 <style>
 	 #main-layout {
-		width : 75%;
+		width : 90%;
 		margin: 0 auto;
 	}
 	
 	.main {
+		width : 90%;
 		display : flex;
 		justify-content : center;
 		margin-right: 30px;
@@ -44,7 +45,7 @@
     }
 	
 	section {
-    	width : 1000px;
+    	width : 1200px;
     }
     .nav-tabs>li {
 	    border: 2px solid lightgray;
@@ -95,8 +96,8 @@
 	
 	table {
 		width : 800px;
-		margin-left : 50px;
-		font-size : 22px;
+		margin-left: 100px;
+   		font-size: 24px;
 		margin-bottom : 40px;
 	}
 	
@@ -111,15 +112,15 @@
 	
 	#div-caution {
 	margin-top : 50px;
-	margin-left : 130px;
-	font-size : 21px;
+	margin-left : 180px;
+	font-size : 22px;
 	font-weight : bold;
 	
 	}
 	
 	#progress {
 	margin-top : 50px;
-	margin-left : 120px;
+	margin-left : 170px;
 	margin-right : 100px;
 	}
 	

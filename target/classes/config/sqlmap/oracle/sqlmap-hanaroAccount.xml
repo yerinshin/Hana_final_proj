@@ -23,6 +23,21 @@
 		
 	</resultMap>
 	
+	<resultMap type="splitHistoryVO" id="splitHistoryMap">
+		<result column="split_history_code" property="code" />
+		<result column="account_no" property="accountNo"/>
+		<result column="transaction_code" property="transCode"/>
+		<result column="split_from" property="splitFrom"/>
+		<result column="split_to" property="splitTo"/>
+		<result column="trans_money" property="transMoney"/>
+		<result column="transaction_date" property="transDate"/>
+		<result column="split_date" property="transDate"/>
+		<result column="memo" property="memo"/>
+		<result column="basic_balance" property="basicBalance"/>
+		<result column="consumption_balance" property="consumptionBalance"/>
+		<result column="saving_balance" property="savingBalance"/>
+	</resultMap>
+	
 	<!-- hanaro table 조회 -->
 	<select id="selectHanaroAcc" parameterType="int" resultMap="hanaroMap">
 		<!-- select t.account_no, t.account_pwd, t.balance, t.account_type, t.account_nickname, t.open_acc_date, t.user_code, 
@@ -49,21 +64,38 @@
 		select * from tbl_account where account_type='하나로통장' and user_id=#{id}
 	</select>
 	
-	<!-- 하나로 변경1 -->
+	<!-- 하나로 전환1 : 통장 type 변경 -->
 	<update id="changeType" parameterType="String">
 		update tbl_account set account_type='하나로통장' where account_no = #{accountNo}
 	</update>
-	<!--  하나로 변경2 -->	
+	<!--  하나로 전환2 : hanaro 통장 table에 insert -->	
 	<insert id="insert" parameterType="accountVO">
 		insert into tbl_hanaro_account(account_no, basic_balance) 
 		values(#{accountNo}, #{balance} )
 	</insert>
 	
 	<!-- 잔액이동 : 동적쿼리 -->
-	<update id="splitMoney" parameterType="splitInfoVO">
+	<update id="splitMoney" parameterType="splitHistoryVO">
 		update tbl_hanaro_account 
 			set ${splitFrom} = ${splitFrom} - #{transMoney}, ${splitTo} = ${splitTo} + #{transMoney}
 		where account_no = #{accountNo}
 	</update>
+	
+	<!-- 잔액이동내역 삽입 -->
+	<insert id="insertSplitHistory" parameterType="splitHistoryVO">
+		insert into tbl_split_history(split_history_code, account_no, split_from, split_to, 
+					trans_money, basic_balance, consumption_balance, saving_balance) 
+        values(split_history_seq_no.nextval, #{accountNo}, #{splitFrom}, #{splitTo},  
+                    	#{transMoney} ,#{basicBalance},#{consumptionBalance},#{savingBalance})
+	</insert>
+	
+	<!-- 잔액이동, 거래 내역 : 동적쿼리 -->
+	<select id="splitHistoryByKind" parameterType="splitKindInfoVO" resultMap="splitHistoryMap">
+		select  split_from, split_to, trans_money, transaction_date, basic_balance, consumption_balance, saving_balance 
+			from tbl_split_history where account_no = #{accountNo} 
+			and split_from = #{splitKind} or split_to = #{splitKind} 
+		order by transaction_date desc
+	</select>
+	
 	
 </mapper>

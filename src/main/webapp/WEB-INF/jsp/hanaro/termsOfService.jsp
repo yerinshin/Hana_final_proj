@@ -14,11 +14,12 @@
 
 <style>
 	 #main-layout {
-		width : 75%;
+		width : 90%;
 		margin: 0 auto;
 	}
 	
 	.main {
+	width : 90%;
 		display : flex;
 		justify-content : center;
 		margin-right: 30px;
@@ -64,7 +65,7 @@
     	color : black;
     	width : 950px;
     	height : 150px;
-    	background-color : rgba(224, 224, 224, 0.42);
+    	background-color : rgba(224, 224, 224, 0.5);
     	border-top: 1px solid #dde2e3;
    		border-bottom: 1px solid #dde2e3;
 /*     	background-color : #e8f4f3; */

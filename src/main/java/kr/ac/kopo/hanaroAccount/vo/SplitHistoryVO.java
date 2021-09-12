@@ -10,10 +10,16 @@ public class SplitHistoryVO {
 	private int transMoney;				//이동 금액
 	private String transDate;			//이동 날짜
 	private String memo;
+	private int basicBalance;
+	private int consumptionBalance;
+	private int savingBalance;
 	
 	
 	public int getCode() {
 		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
 	}
 	public String getTransCode() {
 		return transCode;
@@ -57,16 +63,34 @@ public class SplitHistoryVO {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-	public void setCode(int code) {
-		this.code = code;
+	
+	
+	public int getBasicBalance() {
+		return basicBalance;
+	}
+	public void setBasicBalance(int basicBalance) {
+		this.basicBalance = basicBalance;
+	}
+	public int getConsumptionBalance() {
+		return consumptionBalance;
+	}
+	public void setConsumptionBalance(int consumptionBalance) {
+		this.consumptionBalance = consumptionBalance;
+	}
+	public int getSavingBalance() {
+		return savingBalance;
+	}
+	public void setSavingBalance(int savingBalance) {
+		this.savingBalance = savingBalance;
 	}
 	
 	@Override
 	public String toString() {
-		return "SplitHistoryVO [code=" + code + ", transCode=" + transCode + ", accountNo=" + accountNo + ", splitFrom="
+		return "SplitHistoryVO [code=" + code + ", accountNo=" + accountNo + ", transCode=" + transCode + ", splitFrom="
 				+ splitFrom + ", splitTo=" + splitTo + ", transMoney=" + transMoney + ", transDate=" + transDate
-				+ ", memo=" + memo + "]";
-	}
+				+ ", memo=" + memo + ", basicBalance=" + basicBalance + ", consumptionBalance=" + consumptionBalance
+				+ ", savingBalance=" + savingBalance + "]";
+	}	
 	
 	
 }

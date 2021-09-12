@@ -81,7 +81,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 		// split To 비상금, split From 비상금 분리
 		
 		for(SplitHistoryVO saving : savingSplitList) {
-			if(saving.getSplitTo().equals("saving")) {
+			if(saving.getSplitTo().equals("saving_balance")) {
 				splitToSaving.add(saving);	
 			}else
 				splitFromSaving.add(saving);
