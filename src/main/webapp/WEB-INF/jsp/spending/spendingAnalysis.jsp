@@ -4,13 +4,13 @@
 <html lang="en">
 <head>	
  	<jsp:include page="/WEB-INF/jsp/include/head.jsp"></jsp:include>
-
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> 
 	<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/bootstrap.min.css">
     <!-- style CSS
 		============================================ -->
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/style.css">
-	<script src="/com/js/Chart.PieceLabel.js"></script>
+<!-- 	<script src="/com/js/Chart.PieceLabel.js"></script> -->
 <style>
 	 #main-layout {
 		width : 90%;
@@ -82,6 +82,54 @@
     	width: 150px;
     	font-size: 23px;
 	}
+	
+	#legend-div {
+		padding: 30px;
+		
+	}
+	/*10개*/
+	#legend-div >table {
+		/* margin-top: 17px;
+   		font-size: 23px;
+   		height: 405px; */
+   		color :#666666;
+   		margin-top: 8px;
+   		margin-left : 10px;
+    	font-size: 25px;
+/*     	height: 432px; */
+		text-align : right;
+	}
+	
+	#legend-div >table > tbody>tr > td {
+	 text-align : right;
+	 height : 43px;
+	}
+	
+	#table-div > table {
+		width : 900px;
+		height : 300px;
+		font-size : 25px;
+		margin : 0 auto;
+	}
+	
+	
+	#table-div >table > tbody>tr> th, #table-div >table > tbody> tr> td{
+		text-align : center;
+	}
+	
+	button {
+		width: 200px;
+    	height: 50px;
+    	font-weight: bold;
+    	background-color: #e9f3fd;
+    	border-radius: 20px;
+    	color: #0c4b7d;
+	}
+	
+	#doughnut-chart-wp {
+	 transition: 5s;
+	}
+	
 /* 	ul.nav.nav-tabs::after {
 	
 		background-color :#00c292;
@@ -139,28 +187,60 @@
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 											  <div class="bar-chart-area">
 				        <div class="container">
+				        <div>
+				        <div class="col-md-10">
+				        </div>
+				         <div>
+				                	<select class="form-control" name="setDate" id="selectMonth" aria-label="Example select with button addon">
+										<option value="202109">9월</option>	
+										<option value="202108">8월</option>
+										<option value="202107">7월</option>
+										<option value="202106">6월</option>
+										<option value="202105">5월</option>
+									</select>
+									</div>
+								
+				        </div>
 				           <div class="row">
-				            	<div class="col-md-2">
+				            	<div class="col-md-1">
 				             	</div>
 				                <div class="col-md-7">
 				                    <div class="doughnut-chart-wp sm-res-mg-t-30 chart-display-nn">
 				                        <canvas height="140vh" width="180vw" id="doughnutchart"></canvas>
-				                         <div id='legend-div' class="legend-div"></div>
 				                    </div>
 				                </div>
-				                <div>
-				                	<select class="form-control" name="setDate" id="selectMonth" aria-label="Example select with button addon">
-										<option value="없음" selected="">이번달</option>	
-										<option>1달전</option>
-										<option>2달전</option>
-										<option>3달전</option>
-									</select>
+				                <div id="legend-div">
+				                	<table id="legend-spending">
+				
+				                	<!-- 	<tr id="trtr">
+				                		<td>dd</td>
+				                		</tr> -->
+				                	</table>
 				                </div>
 				            </div>
 				 	
 				        </div>
+				         <div id="menu-title"> 지출 TOP 3</div>
+				         <div id="table-div">
+				         <table>
+				         	<tr>
+				         		<th>TOP1</th>
+				         		<th>쇼핑</th>
+				         		<td width="50%"><button> 줄이기 도전</button></td>
+				         	</tr>
+				         	<tr>
+				         		<th>TOP2</th>
+				         		<th>식사</th>
+				         		<td width="50%"><button>줄이기 도전</button></td>
+				         	</tr>
+				         	<tr>
+				         		<th>TOP3</th>
+				         		<th>운동</th>
+				         		<td width="50%"><button>줄이기 도전</button></td>
+				         	</tr>
+				         </table>
+				         </div>
 				        <div id="topSpending">
-				         <div id="menu-title"> 카테고리 별 TOP 3</div>
 				        </div>
 				    </div> 
 			</div>
@@ -177,8 +257,9 @@
 			
 			
 		</div>
-		 <script src="${ pageContext.request.contextPath }/resources/template/js/charts/Chart.js"></script>
-			
+		
+<%-- 	 <script src="${ pageContext.request.contextPath }/resources/template/js/charts/Chart.js"></script> --%>
+			<script src="${ pageContext.request.contextPath }/resources/template/js/plugins.js"></script>
       	<script src="${ pageContext.request.contextPath }/resources/template/js/vendor/jquery-1.12.4.min.js"></script>
    			 <!-- bootstrap JS
 		============================================ -->
@@ -196,35 +277,47 @@
 </body>
 <script>
 $(document).ready(function(){
+	
+	 function numberWithCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		} 
+	 
 	let labelArr = []
 	let datasetArr = []
-
-	getCategorySpending()
+	
+	let now = new Date();
+	let year = now.getFullYear()
+	let month = (now.getMonth()+1)
+	console.log(year)
+	
+	if(month <10){
+		month = '0'+month
+	}
+//	console.log(month)
+	let yearMonth = year + month
+	
+	getCategorySpending(yearMonth)
 	
 	
-/* 	function getTopSpending() {
+	$('#selectMonth').change(function(){
+		labelArr=[]
+		datasetArr=[]
+		yearMonth = this.value
+		//alert(yearMonth)
+		
+		getCategorySpending(yearMonth)
+	})
+	
+	
+	
+	
+	function getCategorySpending(yearMonth) {
+	
 		let userCode = ${ loginMember.userCode }
-		let url = '${ pageContext.request.contextPath }/spending/topSpending'
-		
-		
-		
-	} */
-	
-	function getCategorySpending() {
-	
-		let userCode = ${ loginMember.userCode }
 	
 		
-		let now = new Date();
-		let year = now.getFullYear()
-		let month = (now.getMonth()+1)
-		console.log(year)
 		
-		if(month <10){
-			month = '0'+month
-		}
-	//	console.log(month)
-		let yearMonth = year + month
+		//let yearMonth = yearMonth 
 		
 		let data = {yearMonth : yearMonth}
 		
@@ -239,15 +332,26 @@ $(document).ready(function(){
 				let json = JSON.parse(categorySpendingList)
 			
 				if(categorySpendingList.length > 0) {
+					let html=''
 					json.forEach(function(categorySpending){
 						console.log(categorySpending)
 						
 						labelArr.push(categorySpending.category)
 						datasetArr.push(categorySpending.spendingMoney)
+						
+						let temp = $('#legendSpending').text()
+						let spendingMoney = numberWithCommas(categorySpending.spendingMoney)
+						temp = temp.replace(/\{spending\}/gi, spendingMoney+"원")
+						console.log(temp)
+						
+						html += temp
 					})
-			
+					
+					
 					console.log(labelArr)
 					console.log(datasetArr)
+					console.log(html)
+					$('#legend-spending').html(html)
 			}
 			
 				
@@ -260,17 +364,18 @@ $(document).ready(function(){
 			  		  data: {
 			    		labels: labelArr,
 			    		datasets: [{
-			    	    	label: 'My First Dataset',
+			    	   /*  	label: 'My First Dataset', */
 			    	  	  	data: datasetArr,
 			    	    	backgroundColor: [
 			    	      		'rgb(255, 99, 132)',
 			    	      		'rgb(54, 162, 235)',
 			    	      		'rgb(255, 205, 86)',
 			    	      		'rgb(54, 205, 86)',
-			    	      		'rgb(56, 205, 90)',			    	      		
+			    	      		'rgb(167, 116, 243)',			    	      		
 			    	    		'rgb(255, 159, 64)', 
 			    	    		'rgb(75, 192, 192)', 
-			    	    		'rgb(153, 102, 255)'
+			    	    		'rgb(255, 157, 154)',
+			    	    		'rgb(26, 188, 156)',
 			    	    	],
 			    	    	hoverOffset: 4
 			    	  	}]
@@ -278,8 +383,21 @@ $(document).ready(function(){
 			    	options: {
 			   	  		title: {
 			   	     	display: true,
-			   	   		pieceLabel: { mode:"label", position:"outside", fontSize: 11, fontStyle: 'bold' }
-			  		    }	
+			  		    },
+			  		  	animation: {
+		                    animateScale : true,
+		                    animateRotate : true
+		                }, 
+		                legend: {
+		                	  display: true,
+		                	  position: 'right',
+		                	  align :'start',
+		                	labels : {
+		                		fontSize : 23,
+		                		padding : 20,
+		                		boxWidth: 40
+		                	}
+		                	}
 			  		},
 			    
 				});
@@ -315,8 +433,10 @@ $(document).ready(function(){
 		}
 	})
 </script>
-<script type="text/template" id="topSpendingTemplate">
-	
+<script id="legendSpending" type="text/template">
+	<tr>
+	<td height="43px">{spending}</td>
+	</tr>
 </script>
 <!-- <script>
 (function ($) {

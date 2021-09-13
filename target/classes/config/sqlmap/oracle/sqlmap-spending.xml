@@ -31,11 +31,11 @@
 		group by category
 	</select> -->
 	<select id="spendingByCategory" parameterType="spendingInfoVO" resultType="spendingInfoVO">
-		select category, -sum(trans_money) as spendingMoney
+		select  nvl(category , '기타') as category, -sum(trans_money) as spendingMoney
 			from tbl_transaction_history
 			where my_acc_no=#{accountNo} and to_char(transaction_date, 'yyyymm') = #{yearMonth}
 			and transaction_code = '11005'
-		group by category
+		group by category order by spendingMoney desc
 	</select>
 	
 	<select id="topSpending" parameterType="spendingInfoVO" resultType="string">
@@ -44,7 +44,7 @@
 			from tbl_transaction_history
 			where my_acc_no=#{accountNo} and to_char(transaction_date, 'yyyymm') = #{yearMonth}
 			and transaction_code = '11005'
-		group by category)
+		group by category order by spendingMoney desc)
 		<![CDATA[where rownum <= 3]]>
 	</select>
 
