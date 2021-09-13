@@ -53,7 +53,25 @@
     font-size: 25px;
      padding: 8px 45px;
 }
+		.border-box {
+		padding : 30px;
+		border : 2px solid #dddddd; 
+		border-radius : 5px;
+		margin-bottom : 30px;
+		margin-top : 30px;
+	}
 
+	.title {
+		padding-bottom : 0px;
+	}	
+	.title h2{
+	    font-size: 30px;
+	}
+	
+	.title h2:after {
+	    height: 0;
+	   	font-size: 30px;
+	}
 /* 	ul.nav.nav-tabs::after {
 	
 		background-color :#00c292;
@@ -74,53 +92,47 @@
       </header>
       <!-- end header -->
       
-      <body class="main-layout">
-      <div class="row main">
-      <aside id="side-menu">
-			<div id="diyLnb" class="on">
-			<h2 class="tit">하나로통장</h2>
-			<ul class="depth1">
-				
-						<li class="on"><a href="#//HanaBank" >통장전환</a></li>
-						
-						<li><a href="#//HanaBank">My하나로통장</a></li>
-						
-						<li><a href="#//HanaBank">대시보드</a></li>
-	
+	   <div class="row main">
+		   <aside id="side-menu">
+				<div id="diyLnb" class="on">
+				<h2 class="tit">하나로통장</h2>
+				<ul class="depth1">	
+					<li class="on"><a href="#//HanaBank" >통장전환</a></li>
+					
+					<li><a href="#//HanaBank">My하나로통장</a></li>
+					
+					<li><a href="#//HanaBank">대시보드</a></li>
 				</ul>
 				</div>
-		</aside>
+			</aside>
    
       <section>
-			<div id="title" class="titlepage">대시보드</div>
+		<div id="title" class="titlepage">대시보드</div>
 			
 			
 			
-			<div class="widget-tabs-list">
+		<div class="widget-tabs-list">
 			<ul class="nav nav-tabs">
-		<li class="active"><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">고정지출</a></li>
-			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >예산 현황</a></li>
-			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/savingAnalysis">저축 현황</a></li>
-			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li>
+				<li class=""><a href="${pageContext.request.contextPath}/spending/myCalendar">가계부</a></li>
+				<li class=""><a href="${pageContext.request.contextPath}/spending/spendingAnalysis" >소비현황</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/spending/challenge">도전하기</a></li>
 			</ul>
-			<div class="tab-content tab-custom-st">
-			<div id="home" class="tab-pane fade active in">
-			<div class="tab-ctn">
-				고정지출
+			
+			<div class="content">
+			
+			<div class="border-box">
+				<div class="title col">	
+					<h2 id="title-h2">내 도전 <strong class="black">목록</strong></h2>	
+				</div>
+				
 			</div>
+			
+			
 			</div>
-			<div id="menu1" class="tab-pane fade">
-			<div class="tab-ctn">
-				고정지출
-			</div>
-			</div>
-			<div id="menu2" class="tab-pane fade">
-			<div class="tab-ctn">
-				고정지출
-			</div>
-			</div>
-			</div>
-			</div>
+			
+			
+			
+		</div>
 		
 			
       	<script src="${ pageContext.request.contextPath }/resources/template/js/vendor/jquery-1.12.4.min.js"></script>
@@ -129,7 +141,6 @@
   			  <script src="${ pageContext.request.contextPath }/resources/template/js/bootstrap.min.js"></script>	
       </section> 
       </div>
-</body>
       <%-- footer --%>
       <footer>
          <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>

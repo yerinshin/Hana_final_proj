@@ -157,11 +157,6 @@
     background: #e46a76;
 } */
 </style>
-<script>
-$(document).ready(function(){
-	
-})
-</script>
 </head>
  <!-- body -->
 <body class="main-layout">

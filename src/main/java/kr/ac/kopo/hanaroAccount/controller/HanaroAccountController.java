@@ -201,14 +201,14 @@ public class HanaroAccountController {
 		
 		@ResponseBody
 		@PostMapping("/hanaro/fixedExpense")
-		public List<FixedExpenseVO> fixedExpense(@RequestBody MemberVO member){
+		public List<FixedExpenseVO> fixedExpense(@RequestBody MemberVO loginMember){
 			/* System.out.println(userCode); */
 			/*
 			 * List<FixedExpenseVO> fixedExpenseList =
 			 * fixedExpenseService.selectAll(accountNo);
 			 */
 			
-			AccountVO account = hanaroAccService.selectHanaroInfo(member.getUserCode());
+			AccountVO account = hanaroAccService.selectHanaroInfo(loginMember.getUserCode());
 			String accountNo = account.getAccountNo();
 			List<FixedExpenseVO> fixedExpenseList = fixedExpenseService.selectAll(accountNo);
 			

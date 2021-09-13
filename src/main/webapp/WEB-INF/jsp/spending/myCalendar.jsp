@@ -14,11 +14,12 @@
     <link href="${ pageContext.request.contextPath }/resources/template2/dist/css/style.min.css" rel="stylesheet">
 <style>
 	 #main-layout {
-		width : 75%;
+		width : 90%;
 		margin: 0 auto;
 	}
 	
 	.main {
+		width : 90%;
 		display : flex;
 		justify-content : center;
 		margin-right: 30px;
@@ -42,7 +43,7 @@
     }
 	
 	section {
-    	width : 1100px;
+    	width : 1200px;
     }
     .nav-tabs>li {
 	    border: 2px solid lightgray;
@@ -127,15 +128,18 @@
 			
 			<div class="widget-tabs-list">
 				<ul class="nav nav-tabs">
-				<li class=""><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">고정지출</a></li>
-				<li class="active"><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >예산 현황</a></li>
-				<li class=""><a href="${pageContext.request.contextPath}/dashBoard/savingAnalysis">저축 현황</a></li>
-				<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/spending/myCalendar">가계부</a></li>
+				<li class=""><a href="${pageContext.request.contextPath}/spending/spendingAnalysis" >소비현황</a></li>
+				<li class=""><a href="${pageContext.request.contextPath}/spending/challenge">도전하기</a></li>
+	<%-- 			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li> --%>
 				</ul>
 	
 						<div class="content">
 							<!-- --------------------- 내용 ------------------------ -->
 									<div class="border-box">
+										<div class="title col">	
+							<h2 id="title-h2">내 <strong class="black">가계부</strong></h2>	
+						</div>
 							 <div id="main-wrapper">
 
             <!-- ============================================================== -->
