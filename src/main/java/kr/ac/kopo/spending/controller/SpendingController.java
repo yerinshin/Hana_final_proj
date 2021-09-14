@@ -84,10 +84,4 @@ public class SpendingController {
 		return topSpendingList;		
 	}
 	
-
-	
-	@GetMapping("/spending/challenge")
-	public String challenge() {
-		return "spending/challenge";
-	}
 }

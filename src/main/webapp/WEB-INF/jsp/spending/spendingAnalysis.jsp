@@ -222,7 +222,7 @@
 				        </div>
 				         <div id="menu-title"> 지출 TOP 3</div>
 				         <div id="table-div">
-				         <table>
+				         <table id="topSpending">
 				         	<tr>
 				         		<th>TOP1</th>
 				         		<th>쇼핑</th>
@@ -240,8 +240,8 @@
 				         	</tr>
 				         </table>
 				         </div>
-				        <div id="topSpending">
-				        </div>
+				  <!--       <div id="topSpending">
+				        </div> -->
 				    </div> 
 			</div>
 			
@@ -315,7 +315,7 @@ $(document).ready(function(){
 	
 		let userCode = ${ loginMember.userCode }
 	
-		
+		let spendingMoney = 0
 		
 		//let yearMonth = yearMonth 
 		
@@ -336,11 +336,13 @@ $(document).ready(function(){
 					json.forEach(function(categorySpending){
 						console.log(categorySpending)
 						
+						//라벨, 데이터 배열에 넣기
 						labelArr.push(categorySpending.category)
 						datasetArr.push(categorySpending.spendingMoney)
 						
+						//카테고리 별 사용 금액 (template 사용)
 						let temp = $('#legendSpending').text()
-						let spendingMoney = numberWithCommas(categorySpending.spendingMoney)
+						spendingMoney = numberWithCommas(categorySpending.spendingMoney)
 						temp = temp.replace(/\{spending\}/gi, spendingMoney+"원")
 						console.log(temp)
 						
@@ -416,14 +418,20 @@ $(document).ready(function(){
 				console.log(topSpendingList)
 				let json = JSON.parse(topSpendingList)
 					let html = ''
+					let cnt = 0
 					if(topSpendingList.length > 0) {
 					json.forEach(function(topSpending){
-						console.log(topSpending)
-							html += topSpending
+						cnt ++
+						
+						let temp = $('#topSpendingTemplate').text()
+						temp = temp.replace(/\{count\}/gi, cnt)
+									.replace(/\{category\}/gi, topSpending)
+						/* 			.replace(/\{spending\}/gi, spendingMoney) */
+						html += temp
 					})
 			}
 		//		html = temp
-				
+				console.log(html)
 				$('#topSpending').html(html)
 			}
 			
@@ -437,6 +445,15 @@ $(document).ready(function(){
 	<tr>
 	<td height="43px">{spending}</td>
 	</tr>
+</script>
+
+<script id="topSpendingTemplate" type="text/template">
+    	<tr>
+			<th>TOP{count}</th>
+			<th>{category}</th>
+	<%--		<td>사용금액 : {spending}</td> --%>
+			<td width="50%"><button> 줄이기 도전</button></td>
+		</tr>
 </script>
 <!-- <script>
 (function ($) {

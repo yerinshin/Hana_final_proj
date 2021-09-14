@@ -8,12 +8,12 @@
 		<typeAlias type="kr.ac.kopo.account.vo.AccountVO" alias="accountVO" />
 		<typeAlias type="kr.ac.kopo.account.vo.TransactionHistoryVO" alias="transactionHistoryVO" />
 		<typeAlias type="kr.ac.kopo.hanaroAccount.vo.HanaroVO" alias="hanaroVO" />
-		<!-- <typeAlias type="kr.ac.kopo.hanaroAccount.vo.SplitInfoVO" alias="splitInfoVO" /> -->
 		<typeAlias type="kr.ac.kopo.hanaroAccount.vo.AutoSplitVO" alias="autoSplitVO" />
 		<typeAlias type="kr.ac.kopo.hanaroAccount.vo.SplitHistoryVO" alias="splitHistoryVO" />
 		<typeAlias type="kr.ac.kopo.hanaroAccount.vo.SplitKindInfoVO" alias="splitKindInfoVO" />		
 		<typeAlias type="kr.ac.kopo.fixedExpense.vo.FixedExpenseVO" alias="fixedExpenseVO" />
 		<typeAlias type="kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO" alias="monthlyBudgetVO" />	
 		<typeAlias type="kr.ac.kopo.spending.vo.SpendingInfoVO" alias="spendingInfoVO" />	
+		<typeAlias type="kr.ac.kopo.challenge.vo.ChallengeVO" alias="challengeVO" />
 	</typeAliases>
 </configuration>

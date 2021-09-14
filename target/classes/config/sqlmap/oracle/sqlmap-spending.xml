@@ -22,7 +22,6 @@
 		<result column="" property=""/>
 	</resultMap> -->
 	
-	<!-- 월 별 카테고리 별 사용금액 -->
 <!-- 	<select id="spendingByCategory" parameterType="string" resultMap="transactionHistoryMap">
 		select category, -sum(trans_money) as trans_money
 			from tbl_transaction_history
@@ -30,6 +29,9 @@
 			and transaction_code = '11005'
 		group by category
 	</select> -->
+
+
+	<!-- 월 별 카테고리 별 사용금액 -->
 	<select id="spendingByCategory" parameterType="spendingInfoVO" resultType="spendingInfoVO">
 		select  nvl(category , '기타') as category, -sum(trans_money) as spendingMoney
 			from tbl_transaction_history
@@ -38,6 +40,8 @@
 		group by category order by spendingMoney desc
 	</select>
 	
+	
+	<!-- 월 별 top3 소비 카테고리 -->	
 	<select id="topSpending" parameterType="spendingInfoVO" resultType="string">
 		select category from
 		(select category, -sum(trans_money) as spendingMoney
@@ -47,5 +51,7 @@
 		group by category order by spendingMoney desc)
 		<![CDATA[where rownum <= 3]]>
 	</select>
-
+	
+	
+	
 </mapper>
