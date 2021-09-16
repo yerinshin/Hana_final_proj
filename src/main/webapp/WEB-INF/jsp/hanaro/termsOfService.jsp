@@ -334,7 +334,7 @@
 				    </div>
 	                </div>
                 
-	                <div class="modals-default-cl">
+	             
 	                <div class="serviceInfo">
 	                    <button id="checkServiceInfo" type="button" class="
 	                    btn btn-info col-md-8" data-toggle="modal" data-target="#myModal2">하나로 통장 금리 확인</button>
@@ -384,7 +384,7 @@
 	                            </div>
 	                        </div>
 	                    </div>
-	                </div>
+	             
                 </div>
                 
                 

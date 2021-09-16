@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.kopo.challenge.service.ChallengeService;
@@ -23,7 +24,7 @@ public class ChallengeController {
 	@Autowired
 	private HanaroAccountService hanaroAccService;
 	
-	@GetMapping("/spending/challenge")
+	@GetMapping("spending/challenge")
 	public ModelAndView challenge(HttpServletRequest request) throws Exception {
 		
 		HttpSession session = request.getSession();
@@ -42,4 +43,22 @@ public class ChallengeController {
 		
 		return mav;
 	}
+	
+	@PostMapping("/insert")
+	public String insert(ChallengeVO challenge, HttpServletRequest request) throws Exception{
+		
+		MemberVO loginMember = (MemberVO) request.getSession().getAttribute("loginMember");
+		int userCode = loginMember.getUserCode();
+		String accountNo = hanaroAccService.selectHanaroAcc(userCode).getAccountNo();
+		
+		challenge.setAccountNo(accountNo);
+		
+		System.out.println("챌린지 추가 : " +challenge);
+		challengeService.insert(challenge);
+		
+		
+		
+		return "redirect:spending/challenge";
+	}
+	
 }

@@ -81,8 +81,8 @@
 } */
 
 	
-div.accountList {
-		margin-top : 80px;
+div.challengeList {
+		margin : 80px 0;
 	}
 	
 	#btn-read-more {
@@ -209,9 +209,9 @@ div.accountList {
 
          
         
-            <div class="container accountList">
+            <div class="container challengeList">
             <div class="row">
-                  <div class="col-md-6">
+<!--                   <div class="col-md-6">
                   <div class="service-box account-box">
                   <div class="row">
                   <div id="nickname" class="col-md-9"> 
@@ -232,12 +232,12 @@ div.accountList {
              
                   <div class="progress">
   					<div class="progress-bar" role="progressbar" style="width: 45%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">45%</div>
-             <!--      	<button id="btn-read-more" class="col-md-5 read-more">이체</button>
-                  	<button id="btn-read-more" class="col-md-5 read-more">이용내역</button> -->
+                  	<button id="btn-read-more" class="col-md-5 read-more">이체</button>
+                  	<button id="btn-read-more" class="col-md-5 read-more">이용내역</button>
                  
                   </div>
                   </div>
-               </div>
+               </div> -->
 				
 				
 				
@@ -268,12 +268,26 @@ div.accountList {
                   </div>
              
                   <div class="progress">
-  					<div class="progress-bar" role="progressbar" style="width: ${ challenge.nowSpending / challenge.savingGoal *100 }%" 
-  					aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-  					<fmt:formatNumber value="${challenge.nowSpending / challenge.savingGoal}" type="percent"/>
+                  <c:choose>
+                  <c:when test="${ (challenge.savingGoal - challenge.nowSpending) lt 0 }">
+	  					<div class="progress-bar" role="progressbar" style="width: ${ challenge.nowSpending / challenge.savingGoal *100 }%; background-color : red;" 
+	  					aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+	  					<fmt:formatNumber value="${challenge.nowSpending / challenge.savingGoal}" type="percent"/>
   					</div>
-             <!--      	<button id="btn-read-more" class="col-md-5 read-more">이체</button>
-                  	<button id="btn-read-more" class="col-md-5 read-more">이용내역</button> -->
+  				  </c:when>
+  					<c:when test="${ challenge.nowSpending / challenge.savingGoal *100  gt 80 }">
+  					<div class="progress-bar" role="progressbar" style="width: ${ challenge.nowSpending / challenge.savingGoal *100 }%; background-color : orange;" 
+	  					aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+	  					<fmt:formatNumber value="${challenge.nowSpending / challenge.savingGoal}" type="percent"/>
+  					</div>
+  					</c:when>
+  					<c:otherwise>
+  					<div class="progress-bar" role="progressbar" style="width: ${ challenge.nowSpending / challenge.savingGoal *100 }%;" 
+	  					aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+	  					<fmt:formatNumber value="${challenge.nowSpending / challenge.savingGoal}" type="percent"/>
+  					</div>
+  					</c:otherwise>
+                  </c:choose>
                  
                   </div>
                   </div>

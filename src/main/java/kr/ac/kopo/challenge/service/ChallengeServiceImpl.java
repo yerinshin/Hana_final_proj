@@ -36,11 +36,17 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeList;
 	}
 
-	
+/*
 	  public List<SpendingInfoVO> spendingList(String accountNo) {
 	  
 		  List<SpendingInfoVO> spendingList = dao.spendingList(accountNo); 
 		  return spendingList;
 	  }
+*/
+
+	public void insert(ChallengeVO challenge) {
+		System.out.println(challenge);
+		dao.insert(challenge);
+	}
 
 }

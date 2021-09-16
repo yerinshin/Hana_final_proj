@@ -13,10 +13,17 @@
 		<result column="saving_goal" property="savingGoal" />
 		<result column="penalty_total" property="penaltyTotal" />
 	</resultMap>
-
+	
+	<!-- 도전하기 리스트 뽑기 -->
 	<select id="challengeList" parameterType="string" resultMap="challengeMap">
 		select * from tbl_challenge where account_no=#{accountNo}
 	</select>
+	
+	<!-- 도전하기 추가 -->
+	<insert id="insert" parameterType="challengeVO">
+		insert into tbl_challenge(challenge_code, account_no, category, title, penalty_rate, saving_goal)
+ 			values(challenge_seq_no.nextval, #{accountNo}, #{category}, #{title}, #{penaltyRate}, #{savingGoal} )
+	</insert>
 	
 	<!-- 이번 달 카테고리 별 사용금액 -->
 	<select id="nowSpendingByCategory" parameterType="string" resultType="spendingInfoVO">

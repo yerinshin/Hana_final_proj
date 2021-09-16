@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.ac.kopo.hanaroAccount.service.HanaroAccountService;
 import kr.ac.kopo.member.vo.MemberVO;
 import kr.ac.kopo.spending.service.SpendingService;
+import kr.ac.kopo.spending.vo.CalendarVO;
 import kr.ac.kopo.spending.vo.SpendingInfoVO;
 
 @Controller
@@ -30,8 +31,23 @@ public class SpendingController {
 	@GetMapping("/spending/myCalendar")
 	public String myCalendar() {
 		
+		
 		return "spending/myCalendar";
 	}
+	
+	
+	@ResponseBody
+	@PostMapping("/myCalendar/calendarList")
+	public List<CalendarVO> calendarList(@RequestBody MemberVO member) {
+		
+		List<CalendarVO> calendarList = spendingService.calendarListByDate("081000000010");
+		System.out.println(calendarList);
+		
+		return calendarList;
+	}
+	
+	
+	
 	
 	@GetMapping("/spending/spendingAnalysis")
 	public String spendingAnalysis()  {

@@ -23,10 +23,17 @@ public class ChallengeDAOImpl implements ChallengeDAO{
 		return challengeList;
 	}
 
+	public void insert(ChallengeVO challenge) {
+		
+		sqlSessionTemplate.insert("challenge.ChallengeDAO.insert", challenge);
+	}
 
+	
 	public List<SpendingInfoVO> spendingList(String accountNo) {
 		List<SpendingInfoVO> spendingList = sqlSessionTemplate.selectList("challenge.ChallengeDAO.nowSpendingByCategory", accountNo);
 		return spendingList;
 	}
+
+
 	
 }

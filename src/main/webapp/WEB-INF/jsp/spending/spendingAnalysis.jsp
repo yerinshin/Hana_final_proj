@@ -126,15 +126,60 @@
     	color: #0c4b7d;
 	}
 	
-	#doughnut-chart-wp {
+/* 	#doughnut-chart-wp {
 	 transition: 5s;
-	}
+	} */
 	
 /* 	ul.nav.nav-tabs::after {
 	
 		background-color :#00c292;
 
 } */
+
+
+     .modals-default-cl {
+		margin-top : 30px;
+    } 
+     .modal-dialog.modal-large .modal-content {
+    	padding: 70px 100px;
+    }
+    
+    .modal-content {
+    	padding : 40px 40px;
+    	margin-top: 300px;
+    	width: 850px;
+   		height: 600px;
+    }
+    
+    #btn-close {
+	    width: 40px;
+    	height: 40px;
+    	font-size: 32px;
+    	padding : 0 0 10px 0;
+    }
+    
+    .modal-large .modal-body h2 {
+    	font-size : 28px;
+    	color : black;
+    } 
+    
+    
+    .modal-footer {
+		
+		display : block;
+		margin: 0 auto;
+    }
+    
+    .modal-footer > .btn-default {
+    	height : 50px;
+    	font-size : 25px;
+    }
+    
+    
+   .modal-input, #penaltyRate {
+		height : 67px;
+		font-size : 23px;
+	}
 </style>
 
 </head>
@@ -185,7 +230,7 @@
 				</div>
 				
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-											  <div class="bar-chart-area">
+						<div class="bar-chart-area">
 				        <div class="container">
 				        <div>
 				        <div class="col-md-10">
@@ -220,13 +265,19 @@
 				            </div>
 				 	
 				        </div>
+				         </div> 
+				         
+		<!-- ---------------------------------------------------------------------- -->
 				         <div id="menu-title"> 지출 TOP 3</div>
+				 <div class="modals-default-cl">
 				         <div id="table-div">
 				         <table id="topSpending">
 				         	<tr>
 				         		<th>TOP1</th>
 				         		<th>쇼핑</th>
-				         		<td width="50%"><button> 줄이기 도전</button></td>
+				         		<td width="50%">
+				    
+				         		</td>
 				         	</tr>
 				         	<tr>
 				         		<th>TOP2</th>
@@ -242,8 +293,58 @@
 				         </div>
 				  <!--       <div id="topSpending">
 				        </div> -->
-				    </div> 
-			</div>
+				   
+			
+			
+	<!-- ----------------------------------------모달 --------------------------------------->
+
+	 <div class="modal fade" id="myModalthree" role="dialog">
+	             <div class="modal-dialog modal-large">
+	                       <form action="${pageContext.request.contextPath}/insert" method="post">
+	                     	<input type="hidden" name="title" value="쇼핑줄이기">
+	                     	<input type="hidden" name="category" value="쇼핑">
+	                     
+	                     <div class="modal-content">
+	                          <div class="modal-header">
+	                              <button id="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
+	                          </div>
+	                          <div class="modal-body">
+	                             <h2>쇼핑 줄이기</h2>
+	                             
+	                             <div class="row">
+	                             <h2 class="col-md-6">이번달 도전 예산 : </h2>
+	                             <div class="col-md-6">
+	                             <input class="form-control modal-input" type="text" placeholder="(원)" name="savingGoal"/>
+	                             </div>
+	                             </div>
+	                             <h4>이번 달 오늘까지(1일 ~ 15일) 쇼핑 예산 : {100000원}</h4>
+	                             <h4>지난 달 쇼핑 예산 : {300000원}</h4>
+	                             
+	                               <div class="row">
+	                               <h2 class="col-md-6">패널티 : </h2>
+	                               <div class="col-md-6">
+	                             	<select class="form-control modal-input" name="penaltyRate" id="penaltyRate">
+										<option value="0.1">10%</option>	
+										<option value="0.2">20%</option>
+										<option value="0.3">30%</option>
+									</select>
+	                               </div>
+									</div>
+									<h4 style="color : red;"> *도전 금액을 넘어간 소비가 발생할 경우,
+									소비금액의 패널티의 비율 만큼 생활금에서 비상금으로 저축됩니다.</h4>
+	                          </div>
+	                          <div class="modal-footer">
+	                             <button type="submit" class="btn btn-default" >확인</button>
+	                        	   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                          </div>
+	                     </div>
+	                       </form>
+	                  </div>
+	              </div>
+	         </div>
+	          </div>
+	 <!-- ----------------------------------------모달 -------------------------------------->
+
 			
 			<div class="border-box">
 				<div class="title col">	
@@ -251,12 +352,12 @@
 				</div>
 				
 			</div>
-			
+			</div>
 			</div>
 			
 			
 			
-		</div>
+	
 		
 <%-- 	 <script src="${ pageContext.request.contextPath }/resources/template/js/charts/Chart.js"></script> --%>
 			<script src="${ pageContext.request.contextPath }/resources/template/js/plugins.js"></script>
@@ -440,6 +541,10 @@ $(document).ready(function(){
 		})	
 		}
 	})
+	
+	
+	
+	
 </script>
 <script id="legendSpending" type="text/template">
 	<tr>
@@ -452,7 +557,10 @@ $(document).ready(function(){
 			<th>TOP{count}</th>
 			<th>{category}</th>
 	<%--		<td>사용금액 : {spending}</td> --%>
-			<td width="50%"><button> 줄이기 도전</button></td>
+			<td width="50%">
+<button type="button" class="
+	                    col-md-8" data-toggle="modal" data-target="#myModalthree"> 줄이기 도전</button>
+</td>
 		</tr>
 </script>
 <!-- <script>

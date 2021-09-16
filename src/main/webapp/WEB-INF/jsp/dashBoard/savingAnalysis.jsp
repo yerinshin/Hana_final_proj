@@ -354,9 +354,9 @@ $(document).ready(function(){
 			url : url,
 			data : JSON.stringify(data),
 			success : function(monthlySavingList) {
-				console.log(monthlySavingList)
 				
 				let json = JSON.parse(monthlySavingList)
+				console.log(' json !!: ' + monthlySavingList)
 				
 				if(monthlySavingList.length > 0 ) {	
 					

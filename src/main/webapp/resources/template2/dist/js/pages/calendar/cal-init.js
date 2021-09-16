@@ -85,6 +85,13 @@
             var today = new Date($.now());
 
             var defaultEvents = [
+            {
+		      "title"  : "event1",
+		      "start"  : "2021-09-01",
+		      "end" 	: "2021-09-05"
+		   
+		    }
+		   
               
             ];
 

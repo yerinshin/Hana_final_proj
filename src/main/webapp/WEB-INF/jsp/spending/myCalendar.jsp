@@ -1,17 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-     <jsp:include page="/WEB-INF/jsp/include/head.jsp"></jsp:include>
-     	
- <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>   -->
+<html lang="en">
+<head>	
+ 	<jsp:include page="/WEB-INF/jsp/include/head.jsp"></jsp:include>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> 
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
+	<!-- fullcalendar 언어 CDN -->
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
 	<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <link href="${ pageContext.request.contextPath }/resources/template2/assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
-    <link href="${ pageContext.request.contextPath }/resources/template2/assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
-    <link href="${ pageContext.request.contextPath }/resources/template2/dist/css/style.min.css" rel="stylesheet">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/style.css">
+
 <style>
 	 #main-layout {
 		width : 90%;
@@ -25,7 +28,7 @@
 		margin-right: 30px;
 	}
 	
-	#title {
+#title {
     	color : black;
     	font-size : 28px;
     	font-weight : bold;
@@ -41,6 +44,18 @@
     	margin-bottom : 20px;
     	
     }
+    
+    .title {
+		padding-bottom : 0px;
+	}	
+	.title h2{
+	    font-size: 30px;
+	}
+	
+	.title h2:after {
+	    height: 0;
+	   	font-size: 30px;
+	}
 	
 	section {
     	width : 1200px;
@@ -55,7 +70,7 @@
      padding: 8px 45px;
 }
 
-	.border-box {
+.border-box {
 		padding : 30px;
 		border : 2px solid #dddddd; 
 		border-radius : 5px;
@@ -68,12 +83,15 @@
 		background-color :#00c292;
 
 } */
+.fc-h-event .fc-event-title-container {
+    height: 20px;
+    font-size: 20px;
+}
 
 .fc-day-number {
     float: right;
     font-size: 30px;
 }
-
 .fc-toolbar .fc-button {
     background: #2961ff;
     color: #fff;
@@ -87,26 +105,157 @@
  
     font-size: 20px;
 }
-
 .card-body, .waves-effect {
     font-size: 20px;
  }
+ 
 </style>
-</head>
+<script>
+$(document).ready(function(){
 
+	getCalendarList()
+	let calList
+	function getCalendarList(){
+		let userCode = ${loginMember.userCode}
+		
+		let data = {userCode : userCode}
+		let calArr = []
+		$.ajax({
+			type : 'post',
+			contentType : 'application/json',
+			url : '${ pageContext.request.contextPath }/myCalendar/calendarList',
+			data : JSON.stringify(data),
+			success : function(calendarList){
+				calList = calendarList
+				console.log(calList)
+				let json = JSON.parse(calendarList)
+/* 				console.log("json !!!!! : " +json) */
+				if(calendarList.length > 0){
+					json.forEach(function(cal){
+						calArr.push(cal)
+					
+					})
+					console.log(calArr)
+				}
+	
+	(function($) {
+		"use strict";
+			// calendar element 취득
+			var calendarEl = $('#calendar')[0];
+			// full-calendar 생성하기
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				height: '700px', // calendar 높이 설정
+				expandRows: true, // 화면에 맞게 높이 재설정
+				slotMinTime: '08:00', // Day 캘린더에서 시작 시간
+				slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
+				// 해더에 표시할 툴바
+				headerToolbar: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+			},
+				initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+	/* 			initialDate: '2021-09-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.) */
+				navLinks: true, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
+				editable: true, // 수정 가능?
+				selectable: true, // 달력 일자 드래그 설정가능
+				nowIndicator: true, // 현재 시간 마크
+				dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
+			/* 	locale: 'ko', // 한국어 설정 */
+				eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
+					console.log(obj);
+				},
+				eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
+					console.log(obj);
+				},
+				eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
+					console.log(obj);
+				},
+				select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
+					var title = prompt('Event Title:');
+					if (title) {
+						calendar.addEvent({
+							title: title,
+							start: arg.start,
+							end: arg.end,
+							allDay: arg.allDay
+						})
+					}
+				calendar.unselect()
+				},
+				eventColor : 'white',
+				events:
+					calArr 
+				/*
+					 [
+				
+					{	color : 'white',
+						textColor : 'blue',
+						title: 'All Day Event',
+						start: '2021-09-01'
+					},
+					{
+						color : null,
+						title: 'Long Event',
+						start: '2021-09-07'
+					},
+					{
+						color : '',
+						title: 'Conference',
+						start: '2021-09-11'
+					},
+					{
+						title: 'Meeting',
+						start: '2021-09-12T10:30:00'
+					},
+					{				
+						title: 'Meeting',
+						start: '2021-07-12T14:30:00'
+					},
+					{
+						color : 'red',
+						title: 'Happy Hour',
+						start: '2021-09-12',
+						eventColor:"orange"
+					},
+					{
+						title: 'Click for Google',
+						url: 'http://google.com/', // 클릭시 해당 url로 이동
+						start: '2021-09-28'
+					} 
+				] 
+				
+				*/
+			
+			});
+		calendar.render();
+		})(jQuery);
+	
+			}
+		})
+	
+	
+	}
+	
+	
+})
+</script>
+</head>
+ <!-- body -->
 <body class="main-layout">
-		<!-- loader  -->
-   <%--    <div class="loader_bg">
+      <!-- loader  -->
+      <div class="loader_bg">
          <div class="loader"><img src="${ pageContext.request.contextPath }/resources/images/loading.gif" alt="#" /></div>
-      </div> --%>
+      </div>
       <!-- end loader --> 
-      
-     <header>
+      <!-- header -->
+      <header>
  			<jsp:include page="/WEB-INF/jsp/include/header.jsp"></jsp:include>      
       </header>
-      
+      <!-- end header -->
+
       <div class="row main">
-    <aside id="side-menu">
+      <aside id="side-menu">
 			<div id="diyLnb" class="on">
 			<h2 class="tit">하나로통장</h2>
 			<ul class="depth1">
@@ -119,7 +268,7 @@
 	
 				</ul>
 				</div>
-		</aside> 
+		</aside>
    
       <section>
 			<div id="title" class="titlepage">대시보드</div>
@@ -127,182 +276,45 @@
 			
 			
 			<div class="widget-tabs-list">
-				<ul class="nav nav-tabs">
-				<li class="active"><a href="${pageContext.request.contextPath}/spending/myCalendar">가계부</a></li>
+			<ul class="nav nav-tabs">
+				<li class=""><a href="${pageContext.request.contextPath}/spending/myCalendar">가계부</a></li>
 				<li class=""><a href="${pageContext.request.contextPath}/spending/spendingAnalysis" >소비현황</a></li>
-				<li class=""><a href="${pageContext.request.contextPath}/spending/challenge">도전하기</a></li>
-	<%-- 			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li> --%>
-				</ul>
-	
-						<div class="content">
+				<li class="active"><a href="${pageContext.request.contextPath}/spending/challenge">도전하기</a></li>
+			</ul>
+			
+			
+				<div class="content">
 							<!-- --------------------- 내용 ------------------------ -->
 									<div class="border-box">
-										<div class="title col">	
-							<h2 id="title-h2">내 <strong class="black">가계부</strong></h2>	
+							<div class="title col">		
+						<h2 id="title-h2">소비<strong class="black"> 달력</strong></h2>				
 						</div>
-							 <div id="main-wrapper">
+							<div id="calendar-container">
+								<div id="calendar"></div>
+							</div>	
+							
 
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="">
-                               
-                                    <div class="border-right p-r-0">
-                                        <div class="card-body border-bottom">
-                                            <h4 class="card-title m-t-10">Drag & Drop Event</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div id="calendar-events" class="">
-                                                        <div class="calendar-events m-b-20" data-class="bg-info"><i class="fa fa-circle text-info m-r-10"></i>Event One</div>
-                                                        <div class="calendar-events m-b-20" data-class="bg-success"><i class="fa fa-circle text-success m-r-10"></i> Event Two</div>
-                                                        <div class="calendar-events m-b-20" data-class="bg-danger"><i class="fa fa-circle text-danger m-r-10"></i>Event Three</div>
-                                                        <div class="calendar-events m-b-20" data-class="bg-warning"><i class="fa fa-circle text-warning m-r-10"></i>Event Four</div>
-                                                    </div>
-                                                    <!-- checkbox -->
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="drop-remove">
-                                                        <label class="custom-control-label" for="drop-remove">Remove after drop</label>
-                                                    </div>
-                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-event" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
-                                                            <i class="ti-plus"></i> Add New Event
-                                                        </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="">
-                                        <div class="card-body b-l calender-sidebar">
-                                            <div id="calendar"></div>
-                                        </div>
-                                    </div>
-                              
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- BEGIN MODAL -->
-                <div class="modal none-border" id="my-event">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title"><strong>Add Event</strong></h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            </div>
-                            <div class="modal-body"></div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
-                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal Add Category -->
-                <div class="modal fade none-border" id="add-new-event">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title"><strong>Add</strong> a category</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="control-label">Category Name</label>
-                                            <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name" />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="control-label">Choose Category Color</label>
-                                            <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                                <option value="success">Success</option>
-                                                <option value="danger">Danger</option>
-                                                <option value="info">Info</option>
-                                                <option value="primary">Primary</option>
-                                                <option value="warning">Warning</option>
-                                                <option value="inverse">Inverse</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
-                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END MODAL -->
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
- 
 						</div>
-				
-			</div>
-			</div>
-			</div>
+						</div>
 			
+			
+			</div>
+		<%-- 
+			<script src="${ pageContext.request.contextPath }/resources/js/calendar.js"></script>  --%>
       	<script src="${ pageContext.request.contextPath }/resources/template/js/vendor/jquery-1.12.4.min.js"></script>
    			 <!-- bootstrap JS
 		============================================ -->
   			  <script src="${ pageContext.request.contextPath }/resources/template/js/bootstrap.min.js"></script>	
       </section> 
       </div>
-   
-  <script src="${ pageContext.request.contextPath }/resources/template2/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="${ pageContext.request.contextPath }/resources/template2/dist/js/jquery-ui.min.js"></script>
-    <script src="${ pageContext.request.contextPath }/resources/template2/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!--Custom JavaScript -->
-   <%--  <script src="${ pageContext.request.contextPath }/resources/template2/dist/js/custom.min.js"></script> --%>
-     <!-- this page js -->
-    <script src="${ pageContext.request.contextPath }/resources/template2/assets/libs/moment/min/moment.min.js"></script>
-    <script src="${ pageContext.request.contextPath }/resources/template2/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
-    <script src="${ pageContext.request.contextPath }/resources/template2/dist/js/pages/calendar/cal-init.js"></script>
 </body>
-<footer>
+      <%-- footer --%>
+      <footer>
          <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
       </footer>
-  <%--     
-  <jsp:include page="/WEB-INF/jsp/include/javascriptFiles.jsp"></jsp:include> --%>
-<%--     <script src="${ pageContext.request.contextPath }/resources/js/bootstrap.bundle.min.js"></script> 
-      <script src="${ pageContext.request.contextPath }/resources/js/popper.min.js"></script> 
-      <script src="${ pageContext.request.contextPath }/resources/js/jquery-3.0.0.min.js"></script> 
-      <script src="${ pageContext.request.contextPath }/resources/js/plugin.js"></script> 
-      <!-- sidebar --> 
-      <script src="${ pageContext.request.contextPath }/resources/js/jquery.mCustomScrollbar.concat.min.js"></script> 
-      <script src="${ pageContext.request.contextPath }/resources/js/custom.js"></script>
-      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-      <script>
-         $(document).ready(function(){
-         $(".fancybox").fancybox({
-         openEffect: "none",
-         closeEffect: "none"
-         });
-         
-         $(".zoom").hover(function(){
-         
-         $(this).addClass('transition');
-         }, function(){
-         
-         $(this).removeClass('transition');
-         });
-         }); --%>
-         
-      </script> 
+      <%-- end footer --%>
+      
+      <!-- Javascript files--> 
+  		<jsp:include page="/WEB-INF/jsp/include/javascriptFiles.jsp"></jsp:include>
+
 </html>

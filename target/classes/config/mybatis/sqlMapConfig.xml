@@ -13,7 +13,8 @@
 		<typeAlias type="kr.ac.kopo.hanaroAccount.vo.SplitKindInfoVO" alias="splitKindInfoVO" />		
 		<typeAlias type="kr.ac.kopo.fixedExpense.vo.FixedExpenseVO" alias="fixedExpenseVO" />
 		<typeAlias type="kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO" alias="monthlyBudgetVO" />	
-		<typeAlias type="kr.ac.kopo.spending.vo.SpendingInfoVO" alias="spendingInfoVO" />	
+		<typeAlias type="kr.ac.kopo.spending.vo.SpendingInfoVO" alias="spendingInfoVO" />
+		<typeAlias type="kr.ac.kopo.spending.vo.CalendarVO" alias="calendarVO" />			
 		<typeAlias type="kr.ac.kopo.challenge.vo.ChallengeVO" alias="challengeVO" />
 	</typeAliases>
 </configuration>
