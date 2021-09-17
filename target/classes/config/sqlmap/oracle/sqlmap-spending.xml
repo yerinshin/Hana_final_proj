@@ -50,6 +50,13 @@
 				from tbl_transaction_history where my_acc_no='081000000010' <![CDATA[ and  trans_money > 0]]>
 		group by to_char(transaction_date, 'yyyy-mm-dd')
 	</select>
+	
+	<!-- 캘린더 일자 별 거래내역 목록 -->
+	<select id="transHistoryByDate" parameterType="hashmap" resultType="transactionHistoryVO">
+		select trans_money as transMoney, others_name as othersName, to_char(transaction_date, 'mm/dd') as transDate, category  from tbl_transaction_history 
+			where my_acc_no = #{accountNo}
+				and to_char(transaction_date, 'yyyy-mm-dd') = #{date}
+	</select>
 
 	<!-- 월 별 카테고리 별 사용금액 -->
 	<select id="spendingByCategory" parameterType="spendingInfoVO" resultType="spendingInfoVO">

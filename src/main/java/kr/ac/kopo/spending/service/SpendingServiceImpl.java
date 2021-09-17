@@ -2,10 +2,12 @@ package kr.ac.kopo.spending.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.ac.kopo.account.vo.TransactionHistoryVO;
 import kr.ac.kopo.spending.dao.SpendingDAO;
 import kr.ac.kopo.spending.vo.CalendarVO;
 import kr.ac.kopo.spending.vo.SpendingInfoVO;
@@ -45,15 +47,15 @@ public class SpendingServiceImpl implements SpendingService{
 		
 		
 		for(CalendarVO spending : spendingList) {
-				spending.setColor("white");
-				spending.setTextColor("red");
+				spending.setColor("pink");
+				//spending.setTextColor("red");
 				calendarList.add(spending);
 		}
 		
 		
 		for(CalendarVO income : incomeList) {
-			income.setColor("white");
-			income.setTextColor("blue");
+			income.setColor("skyblue");
+			//income.setTextColor("blue");
 			
 			calendarList.add(income);
 			
@@ -61,6 +63,13 @@ public class SpendingServiceImpl implements SpendingService{
 		System.out.println(calendarList);
 		
 		return calendarList;
+	}
+
+	public List<TransactionHistoryVO> historyByDate(Map<String, String> map) {
+		
+		List<TransactionHistoryVO> historyList = dao.historyByDate(map);
+		
+		return historyList;
 	}
 
 }

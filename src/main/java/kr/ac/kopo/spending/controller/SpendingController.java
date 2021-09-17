@@ -1,6 +1,8 @@
 package kr.ac.kopo.spending.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,10 +10,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.ac.kopo.account.vo.TransactionHistoryVO;
 import kr.ac.kopo.hanaroAccount.service.HanaroAccountService;
 import kr.ac.kopo.member.vo.MemberVO;
 import kr.ac.kopo.spending.service.SpendingService;
@@ -31,23 +35,44 @@ public class SpendingController {
 	@GetMapping("/spending/myCalendar")
 	public String myCalendar() {
 		
-		
+		/*
+		 * List<TransactionHistoryVO> historyList = spendingService.historyByDate(null);
+		 * System.out.println(historyList);
+		 */
 		return "spending/myCalendar";
 	}
 	
-	
+	//달력 위 지출 표시
 	@ResponseBody
 	@PostMapping("/myCalendar/calendarList")
 	public List<CalendarVO> calendarList(@RequestBody MemberVO member) {
+		int userCode = member.getUserCode();
+		String accountNo = hanaroAccService.selectHanaroAcc(userCode).getAccountNo();
 		
-		List<CalendarVO> calendarList = spendingService.calendarListByDate("081000000010");
+		List<CalendarVO> calendarList = spendingService.calendarListByDate(accountNo);
 		System.out.println(calendarList);
 		
 		return calendarList;
 	}
 	
-	
-	
+	//날짜 별 소비, 수입 내역
+	@ResponseBody
+	@PostMapping("/myCalendar/historyListByDate/{date}")
+	public List<TransactionHistoryVO> historyList(@RequestBody MemberVO member, @PathVariable("date") String clickedDate){
+		int userCode = member.getUserCode();
+		String accountNo = hanaroAccService.selectHanaroAcc(userCode).getAccountNo();
+		String date = clickedDate;
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("accountNo", accountNo);
+		map.put("date", date);
+		System.out.println("map : " + map);
+		
+		List<TransactionHistoryVO> historyList = spendingService.historyByDate(map);
+		System.out.println(historyList);
+		
+		return historyList;
+	}
 	
 	@GetMapping("/spending/spendingAnalysis")
 	public String spendingAnalysis()  {
