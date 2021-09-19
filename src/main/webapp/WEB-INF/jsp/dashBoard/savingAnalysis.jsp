@@ -257,6 +257,37 @@ $(document).ready(function(){
 		$('#input_total_pay_comma').val(numberWithCommas(totalPay))
 	})
 	
+	//검색된 예/적금 상품 list
+	$('#btn-submit').click(function(){
+		
+		let type =  $('[name=type]:checked').val()			//상품 타입
+
+		let year = new Date().getFullYear()
+		let now = year-2000
+		let age = '${loginMember.ss1}'.substring(0,2)
+		
+		if(age > now){
+			let temp = '19'+age				//97 -> 1997
+			age = year - temp			//나이 구하기
+		}
+		alert(age)
+		let url = '${pageContext.request.contextPath}/dashBoard/savingProductList'
+		//data : 상품 type, 나이, 기간 ,저축(예치)금액
+		let data = { type : type, age: age, period : month, savingMoney : won}
+		console.log(data)
+		
+		$.ajax({
+			type : 'post',
+			contentType : 'application/json',
+			url : url,
+			data : JSON.stringify(data),
+			
+			success : function(savingProductList){
+				console.log(savingProductList)
+			}
+		})
+	})
+	
 })
 </script>
 </head>
@@ -463,7 +494,7 @@ $(document).ready(function(){
 							</li>
 							<li class="survey__item col-md-3">
 								
-								<input class="btn-submit send" type="submit" value="결과보기">
+								<input id="btn-submit" class="btn-submit send" type="button" value="결과보기">
 							</li>
 							<!-- 	<li class="survey__item">
 								<h5 class="essential">원하는 가입경로</h5>

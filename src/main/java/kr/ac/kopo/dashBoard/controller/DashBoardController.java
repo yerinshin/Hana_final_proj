@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.ac.kopo.dashBoard.service.DashBoardService;
 import kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO;
 import kr.ac.kopo.dashBoard.vo.MonthlySavingVO;
+import kr.ac.kopo.dashBoard.vo.ProductSearchInfoVO;
+import kr.ac.kopo.dashBoard.vo.SavingProductVO;
 import kr.ac.kopo.hanaroAccount.service.HanaroAccountService;
 import kr.ac.kopo.hanaroAccount.vo.HanaroVO;
 import kr.ac.kopo.member.vo.MemberVO;
@@ -77,25 +79,20 @@ public class DashBoardController {
 	}
 	
 	
+	//---------------------------------저축 현황 page---------------------------------
+	
+	//저축 현황 page
 	@GetMapping("/dashBoard/savingAnalysis")
 	public ModelAndView savingAnalysis(HttpServletRequest request) throws Exception{		
 		HttpSession session = request.getSession();
 		MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
 		int userCode = loginMember.getUserCode();
-	//	System.out.println(id);
-		
 	
-	//	List<MonthlySavingVO> monthlySavingList = dashBoardservice.monthlySaving("081000000010");
-	//	System.out.println("controller : "+monthlySavingList);
-	//	ModelAndView mav = new ModelAndView("dashBoard/savingAnalysis");
-		
-	//	mav.addObject("monthlySavingList", monthlySavingList);
 		HanaroVO hanaro = hanaroAccService.selectHanaroAcc(userCode);
 		System.out.println(hanaro);
 		ModelAndView mav = new ModelAndView("dashBoard/savingAnalysis");
 		mav.addObject("savingBalance", hanaro.getSavingBalance());
 		
-	//	return "dashBoard/savingAnalysis";
 		return mav;
 	}
 	
@@ -111,4 +108,19 @@ public class DashBoardController {
 		System.out.println("controller : "+monthlySavingList);
 		return monthlySavingList;
 	}
+	
+	
+	//------예/적금 추천
+	
+	@ResponseBody
+	@PostMapping("/dashBoard/savingProductList")
+	public List<SavingProductVO> savingProductList(@RequestBody ProductSearchInfoVO searchInfo){
+		
+		System.out.println("컨드롤러!" + searchInfo);
+		
+		return null;
+	}
+	
+	
+	
 }
