@@ -3,14 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dashBoard.DashBoardDAO">
-<!-- private int code;					//내역 코드
-	private String accountNo;			
-	private String transCode;	//거래 분류 코드
-	private String splitFrom;
-	private String splitTo;
-	private int transMoney;				//이동 금액
-	private String transDate;			//이동 날짜
-	private String memo; -->
+
 	
 	<resultMap type="splitHistoryVO" id="splitHistoryMap">
 		<result column="split_history_code" property="code" />
@@ -41,16 +34,8 @@
 		<result column="split_date" property="splitDate" />
 	</resultMap> -->
 	
-	<!-- 내 예산 구성 select -->
-	<!-- 내 한달 설정 소비예산(생활금), 저축액(비상금) 조회-->
-<!-- 	<select id="myMonthlySplit" parameterType="string" resultMap="autoSplitMap">
-		select * from tbl_auto_split where account_no= #{accountNo}
-	</select>
 	
-	내 한달 고정 지출액 조회(기본금)
-	<select id="myMonthlyFixedExpense" parameterType="string" resultMap="fixedExpenseMap">
-		select sum(trans_money) as trans_money from fixed_transfer_list where my_acc_no= #{accountNo}
-	</select> -->
+	<!-- 내 예산 구성 select -->
 	<select id="myMonthlySplit" parameterType="string" resultType="monthlyBudgetVO">
 		select money_to_consumption as consumption, money_to_saving as saving 
 			from tbl_auto_split 
@@ -101,5 +86,24 @@
 		 group by(split_to, split_from, to_char(transaction_date, 'yyyy/mm')) order by split_date -->
 	</select>
 	
+	<!-- 검색필터 and 사용자 조건 맞는 예/적금 list -->
+	<select id="savingProductList" parameterType="productSearchInfoVO" resultType="savingProductVO">
+		select s.name as name, s.min_age as minAge, s.max_age as maxAge, s.available_member as availableMember, s.min_money as minMoney, s.max_money as maxMoney, s.p_desc as description, s.p_option as optionCheck, 
+		    r.interest_rate as interestRate, r.min_period as minPeriod, r.max_period as maxPeriod
+		from tbl_saving_product s, tbl_interest_rate r 
+		    where s.name = r.product_name 
+	            and type=#{type}              
+	            and #{age} between s.min_age and s.max_age     
+	            and #{savingMoney} between min_money and max_money  
+	            and #{period} between min_period and max_period   
+	        order by interestRate desc
+	</select>
+	
+	<!-- 상품 별 우대금리 list -->
+	<select id="pRateList" parameterType="string" resultType="preferentialRateVO">
+		select condition, preferential_rate as rate 
+			from tbl_preferential_condition 
+		where product_name=#{name}
+	</select>
 	
 </mapper>

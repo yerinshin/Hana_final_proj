@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO;
+import kr.ac.kopo.dashBoard.vo.PreferentialRateVO;
+import kr.ac.kopo.dashBoard.vo.ProductSearchInfoVO;
+import kr.ac.kopo.dashBoard.vo.SavingProductVO;
 import kr.ac.kopo.hanaroAccount.vo.SplitHistoryVO;
 
 @Repository
@@ -64,6 +67,20 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 		
 	//	System.out.println("6개월 저축액 dao" + savingSplitList);
 		return savingSplitList;
+	}
+
+	//----------------------------------------예/적금 ---------------------------------------
+	//검색 조건 and 고객 조건의 예/적금 list
+	public List<SavingProductVO> savingProductList(ProductSearchInfoVO searchInfo) {
+		
+		List<SavingProductVO> productList = sqlSessionTemplate.selectList("dashBoard.DashBoardDAO.savingProductList", searchInfo);
+		return productList;
+	}
+	
+	//상품 별 우대금리 list
+	public List<PreferentialRateVO> pRateList(String productName) {
+		List<PreferentialRateVO> pRateList = sqlSessionTemplate.selectList("dashBoard.DashBoardDAO.pRateList", productName);
+		return pRateList;
 	}
 	
 	

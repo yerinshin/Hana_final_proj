@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.ac.kopo.dashBoard.service.DashBoardService;
 import kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO;
 import kr.ac.kopo.dashBoard.vo.MonthlySavingVO;
+import kr.ac.kopo.dashBoard.vo.PreferentialRateVO;
 import kr.ac.kopo.dashBoard.vo.ProductSearchInfoVO;
 import kr.ac.kopo.dashBoard.vo.SavingProductVO;
 import kr.ac.kopo.hanaroAccount.service.HanaroAccountService;
@@ -110,17 +111,28 @@ public class DashBoardController {
 	}
 	
 	
-	//------예/적금 추천
+	//------------------------------- 예/적금 추천 --------------------------------------
 	
 	@ResponseBody
 	@PostMapping("/dashBoard/savingProductList")
 	public List<SavingProductVO> savingProductList(@RequestBody ProductSearchInfoVO searchInfo){
 		
-		System.out.println("컨드롤러!" + searchInfo);
+	//	System.out.println("컨드롤러!" + searchInfo);
+		List<SavingProductVO> productList = dashBoardservice.savingProductList(searchInfo);
+		System.out.println(productList);
 		
-		return null;
+		return productList;
 	}
 	
 	
+	@ResponseBody
+	@PostMapping("/dashBoard/preferentialRateList")
+	public List<PreferentialRateVO> preferentialRateList(@RequestBody PreferentialRateVO pRate){
+		//System.out.println(pRate);
+		String productName = pRate.getProductName();
+		List<PreferentialRateVO> pRateList = dashBoardservice.pRateList(productName);
+		
+		return pRateList;
+	}
 	
 }

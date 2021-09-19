@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import kr.ac.kopo.dashBoard.dao.DashBoardDAO;
 import kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO;
 import kr.ac.kopo.dashBoard.vo.MonthlySavingVO;
+import kr.ac.kopo.dashBoard.vo.PreferentialRateVO;
+import kr.ac.kopo.dashBoard.vo.ProductSearchInfoVO;
+import kr.ac.kopo.dashBoard.vo.SavingProductVO;
 import kr.ac.kopo.hanaroAccount.vo.SplitHistoryVO;
 
 @Service
@@ -118,6 +121,22 @@ public class DashBoardServiceImpl implements DashBoardService {
 
 		//System.out.println("저축 service !!! " + monthlySavingList);
 		return monthlySavingList;
+	}
+
+	
+	//--------------------------------------예/적금 -------------------------------------------
+	
+	public List<SavingProductVO> savingProductList(ProductSearchInfoVO searchInfo) {
+		
+		List<SavingProductVO> productList = dao.savingProductList(searchInfo);
+		
+		return productList;
+	}
+
+	public List<PreferentialRateVO> pRateList(String productName) {
+		
+		List<PreferentialRateVO> pRateList = dao.pRateList(productName);
+		return pRateList;
 	}
 
 

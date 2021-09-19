@@ -12,8 +12,8 @@ public class SavingProductVO {
 	private double interestRate;	//기본금리
 	private int minPeriod;			//최소 기간
 	private int maxPeriod;			//최대 기간
-	private String desc;			//상품특징
-	private String option;			//1인1세대, 가입금액, 정립방법
+	private String description;			//상품특징
+	private String optionCheck;			//1인1세대, 가입금액, 정립방법
 	public String getName() {
 		return name;
 	}
@@ -74,28 +74,25 @@ public class SavingProductVO {
 	public void setMaxPeriod(int maxPeriod) {
 		this.maxPeriod = maxPeriod;
 	}
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public String getOption() {
-		return option;
+	public String getOptionCheck() {
+		return optionCheck;
 	}
-	public void setOption(String option) {
-		this.option = option;
+	public void setOptionCheck(String optionCheck) {
+		this.optionCheck = optionCheck;
 	}
 	
 	@Override
 	public String toString() {
 		return "SavingProductVO [name=" + name + ", type=" + type + ", minAge=" + minAge + ", maxAge=" + maxAge
 				+ ", availableMember=" + availableMember + ", minMoney=" + minMoney + ", maxMoney=" + maxMoney
-				+ ", interestRate=" + interestRate + ", minPeriod=" + minPeriod + ", maxPeriod=" + maxPeriod + ", desc="
-				+ desc + ", option=" + option + "]";
+				+ ", interestRate=" + interestRate + ", minPeriod=" + minPeriod + ", maxPeriod=" + maxPeriod
+				+ ", description=" + description + ", optionCheck=" + optionCheck + "]";
 	}
-	
-	
-	
 	
 }

@@ -219,14 +219,60 @@
     	height : 60px;
     	border-radius : 20px;
     }
+    
+    /* ajax style */ 
+    
+    table#resultProductList{
+    	width : 95%;
+    	 margin: auto; 
+     	font-size: 20px; 
+     	border : 3px solid #f9f9f9;
+    }
+    .basicRate {
+    	font-size : 28px;
+    	font-weight : 800;
+    }
+	.div-pRateList {
+		margin-top : 10px;
+		padding-left : 60px;
+	}    
+    .myRateInput {
+    	text-align : right;
+    	border : none;
+    	font-size : 32px;
+    	font-weight : 900;
+    	color :#14b98f;
+    	width : 70px;
+    }
+    
+    input[type=checkbox] {
 
+    width: 20px;
+    height : 20px;
+    margin : 7px;
+
+    }
+    table {
+    	border : 3px soild #f9f9f9;
+    }
+    
+	th {
+		text-align : center;
+		border : 3px solid #f9f9f9;
+	}
+	td {
+		padding : 10px 5px;
+		text-align : left;
+		font-size : 22px;
+		border : 3px solid #f9f9f9;
+	}
 </style>
 <script>
 $(document).ready(function(){
 	 function numberWithCommas(x) {
 		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	} 
-	 
+	
 	 
 	let month
 	let won
@@ -270,7 +316,7 @@ $(document).ready(function(){
 			let temp = '19'+age				//97 -> 1997
 			age = year - temp			//나이 구하기
 		}
-		alert(age)
+	//	alert(age)
 		let url = '${pageContext.request.contextPath}/dashBoard/savingProductList'
 		//data : 상품 type, 나이, 기간 ,저축(예치)금액
 		let data = { type : type, age: age, period : month, savingMoney : won}
@@ -281,14 +327,113 @@ $(document).ready(function(){
 			contentType : 'application/json',
 			url : url,
 			data : JSON.stringify(data),
-			
+			async : false, 
 			success : function(savingProductList){
 				console.log(savingProductList)
+				let json = JSON.parse(savingProductList)
+				
+				let html = ''
+				
+				if(savingProductList.length > 0 ){
+					json.forEach(function(savingProduct){
+						let temp = $('#productListTemplate').text()
+						let pRateListId = savingProduct.name
+							pRateListId = pRateListId.replace(/\s/gi, "")
+							temp = temp.replace(/\{name\}/gi, savingProduct.name)
+										.replace(/\{pRateListId\}/gi, pRateListId)
+										.replace(/\{interestRate\}/gi, savingProduct.interestRate)
+										.replace(/\{nameWithoutSpace\}/gi, pRateListId)
+										/* .replace(/\{category\}/gi, savingProduct.category) */
+							html += temp
+					})
+				}
+							console.log(html)
+							$('#resultProductList').html(html)
+			
 			}
-		})
+		}) /*ajax 끝*/
 	})
 	
+	
+	$(document).on("click", ".btn-addRateList", function (e) { 
+		
+		//alert('dd')
+		//$('#myRate').val('55')
+		let productName = $(this).attr('id')
+		//alert(productName) 
+		
+		let data = { productName : productName }
+		
+		$.ajax({
+			type : 'post',
+			contentType : 'application/json',
+			url : '${pageContext.request.contextPath}/dashBoard/preferentialRateList',
+			data : JSON.stringify(data),
+			success : function(preferentialRateList) {
+				console.log(preferentialRateList)
+				
+				let json = JSON.parse(preferentialRateList)
+				
+				if(preferentialRateList.length > 0) {
+					let html = ''
+					let nameWithoutSpace = productName.replace(/\s/gi, "")   //상품명에서 공백 제거
+					json.forEach(function(pRate){
+						let temp = $('#pRateListTemplate').text()
+						temp = temp.replace(/\{pRate\}/gi, pRate.rate)
+									.replace(/\{condition\}/gi, pRate.condition)
+							 		.replace(/\{nameWithoutSpace\}/gi, nameWithoutSpace) 
+						html +=temp
+					})
+						//productName 은 공백 포함 한글, 공백 지우기
+						let pRateListId = nameWithoutSpace
+						console.log(pRateListId)
+						$('#' + pRateListId).html(html)
+					
+				}
+			}
+			
+		}) 
+	})
+	
+	 $(document).on("change", ".check-pRate", function (e) { 
+		 	let pRate = $(this).val()					//체크 한 우대금리
+	
+		 	let productName = $(this).attr('id')
+		 	console.log(productName)
+		 
+	        if($(".check-pRate").is(":checked")){
+	          //  alert("체크박스 체크했음!");
+	           		
+	           	let myRate = parseFloat($('#'+productName+'myRate').val()) + parseFloat(pRate)
+	           	console.log(myRate)
+	           	$('#'+productName+'myRate').val(myRate.toFixed(2))
+
+	            
+	        }else{
+	           // alert("체크박스 체크 해제!");
+	           	let myRate = parseFloat($('#'+productName+'myRate').val()) - parseFloat(pRate)
+	            $('#'+productName+'myRate').val(myRate.toFixed(2))
+	        }
+	    
+	 })
 })
+</script>
+<script id="productListTemplate" type="text/template">
+	<tr>
+	<td width="25%">{name}</td>
+	<td width="45%">
+		<div class="basicRate">{interestRate}</div>
+		<div class="div-pRateList" id="{pRateListId}">
+
+    	</div>
+	</td>
+	<td width="10%"><input class="myRateInput" id="{nameWithoutSpace}myRate" type="text" value="{interestRate}">%</td>
+	<td width="17%" style="font-size : 25px; font-weight : 700; text-align:right;">{finalMoney}</td>
+	<td><input class="btn-addRateList" type="button" id="{name}" value="더"></td>
+	</tr>
+</script>
+<script id="pRateListTemplate" type="text/template">
+	<input class="check-pRate " id="{nameWithoutSpace}" type="checkbox" name="pRate" value="{pRate}">{condition} : {pRate} <br>
 </script>
 </head>
  <!-- body -->
@@ -445,8 +590,8 @@ $(document).ready(function(){
 					 	<button class="col-md-3">재검색</button>
 					</div>
 					
-					<form>
 						<div class="div-survey">
+					<form>
 						<ul class="survey__box content row" >
 							<li class="survey__item col-md-4">
 								<h5 class="essential">가입기간</h5>
@@ -510,8 +655,43 @@ $(document).ready(function(){
 								</li> -->
 							</ul>
 							
-						</div><!-- 재검색 border -->
 					</form>
+						</div><!-- 재검색 border -->
+						<div id="table-product">
+							<table style="width : 95%; margin: auto; font-size: 20px; background: #f9f9f9; border-top : 5px solid #14b98f;">
+								<tr style="height : 80px;">
+									<th width="25%">상품명</th>
+									<th width="40%">기본금리/우대금리/최대금리</th>
+									<th width="10%">기준 적용 금리</th>
+									<th width="17%">만기지급금</th>
+									<th>더</th>
+								</tr>
+								
+							</table>
+							<table id="resultProductList">
+								<tr>
+	<td width="25%">하나적금 적금</td>
+	<td width="40%">
+		<div class="basicRate">0.8<span style="font-size : 20px;">%</span> 
+					+ <span style="color : #14b98f; font-size : 20px;">우대금리</span>
+					<span style="color : #14b98f">1.3</span>
+					<span style="color : #14b98f;font-size : 20px;">%</span>
+					 = <span style="font-size : 20px;">최대금리 </span> 
+					 2.1 <span style="font-size : 20px;">%</span>
+		</div>
+		<div class = "div-pRateList" id="{pRateListId}">
+<input class="check-pRate " id="{nameWithoutSpace}" type="checkbox" name="pRate" value="{pRate}">1년이상 유지 시 : 0.5</label> <br>
+<input class="check-pRate " id="{nameWithoutSpace}" type="checkbox" name="pRate" value="{pRate}">1년이상 유지 시 : 0.5 <br>
+<input class="check-pRate " id="{nameWithoutSpace}" type="checkbox" name="pRate" value="{pRate}">1년이상 유지 시 : 0.5 <br>
+
+    	</div>
+	</td>
+	<td width="10%"><input class="myRateInput" id="{nameWithoutSpace}myRate" type="text" value="0.2">%</td>
+	<td width="17%" style="font-size : 25px; font-weight : 700; text-align:right;">6,015,000원</td>
+	<td><input class="btn-addRateList" type="button" id="{name}" value="더"></td>
+	<tr>
+							</table>
+						</div>
 				</div>
 			</div>
 		</div>
