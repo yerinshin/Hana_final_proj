@@ -331,9 +331,9 @@ $(document).ready(function(){
 			
 			<div class="widget-tabs-list">
 			<ul class="nav nav-tabs">
-				<li class=""><a href="${pageContext.request.contextPath}/spending/myCalendar">가계부</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/spending/myCalendar">가계부</a></li>
 				<li class=""><a href="${pageContext.request.contextPath}/spending/spendingAnalysis" >소비현황</a></li>
-				<li class="active"><a href="${pageContext.request.contextPath}/spending/challenge">도전하기</a></li>
+				<li class=""><a href="${pageContext.request.contextPath}/spending/challenge">도전하기</a></li>
 			</ul>
 			
 			

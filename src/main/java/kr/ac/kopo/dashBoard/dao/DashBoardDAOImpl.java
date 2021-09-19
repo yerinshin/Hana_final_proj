@@ -57,11 +57,12 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 		
 		return agesAvgFixedExpense;
 	}
-
+	
+	// 최근 6개월 달별 저축액 
 	public List<SplitHistoryVO> monthlySaving(String accountNo) {
 		List<SplitHistoryVO> savingSplitList = sqlSessionTemplate.selectList("dashBoard.DashBoardDAO.monthlySaving", accountNo);
 		
-		System.out.println(savingSplitList);
+	//	System.out.println("6개월 저축액 dao" + savingSplitList);
 		return savingSplitList;
 	}
 	

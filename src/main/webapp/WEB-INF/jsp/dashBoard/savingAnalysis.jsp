@@ -15,6 +15,82 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/animate.css">
 
 <style>
+	body {
+	    /* background: #f8f8ff3b; */
+	    /*#fbfbfb*/
+    font-family: "Noto Sans Korean","Apple SD Gothic Neo","Nanum Barun Gothic","Malgun Gothic","돋옴",Dotum,sans-serif;
+    }
+    
+ /*    .survey__item{
+    	margin : 20px;
+    }
+     */
+    .input_month, .input_won {
+        background: white;
+	    color: #14b98f;
+	    font-size : 30px;
+	    font-weight: 700;
+	    height: 50px;
+	    width: 270px;
+	    border: none;
+	    border-bottom: 3px solid #16c89b;
+	    text-align: right;
+    }
+    
+    .ul-month, .ul-won {
+    	margin : 10px 0 0 0px;
+    }
+    
+    .btn-month, .btn-won {
+    	font-size : 18px;
+    	border : none;
+    	font-weight : 530;
+    	width : 70px;
+    	height : 35px;
+    	margin : 2px;
+    }
+    
+    .input_span {
+    color : darkslategray;
+    font-size : 21px;
+    font-weight: 600;
+    }
+    
+     input[type=radio] {
+    	display : none;
+    	margin : 10px;
+    } 
+    
+    input[type=radio] + label {
+  		margin : 5px;
+    	padding-top : 10px;
+    	font-size : 22px;
+    	text-align : center;
+    	display : inline-block;
+    	border : 3px solid #16c89b;
+    	width : 230px;
+    	height : 60px;
+    	
+    }
+    input[type=radio]:checked + label {
+    	background-color : #16c89b;
+    	color : white;
+    }
+    
+
+    
+    .survey__box {
+    	 /* background: #fbfbfb; */
+    	border : 1px solid #fbfbfb;
+    	margin : 60px 30px;
+    }
+    
+    .survey__item {
+   
+    	padding: 40px 20px;
+    	border-bottom: 1px dotted #dddddd;
+    }
+    
 	 #main-layout {
 		width : 90%;
 		margin: 0 auto;
@@ -45,7 +121,7 @@
     }
 	
 	section {
-    	width : 1200px;
+    	width : 1300px;
     }
     .nav-tabs>li {
 	    border: 2px solid lightgray;
@@ -64,13 +140,12 @@
 		margin-bottom : 30px;
 		margin-top : 30px;
 	}
-	
+	.essential{
+		/* text-align: center; */
+	padding-left : 10px;	
+	font-size : 20px;
+	}
 
-/* 	ul.nav.nav-tabs::after {
-	
-		background-color :#00c292;
-
-} */
 
 	.title {
 		padding-bottom : 0px;
@@ -136,27 +211,54 @@
 		margin-top : 15px;
 		margin-left :20px;
 	}
-/* 	
-	.skill .progress-bar > span {
-	background: #333 none repeat scroll 0 0;
-    margin-right: 10px;
-    margin-top: -40px;
-    width : 70px;
+	
+	    .btn-submit {
+   		font-size : 22px;
+    	margin-top: 45px;
+    	width : 200px;
+    	height : 60px;
+    	border-radius : 20px;
+    }
 
-}
-
-.skill-content-3 {
-    margin-top: 35px;
-    overflow: hidden;
-}
-.skill .progress {
-    background-color: darkgray;
-    height: 15px;
-}
-.skill .progress:nth-child(1) .progress-bar {
-    background: #e46a76;
-} */
 </style>
+<script>
+$(document).ready(function(){
+	 function numberWithCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	} 
+	 
+	 
+	let month
+	let won
+	let totalPay
+	$('.btn-month').click(function(){
+		month = $(this).attr('id')
+	//	alert(month)
+		$('#input_month').val(month)
+		
+		if($('#input_won').val() != '' ){
+			
+			totalPay = month * won
+			$('#input_total_pay').val(totalPay)
+			$('#input_total_pay_comma').val(numberWithCommas(totalPay))
+		} else {
+			$('#input_total_pay_comma').val('')
+		}
+		
+	})
+	
+	$('.btn-won').click(function() {
+		won = $(this).attr('id')
+		$('#input_won').val(won)
+		$('#input_won_comma').val(numberWithCommas(won))
+		totalPay = month * won
+	//	alert(totalPay)
+		$('#input_total_pay').val(totalPay)
+		$('#input_total_pay_comma').val(numberWithCommas(totalPay))
+	})
+	
+})
+</script>
 </head>
  <!-- body -->
 <body class="main-layout">
@@ -251,7 +353,7 @@
                         </div>
 						
 					</div>
-						<div class="border-box">
+					<div class="border-box">
 						<div class="title col">		
 						<h2 id="title-h2">내 저축<strong class="black"> 현황</strong></h2>				
 						</div>
@@ -262,9 +364,13 @@
 				    <div class="bar-chart-area">
 				        <div class="container">
 				       		<div class="row">
-				             	<div class="col-md-1">
-				             	</div>
-				                <div class="col-md-7">
+				             	
+				                <div class="col-md-6">
+				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
+				                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
+				                    </div>
+				                </div>
+				                <div class="col-md-6">
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
 				                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
 				                    </div>
@@ -297,14 +403,87 @@
 				        
 				    </div>
 				    <!-- Bar Chart area End-->
-					(최근 6개월)한달 평균 저축액 :<br>
-					저축액 쌓여가는 그래프 ...????
+					<h2>(최근 6개월)한달 평균 저축액 : 00만원</h2>	
+					<h2> 하나로 통장 총 보유 저축금 : 480만원</h2>
+					
 					</div>
 					 <div id="menu-title"> 추천 예/적금 상품 </div>
 					
+					<div class="row">
+					 	<h2 class="col-md-9">금융비서가 찾은 최적의 정기 예금/적금 상품입니다</h2>
+					 	<button class="col-md-3">재검색</button>
 					</div>
+					
+					<form>
+						<div class="div-survey">
+						<ul class="survey__box content row" >
+							<li class="survey__item col-md-4">
+								<h5 class="essential">가입기간</h5>
+								<div class="form__input month">
+									<input name="period" id="input_month" class="input_month" type="number" >
+									<span class="input_span">개월</span>
+								</div>
+								<ul class="ul-month row">
+									<li><input class="btn-month" type="button" id="6" value="6개월" ></li>
+									<li><input class="btn-month" type="button" id="12" value="12개월" ></li>
+									<li><input class="btn-month" type="button" id="24" value="24개월" ></li>
+									<li><input class="btn-month" type="button" id="36" value="36개월" ></li>
+								</ul>
+							</li>
+							<li class="survey__item col-md-4">
+								<h5 class="essential">월 납입금액</h5>
+								<div class="form__input won">
+									<input id="input_won" class="input_won" type="hidden" name="won">
+									<input id="input_won_comma" class="input_won" type="text" placeholder="" disabled>
+									<span class="input_span">원</span>
+								</div>
+								<ul class="ul-won row">
+									<li><input class="btn-won" type="button" id="100000" value="10만원" ></li>
+									<li><input class="btn-won" type="button" id="300000" value="30만원" ></li>
+									<li><input class="btn-won" type="button" id="500000" value="50만원" ></li>
+									<li><input class="btn-won" type="button" id="1000000" value="100만원" ></li>	
+								</ul>
+							</li>
+								<li class="survey__item col-md-4">
+								<h5 class="essential">총 저축금액</h5>
+								<div class="form__input won">
+									<input id="input_total_pay" class="input_won" type="hidden" >
+									<input id="input_total_pay_comma" class="input_won" type="text" placeholder="" disabled>
+									<span class="input_span">원</span>
+								</div>
+								
+							</li>
+							<li class="survey__item col-md-9">
+								<h5 class="essential">상품 분류</h5>
+								<ul class="form__radio row">
+									<li><input type="radio" class="input_type" name="type" value="2001" id="type1"><label for="type1">정기예금</label></li>
+									<li><input type="radio" class="input_type" name="type" value="2002" id="type2"><label for="type2">정기적금</label></li>
+									<li><input type="radio"class="input_type" name="type" value="2003" id="type3"><label for="type3">자유적금</label></li>
+								</ul>
+							</li>
+							<li class="survey__item col-md-3">
+								
+								<input class="btn-submit send" type="submit" value="결과보기">
+							</li>
+							<!-- 	<li class="survey__item">
+								<h5 class="essential">원하는 가입경로</h5>
+								<ul class="form__check button"><li>
+								<input type="checkbox" id="eba650" value="on"
+								><label for="eba650">모바일뱅킹</label></li>
+								<li><input type="checkbox" id="eba651" value="on">
+								<label for="eba651">영업점</label></li>
+								<li><input type="checkbox" id="eba652" value="on">
+								<label for="eba652">인터넷뱅킹</label></li>
+								<li><input type="checkbox" id="eba653" value="on">
+								<label for="eba653">콜센터</label></li></ul>
+								</li> -->
+							</ul>
+							
+						</div><!-- 재검색 border -->
+					</form>
 				</div>
 			</div>
+		</div>
 		
 
 	
@@ -453,5 +632,4 @@ $(document).ready(function(){
 		
 	})(jQuery);
 </script>
-
 </html>

@@ -116,7 +116,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 		 * System.out.println("sort : "+mapkey); }
 		 */
 
-		System.out.println(monthlySavingList);
+		//System.out.println("저축 service !!! " + monthlySavingList);
 		return monthlySavingList;
 	}
 
