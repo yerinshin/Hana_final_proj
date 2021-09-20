@@ -10,6 +10,7 @@ public class SavingProductVO {
 	private int minMoney;			//납부최소급액 or 예치최소금액
 	private int maxMoney;			//납부 최대금액 or 예치최대금액
 	private double interestRate;	//기본금리
+	private double maxPRate;		//최대 우대금리
 	private int minPeriod;			//최소 기간
 	private int maxPeriod;			//최대 기간
 	private String description;			//상품특징
@@ -62,6 +63,13 @@ public class SavingProductVO {
 	public void setInterestRate(double interestRate) {
 		this.interestRate = interestRate;
 	}
+	
+	public double getMaxPRate() {
+		return maxPRate;
+	}
+	public void setMaxPRate(double maxPRate) {
+		this.maxPRate = maxPRate;
+	}
 	public int getMinPeriod() {
 		return minPeriod;
 	}
@@ -91,8 +99,10 @@ public class SavingProductVO {
 	public String toString() {
 		return "SavingProductVO [name=" + name + ", type=" + type + ", minAge=" + minAge + ", maxAge=" + maxAge
 				+ ", availableMember=" + availableMember + ", minMoney=" + minMoney + ", maxMoney=" + maxMoney
-				+ ", interestRate=" + interestRate + ", minPeriod=" + minPeriod + ", maxPeriod=" + maxPeriod
-				+ ", description=" + description + ", optionCheck=" + optionCheck + "]";
+				+ ", interestRate=" + interestRate + ", maxPRate=" + maxPRate + ", minPeriod=" + minPeriod
+				+ ", maxPeriod=" + maxPeriod + ", description=" + description + ", optionCheck=" + optionCheck + "]";
 	}
+	
+	
 	
 }

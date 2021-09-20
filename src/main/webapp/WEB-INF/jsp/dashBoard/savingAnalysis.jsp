@@ -221,6 +221,7 @@
     }
     
     /* ajax style */ 
+
     
     table#resultProductList{
     	width : 95%;
@@ -233,16 +234,18 @@
     	font-weight : 800;
     }
 	.div-pRateList {
-		margin-top : 10px;
+		margin-top : 20px;
 		padding-left : 60px;
 	}    
     .myRateInput {
+    	/* font-style: italic; */
     	text-align : right;
     	border : none;
     	font-size : 32px;
     	font-weight : 900;
     	color :#14b98f;
     	width : 70px;
+  
     }
     
     input[type=checkbox] {
@@ -252,6 +255,11 @@
     margin : 7px;
 
     }
+    .btn-addRateList {
+    	border : none;
+    	background-color : white;
+    }
+    
     table {
     	border : 3px soild #f9f9f9;
     }
@@ -269,10 +277,27 @@
 </style>
 <script>
 $(document).ready(function(){
-	 function numberWithCommas(x) {
+	 $('.div-survey').hide()
+	
+	function numberWithCommas(x) {
 		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	} 
 	
+	//적금 만기 지급액
+	function interestCalculator(rate, payment, term ){
+		let totalInterest = payment * term * (term + 1 )/2 * rate /12;
+		let finalMoney = term * payment + totalInterest
+		finalMoney = finalMoney.toFixed(0)
+		
+		return finalMoney
+	}
+	
+	//재검색 버튼 click!
+	$('#btn-search').click(function(){
+		
+		$('.div-survey').show()
+	})
+	 
 	 
 	let month
 	let won
@@ -334,20 +359,30 @@ $(document).ready(function(){
 				
 				let html = ''
 				
+				let tableTitle = $('#tableTitleTemplate').text()
 				if(savingProductList.length > 0 ){
 					json.forEach(function(savingProduct){
 						let temp = $('#productListTemplate').text()
 						let pRateListId = savingProduct.name
 							pRateListId = pRateListId.replace(/\s/gi, "")
-							temp = temp.replace(/\{name\}/gi, savingProduct.name)
-										.replace(/\{pRateListId\}/gi, pRateListId)
-										.replace(/\{interestRate\}/gi, savingProduct.interestRate)
-										.replace(/\{nameWithoutSpace\}/gi, pRateListId)
+						let maxInterestRate =  (savingProduct.interestRate + savingProduct.maxPRate).toFixed(2)
+						console.log(won + ':' + month)
+						let finalMoney = interestCalculator(savingProduct.interestRate /100, parseInt(won), parseInt(month))
+							temp = temp.replace(/\{name\}/gi, savingProduct.name)					//상품명
+										.replace(/\{pRateListId\}/gi, pRateListId)					//우대금리 list div의 id
+										.replace(/\{interestRate\}/gi, savingProduct.interestRate)	//기본 금리
+										.replace(/\{maxPRate\}/gi, savingProduct.maxPRate)	//기본 금리
+										.replace(/\{maxInterestRate\}/gi, maxInterestRate)	//기본 금리
+										.replace(/\{nameWithoutSpace\}/gi, pRateListId)				//내 기준 적용 금리
+										.replace(/\{finalMoney\}/gi, numberWithCommas(finalMoney))				//내 금리 적용 만기 지급액
+										
 										/* .replace(/\{category\}/gi, savingProduct.category) */
+								
 							html += temp
 					})
-				}
+				}			
 							console.log(html)
+							$('#tableTitle').html(tableTitle)
 							$('#resultProductList').html(html)
 			
 			}
@@ -355,6 +390,7 @@ $(document).ready(function(){
 	})
 	
 	
+	//상품 별 우대금리 목록 보기
 	$(document).on("click", ".btn-addRateList", function (e) { 
 		
 		//alert('dd')
@@ -400,40 +436,62 @@ $(document).ready(function(){
 	
 		 	let productName = $(this).attr('id')
 		 	console.log(productName)
-		 
-	        if($(".check-pRate").is(":checked")){
+		 	let finalMoney
+		 	let myRate
+	        if($(this).is(":checked")){
 	          //  alert("체크박스 체크했음!");
 	           		
-	           	let myRate = parseFloat($('#'+productName+'myRate').val()) + parseFloat(pRate)
+	           	myRate = parseFloat($('#'+productName+'myRate').val()) + parseFloat(pRate)
 	           	console.log(myRate)
 	           	$('#'+productName+'myRate').val(myRate.toFixed(2))
-
+				finalMoney = interestCalculator(myRate /100, parseInt(won),parseInt(month))
+				$('.'+productName).text(numberWithCommas(finalMoney) +'원')
+				
 	            
 	        }else{
 	           // alert("체크박스 체크 해제!");
-	           	let myRate = parseFloat($('#'+productName+'myRate').val()) - parseFloat(pRate)
+	           	myRate = parseFloat($('#'+productName+'myRate').val()) - parseFloat(pRate)
 	            $('#'+productName+'myRate').val(myRate.toFixed(2))
+	            finalMoney = interestCalculator(myRate /100, parseInt(won),parseInt(month))
+	            $('.'+productName).text(numberWithCommas(finalMoney) +'원')
 	        }
 	    
 	 })
 })
 </script>
+<script id="tableTitleTemplate" type="text/template">
+		<tr style="height : 80px;">
+			<th width="25%">상품명</th>
+			<th width="44%">기본금리/우대금리/최대금리</th>
+			<th width="10%">내 금리</th>
+			<th width="17%">만기지급금</th>
+			<th></th>
+		</tr>								
+</script>					 
 <script id="productListTemplate" type="text/template">
 	<tr>
-	<td width="25%">{name}</td>
+	<td width="25%" style="text-align : center;">{name}</td>
 	<td width="45%">
-		<div class="basicRate">{interestRate}</div>
+		<div class="basicRate">
+		{interestRate}<span style="font-size : 18px;">%</span>
+		+ <span style="color : #14b98f; font-size : 18px;">우대금리 최대</span>
+		<span style="color : #14b98f">{maxPRate}</span>
+		<span style="color : #14b98f;font-size : 18px;">%</span>
+		= <span style="font-size : 18px;">최대금리 </span>
+		<span style="font-size : 30px;"><i>{maxInterestRate}</i></span>
+		<span style="font-size : 18px;">%</span>
+		</div>
 		<div class="div-pRateList" id="{pRateListId}">
 
     	</div>
 	</td>
 	<td width="10%"><input class="myRateInput" id="{nameWithoutSpace}myRate" type="text" value="{interestRate}">%</td>
-	<td width="17%" style="font-size : 25px; font-weight : 700; text-align:right;">{finalMoney}</td>
-	<td><input class="btn-addRateList" type="button" id="{name}" value="더"></td>
+	<td class="{nameWithoutSpace}" width="17%" style="font-size : 26px; font-weight : 700; text-align:right;">{finalMoney}원</td>
+	<td><input class="btn-addRateList" type="button" id="{name}" value="▼"></td>
 	</tr>
 </script>
 <script id="pRateListTemplate" type="text/template">
-	<input class="check-pRate " id="{nameWithoutSpace}" type="checkbox" name="pRate" value="{pRate}">{condition} : {pRate} <br>
+	<input class="check-pRate " id="{nameWithoutSpace}" type="checkbox" name="pRate" value="{pRate}">{condition} :<b style="color : #14b98f"> {pRate}</b>% <br>
 </script>
 </head>
  <!-- body -->
@@ -545,11 +603,13 @@ $(document).ready(function(){
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
 				                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
 				                    </div>
+				                    <h2>(최근 6개월)한달 평균 저축액 : 00만원</h2>	
 				                </div>
 				                <div class="col-md-6">
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
-				                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
+				                        <canvas height="140vh" width="180vw" id="linechart"></canvas>
 				                    </div>
+				                    <h2> 하나로 통장 총 보유 저축금 : 480만원</h2>
 				                </div>
 				            </div>
 				<!--            <div class="row">
@@ -579,15 +639,17 @@ $(document).ready(function(){
 				        
 				    </div>
 				    <!-- Bar Chart area End-->
-					<h2>(최근 6개월)한달 평균 저축액 : 00만원</h2>	
-					<h2> 하나로 통장 총 보유 저축금 : 480만원</h2>
+
 					
 					</div>
 					 <div id="menu-title"> 추천 예/적금 상품 </div>
 					
 					<div class="row">
-					 	<h2 class="col-md-9">금융비서가 찾은 최적의 정기 예금/적금 상품입니다</h2>
-					 	<button class="col-md-3">재검색</button>
+					 	<h2 class="col-md-8">금융비서가 찾은 최적의 정기 예금/적금 상품입니다</h2>
+					 	<button style="background :white; border : none; font-size : 28px; padding-left : 120px;" id="btn-search" class="col-md-3">
+					 		<b>재검색</b>
+					 		<img style="width : 45px; margin-left : 5px" id="img-search" src="${pageContext.request.contextPath}/resources/icon/research2.png">
+					 		</button>
 					</div>
 					
 						<div class="div-survey">
@@ -658,18 +720,18 @@ $(document).ready(function(){
 					</form>
 						</div><!-- 재검색 border -->
 						<div id="table-product">
-							<table style="width : 95%; margin: auto; font-size: 20px; background: #f9f9f9; border-top : 5px solid #14b98f;">
-								<tr style="height : 80px;">
+						<table id="tableTitle" style="width : 95%; margin: auto; font-size: 20px; background: #f9f9f9; border-top : 5px solid #14b98f;">
+							<!-- 	<tr style="height : 80px;">
 									<th width="25%">상품명</th>
 									<th width="40%">기본금리/우대금리/최대금리</th>
 									<th width="10%">기준 적용 금리</th>
 									<th width="17%">만기지급금</th>
 									<th>더</th>
-								</tr>
+								</tr> -->
 								
 							</table>
 							<table id="resultProductList">
-								<tr>
+	<!-- 							<tr>
 	<td width="25%">하나적금 적금</td>
 	<td width="40%">
 		<div class="basicRate">0.8<span style="font-size : 20px;">%</span> 
@@ -689,7 +751,7 @@ $(document).ready(function(){
 	<td width="10%"><input class="myRateInput" id="{nameWithoutSpace}myRate" type="text" value="0.2">%</td>
 	<td width="17%" style="font-size : 25px; font-weight : 700; text-align:right;">6,015,000원</td>
 	<td><input class="btn-addRateList" type="button" id="{name}" value="더"></td>
-	<tr>
+	<tr> -->
 							</table>
 						</div>
 				</div>
@@ -728,6 +790,7 @@ $(document).ready(function(){
 
 	var monthArr=[]
 	var savingArr=[]
+	let lineChartData=[]
 	getMonthlySaving() 
 		
 		
@@ -749,18 +812,22 @@ $(document).ready(function(){
 				console.log(' json !!: ' + monthlySavingList)
 				
 				if(monthlySavingList.length > 0 ) {	
-					
+					let sum = 0
 					json.forEach(function(monthlySaving){
 						console.log(monthlySaving)
 						let month ="'"+ monthlySaving.month + '월'+"'"
 						monthArr.push(month)
 						savingArr.push(monthlySaving.savingMoney/10000)
-					
+						
+						sum += monthlySaving.savingMoney/10000
+						lineChartData.push(sum)
+						
 					})	
 					text='<script>'
 					let temp = $('#graphTemplate').text()
 					temp = temp.replace(/\{label\}/gi, '[' + monthArr + ']')
 						   		.replace(/\{data\}/gi,'['+ savingArr +']')
+						   		.replace(/\{lineData\}/gi,'['+ lineChartData +']')
 						   		
 					text +=temp
 					text +='</script' + '>'
@@ -827,6 +894,36 @@ $(document).ready(function(){
 						'rgba(75, 192, 192, 1)'
 					],
 					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		})
+
+		 /*----------------------------------------*/
+		/*  2.  line Chart
+		/*----------------------------------------*/
+
+		ctx = document.getElementById("linechart");
+		var linechart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: {label},
+				datasets: [{
+					label: 'line Chart',
+					data: {lineData},
+					fill: true,
+					backgroundColor :'#78d0d085',
+    				borderColor: 'rgb(75, 192, 192)',
+   					tension: 0.1,
+					borderWidth: 4
 				}]
 			},
 			options: {
