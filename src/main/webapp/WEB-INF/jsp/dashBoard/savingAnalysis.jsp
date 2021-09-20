@@ -603,7 +603,7 @@ $(document).ready(function(){
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
 				                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
 				                    </div>
-				                    <h2>(최근 6개월)한달 평균 저축액 : 00만원</h2>	
+				                    <h2>(최근 6개월)한달 평균 저축액 : 80만원</h2>	
 				                </div>
 				                <div class="col-md-6">
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">

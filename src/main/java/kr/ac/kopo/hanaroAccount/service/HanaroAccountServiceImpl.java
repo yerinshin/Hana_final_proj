@@ -85,8 +85,10 @@ public class HanaroAccountServiceImpl implements HanaroAccountService {
 		System.out.println(historyList);
 		return historyList;
 	}
-
 	
-	
+	//급여액, 급여일 설정
+	public void setSalary(HanaroVO hanaro) {
+		hanaroAccountDAO.setSalary(hanaro);
+	}	
 	
 }

@@ -52,7 +52,7 @@
     }
 	
 	section {
-    	width : 1200px;
+    	width : 1300px;
     }
     .nav-tabs>li {
 	    border: 2px solid lightgray;
@@ -85,7 +85,7 @@
 	}
 */
 	.border-box {
-		padding : 30px;
+		padding : 40px;
 		border : 2px solid #dddddd; 
 		border-radius : 5px;
 		margin-bottom : 30px;
@@ -103,11 +103,7 @@
 	     font-size: 30px;
      }
 	
-/* 	#trans-info-col {
-		width : 25%;
-		text-align : center;
-		
-	} */
+
 	
 	#btn-add, .btn-delete {
 		margin: 0px 0 0 10px;
@@ -115,38 +111,6 @@
 		padding :0px;
 	}
 	
-/* 	#trans-money-col {
-		text-align : right ;
-		padding-right :150px;
-	}
-
-	
-	th#trans-date-col{
-		width : 40%;
-		text-align : center;
-	}
-	th#send-trans-money {
-		color : #d74351;
-		text-align:right;
-		padding-right :150px;
-	} */
-	
-/* 	th#receive-trans-money {
-		color : #0c7ffa;
-		text-align:right;
-		padding-right :150px;
-	} */
-	
-/* 	th#trans-date-col, th#trans-info-col ,th#trans-money-col {
-		font-size: 21px;
-   		line-height: 40px;
-} */
-	
-/* 	
- 	#addFixedExpense {
-		display : none;
-	}
-	  */
 	
 .title {
 padding-bottom : 0px;
@@ -167,13 +131,15 @@ padding-bottom : 0px;
 }
 
 #table thead tr th{
-	font-size : 21px;
+	color : black;
+	font-size : 23px;
 	text-align : center;
 	line-height : 40px;
 }
 
 #table tbody tr td {
-	font-size : 21px;
+color : black;
+	font-size : 23px;
 	text-align : center;
 	line-height : 40px;
 }
@@ -199,10 +165,126 @@ padding-bottom : 0px;
    #btn-add-div {
    		padding-right: 0px;
    }
+   
+	input#fixed_sum2 {
+		text-align : right;
+	    font-size: 35px;
+	    background-color: white;
+	    border: none;
+	    width: 180px;
+	    font-weight: bold;
+	    margin: 20px 0px;
+	}
+	
+	.input-cal {
+		width : 280px;
+		text-align : right;
+		font-size : 30px;
+		padding-right : 10px;
+	}
+	
+	.input_month {
+        background: white;
+	    color: #14b98f;
+	    font-size : 30px;
+	    font-weight: 700;
+	    height: 50px;
+	    width: 370px;
+	    border: none;
+	    border-bottom: 1px solid #16c89b;
+	    text-align: right;
+	    margin : 5px;
+    } 
+    
+   .btn-auto {
+    	background-color :#009b9d;
+    	color : white;
+    	border-radius : 5px;
+    	width : 65px;
+    	height : 45px;
+    	margin-top : 5px;
+    }
+    
 </style>
 <script>
 $(document).ready(function() {
 	
+	let userCode = ${loginMember.userCode}	//usercode	
+ 	
+	
+	getSalary() 
+	
+	//설정 버튼
+	$('#btn-setSalary').click(function(){
+		
+		let payday = $('#select-payday').val()
+		let tmp_payday = $('#select-payday').val().split(' ');  
+		payday = tmp_payday[1];
+		let salary = $('#totalBudget').val()
+		
+		let data = {payDay : payday, salary : salary}
+		console.log(data)
+		
+		$.ajax({
+			type: 'post',
+			contentType : 'application/json',
+			url : '${pageContext.request.contextPath}/hanaro/setSalary',
+			data : JSON.stringify(data),
+			success : function() {
+				getSalary()
+			}
+		})
+			
+	}) 
+	
+	//수정버튼
+ 	$('#btn-updateSalary').click(function(){
+ 		
+ 	 	let html = $('#updateSalaryTemplate').text()
+ 		$('#div-salary').html(html)
+	}) 
+	
+	//내 설정 월급 가져오기
+	
+	function getSalary() {
+		
+		let data = { userCode : userCode }	
+		
+		$.ajax({
+			type: 'post',
+			contentType : 'application/json',
+			url : '${pageContext.request.contextPath}/hanaro/getSalary',
+			data : JSON.stringify(data),
+			async : false,
+			success : function(hanaro){
+				let hanaroAccount = JSON.parse(hanaro)
+				console.log(hanaro)
+				let html = ''
+				if(hanaroAccount.payDay != null){
+					html = $('#getSalaryTemplate').text()
+					html = html.replace(/\{salary\}/gi, hanaroAccount.salary)
+								.replace(/\{payDay\}/gi, hanaroAccount.payDay)	
+					console.log(html)
+				} else {
+					html = $('#updateSalaryTemplate').text()
+				}
+				
+				$('#div-salary').html(html)
+			}
+		})
+	} 
+	
+	
+	//이체일 설정
+	//생활금
+	
+	//저축금
+})
+</script>
+<script>
+$(document).ready(function() {
+	
+
 	var myAccNo = ${accountNo}
 /* 	var totalExpense = 0 */
 	getFixedExpense() 
@@ -474,6 +556,7 @@ function numberWithCommas(x) {
 			});
 	});
 </script>
+
 <script id = "fixedExpenseTemplate" type="text/template">
 <table class="table" id="table">
  <tbody>
@@ -495,24 +578,58 @@ function numberWithCommas(x) {
 </tbody>
 </table>
 </script>
-<script id="addFixedExpense" type="text/template">
-<table class="table">
- <tbody>
-	    <tr>
-			<th><input></th>
-			<th>{transDate}일</th>    
-			<th> {transMoney} 원</th>
-		</tr>
-</tbody>
-</table>
+<script id="updateSalaryTemplate" type="text/template">
+	<div class="title">						
+			 <h2 id="title-h2" style="margin-bottom : 0px">월 급여 <strong class="black">설정</strong>
+			 </h2>
+			 <h4  style="font-size: 20px; margin-bottom:35px;">
+				월 급여액을 입력하면 정확한 예산 설정이 가능합니다</h4>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-3">
+			<select id="select-payday" style="width : 180px; font-size : 25px;" class="input_month" name="setDate">					
+					<c:forEach begin="1" end="28" var="x">
+						<option>매달
+							<c:out value="${x}" /> 일
+						</option>
+						<br>
+					</c:forEach>
+			</select>
+			</div>
+			<div class="col-md-5">
+			<input class="input_month" type="text"
+				id="totalBudget" name="totalBudget" onkeyup="numberWithCommas(this.value)"
+				value="">
+				<span style="color: #14b98f; font-size : 26px; font-weight: 700;">원</span>					
+			</div>
+			<div class="col-md-2">
+			<button id="btn-setSalary" class="send" style="width: 80px; border-radius:15px; margin:10px 0;"><b>설정</b></button>
+		</div>								
+	</div>		
+</script>
+<script id="getSalaryTemplate" type="text/template">
+	<div class="row">
+		<div class="title col">
+			 <h2 id="title-h2">월<strong class="black">급여액 </strong></h2>
+		</div>
+		<div class="col-md-5">
+			<input class="input_month" type="text"
+				style="border : none; width : 300px;"
+				id="totalBudget" name="totalBudget" onkeyup="numberWithCommas(this.value)"
+				value="{salary}"><span style="font-size : 22px; font-weight: 700;">원 (매달 {payDay}일)</span>						
+		</div>
+		<div class="col-md-2">
+		<button id="btn-updateSalary" class="send" style="width: 80px; border-radius:15px; margin:10px 0;">
+			<b>수정</b></button>
+		</div>	
+	</div>
 </script>
 </head>
  <!-- body -->
 <body class="main-layout">
       <!-- loader  -->
-      <div class="loader_bg">
-         <div class="loader"><img src="${ pageContext.request.contextPath }/resources/images/loading.gif" alt="#" /></div>
-      </div>
+
       <!-- end loader --> 
       <!-- header -->
       <header>
@@ -550,20 +667,61 @@ function numberWithCommas(x) {
 			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li>
 			</ul>
 			
-			  <div class="border-box">
-				<!-- *******한달 예산****** -->
-							<div class="row">
+			  <div class="border-box" id="div-salary">
+			  					<div class="row">
 								<div class="title col">
 									 <h2 id="title-h2">월<strong class="black">급여액 </strong></h2>
-									<p>월 급여액을 입력하면 정확한 예산 설정이 가능합니다</p>
 								</div>
 								
-								<div class="col">
-									<input class="form-control form-control-lg" type="text"
+								<div class="col-md-5">
+									<input class="input_month" type="text"
+										style="border : none; width : 300px;"
 										id="totalBudget" name="totalBudget" onkeyup="numberWithCommas(this.value)"
-										value="${ hanaro.totalBudget }">						
+										value="{2000000}"><span style="font-size : 22px; font-weight: 700;">원 (매달 {2}일)</span>						
 								</div>
-							</div>
+								<div class="col-md-2">
+								<button id="btn-updateSalary" class="send" style="width: 80px; border-radius:15px; margin:10px 0;">
+									<b>수정</b></button>
+									</div>	
+								</div>
+							
+				<!-- *******한달 예산****** -->
+							
+								<div class="title">
+							
+									 <h2 id="title-h2" style="margin-bottom : 0px">월 급여 <strong class="black">설정</strong>
+									 </h2>
+									 <h4  style="font-size: 20px; margin-bottom:35px;">
+										월 급여액을 입력하면 정확한 예산 설정이 가능합니다</h4>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-2"></div>
+									<div class="col-md-3">
+								
+									<select style="width : 180px; font-size : 25px;" class="input_month" name="setDate" 
+														aria-label="Example select with button addon">					
+											<c:forEach begin="1" end="28" var="x">
+												<option>매달
+													<c:out value="${x}" /> 일
+												</option>
+												<br>
+											</c:forEach>
+									</select>
+								
+									</div>
+									<div class="col-md-5">
+									<input class="input_month" type="text"
+										id="totalBudget" name="totalBudget" onkeyup="numberWithCommas(this.value)"
+										value="">
+										<span style="color: #14b98f; font-size : 26px; font-weight: 700;">원</span>					
+									</div>
+									<div class="col-md-2">
+									<button id="btn-setSalary" class="send" style="width: 80px; border-radius:15px; margin:10px 0;">
+									<b>설정</b></button>
+									</div>								
+							
+								</div>
 
 				<!-- *******#/한달 예산****** -->
 			</div>
@@ -583,9 +741,16 @@ function numberWithCommas(x) {
 						<input class="form-control form-control-lg" type="hidden" 
 						id="fixed_sum" name="fixedSum"
 						value="">
-						<input class="form-control form-control-lg" type="text" disabled
+						<span style="font-size : 26px; color : gray;">
+						<b>총 월 고정 지출액 :</b> 
+						</span>
+						
+						<input class="" type="text" disabled
 						id="fixed_sum2" name="fixedSum2"
 						value="">		
+						<span style="font-size : 26px; color : gray;">
+						<b> 원</b> 
+						</span>
 					</div>
                   	<div class="col" id="totalExpenseDiv2">
 						</div>
@@ -636,9 +801,9 @@ function numberWithCommas(x) {
 					      <th scope="col" width="40%"><input id="expenseInfo" class="form-control" type="text"></th>
 					      <th scope="col" width="20%"><select class="form-control" name="setDate" id="transDate" 
 														aria-label="Example select with button addon">
-															<option value="없음" selected>매달 O일</option>
+															
 															<c:forEach begin="1" end="28" var="x">
-																<option>매달
+																<option>매달 
 																	<c:out value="${x}" /> 일
 																</option>
 																<br>
@@ -685,35 +850,38 @@ function numberWithCommas(x) {
 					  <table class="table" id="table">
 					  <thead>
 					  <tr>
-												<th colspan="4"
-													style="text-align: center; background-color: rgb(233, 236, 239);">총
-													예산 <strong style="color: red; font-size: 25px;">
-													<input
-														type="hidden" disabled id="cal_total"
-														value="${ onepickInfo.totalBudget }">
-													<input
-														type="text" disabled id="cal_total2"
-														value="${ onepickInfo.totalBudget }">
-														</strong> 원 중 
-														<strong
-													style="color: blue; font-size: 25px;">
-													<input
-														type="hidden" disabled id="cal_result">
-													<input
-														type="text" disabled id="cal_result2">
-														</strong> 원 남음
-												</th>
-											</tr>
+							<th colspan="5"
+									style="text-align: center; background-color: rgb(233, 236, 239); font-size: 27px;">총
+									예산 <strong style="color: red;">
+									<input
+										type="hidden" disabled id="cal_total"
+										value="${ onepickInfo.totalBudget }">
+									<input
+										class="input-cal"
+										type="text" disabled id="cal_total2"
+										value="${ onepickInfo.totalBudget }">
+										</strong> 원 중 
+										<strong
+									style="color: blue;">
+									<input
+										type="hidden" disabled id="cal_result">
+									<input
+										class="input-cal"
+										type="text" disabled id="cal_result2">
+										</strong> 원 남음
+								</th>
+							</tr>
 					    <tr>
 					      <th scope="col" width="19%" >예산명</th>
-					      <th scope="col" width="35%" >금액이동</th>
+					      <th scope="col" width="30%" >금액이동</th>
 					      <th scope="col" width="25%">금액</th>
 					      <th scope="col" >이체일</th>
+					      <th></th>
 					    </tr>
 					  </thead>
 					  <tbody>
 					  	<tr>
-													<td>월 예산액</td>
+													<td>월 소비</td>
 					  								<td>기본금 → 생활금</td>
 												<td>
 													<div class="col-auto my-1">
@@ -725,7 +893,7 @@ function numberWithCommas(x) {
 												<td>
 												<div class="col-auto my-1">
 													<select name="setDate" class="custom-select mr-sm-2" id="eSetDate" style="height: 50px;">
-															<option selected>매달 O일</option>
+										
 															<c:forEach begin="1" end="28" var="x">
 																<option><c:out value="매달 ${x} 일" /></option>
 																<br>
@@ -733,10 +901,10 @@ function numberWithCommas(x) {
 													</select>
 												</div>
 												</td>
-											
+												<td><button class="btn-auto">설정</button></td>
 											</tr>
 											<tr>
-											<td>월 저축액</td>
+											<td>월 저축</td>
 					  						<td>기본금 → 비상금</td>
 												<td>
 													<div class="col-auto my-1">
@@ -747,7 +915,7 @@ function numberWithCommas(x) {
 												<td>
 												<div class="col-auto my-1">
 													<select name="setDate" class="custom-select mr-sm-2" id="eSetDate" style="height: 50px;">
-															<option selected>매달 O일</option>
+													
 															<c:forEach begin="1" end="28" var="x">
 																<option><c:out value="매달 ${x} 일" /></option>
 																<br>
@@ -755,7 +923,9 @@ function numberWithCommas(x) {
 													</select>
 												</div>
 												</td>
-			
+												<td>
+													<button class="btn-auto">설정</button>
+												</td>
 											</tr>
 					 <!--  <tr>
 					  	<td>월 예산액</td>

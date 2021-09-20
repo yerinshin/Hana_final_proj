@@ -57,7 +57,8 @@ public class MemberController {
 	
 	@GetMapping("/member/logout")
 	public String logout(SessionStatus sessionStatus) {
-		
+		System.out.println(sessionStatus.isComplete());
+		sessionStatus.setComplete();
 		return "redirect:/";
 	}
 }

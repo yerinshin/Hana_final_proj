@@ -20,7 +20,8 @@
 		<result column="basic_balance" property="basicBalance"/>
 		<result column="consumption_balance" property="consumptionBalance"/>
 		<result column="saving_balance" property="savingBalance"/>
-		
+		<result column="pay_day" property="payDay" />
+		<result column="salary" property="salary" />
 	</resultMap>
 	
 	<resultMap type="splitHistoryVO" id="splitHistoryMap">
@@ -48,7 +49,7 @@
    		 							(select account_no from tbl_account 
    		 								where account_type='하나로통장' and user_code= #{userCode});  -->
    		 								
-   		 select account_no, basic_balance, consumption_balance, saving_balance
+   		 select *
     	from tbl_hanaro_account
    		where account_no = (select account_no from tbl_account 
    		 								where account_type='하나로통장' and user_code= #{userCode})
@@ -60,10 +61,10 @@
 	</select>
 	
 		<!-- account table 조회 (type='하나로통장') -->
-	<select id="selectHanaroInfoById" parameterType="String" resultMap="accountMap">
+<!-- 	<select id="selectHanaroInfoById" parameterType="String" resultMap="accountMap">
 		select * from tbl_account where account_type='하나로통장' and user_id=#{id}
 	</select>
-	
+	 -->
 	<!-- 하나로 전환1 : 통장 type 변경 -->
 	<update id="changeType" parameterType="String">
 		update tbl_account set account_type='하나로통장' where account_no = #{accountNo}
@@ -97,5 +98,8 @@
 		order by transaction_date desc
 	</select>
 	
-	
+	<!-- 급여일, 급여액 설정 -->
+	<update id="setSalary" parameterType="hanaroVO">
+			update tbl_hanaro_account set pay_day= #{payDay}, salary = #{salary} where account_no=#{accountNo}
+	</update>
 </mapper>

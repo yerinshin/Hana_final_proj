@@ -78,6 +78,11 @@ public class HanaroAccountDAOImpl implements HanaroAccountDAO {
 		
 		return historyList;
 	}
+	//급여액 설정
+	public void setSalary(HanaroVO hanaro) {
+		System.out.println(hanaro);
+		sqlSessionTemplate.update("hanaroAccount.HanaroAccountDAO.setSalary", hanaro);
+	}
 	
 
 }

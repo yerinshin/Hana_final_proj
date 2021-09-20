@@ -31,4 +31,7 @@ public interface HanaroAccountDAO {
 	//기본금 거래내역
 	List<SplitHistoryVO> historyByKind(SplitKindInfoVO splitKindInfo);
 	//List<SplitHistoryVO> basicHistory(String accountNo);
+	
+	//급여일 급여액 설정
+	void setSalary(HanaroVO hanaro);
 }

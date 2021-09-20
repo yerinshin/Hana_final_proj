@@ -6,6 +6,8 @@ public class HanaroVO {
 	private int basicBalance;
 	private int consumptionBalance;
 	private int savingBalance;
+	private String payDay;
+	private int salary;
 	
 	public String getAccountNo() {
 		return accountNo;
@@ -32,9 +34,23 @@ public class HanaroVO {
 		this.savingBalance = savingBalance;
 	}
 	
+	public String getPayDay() {
+		return payDay;
+	}
+	public void setPayDay(String payDay) {
+		this.payDay = payDay;
+	}
+	public int getSalary() {
+		return salary;
+	}
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
 	@Override
 	public String toString() {
-		return "HanaroAccountVO [accountNo=" + accountNo + ", basicBalance=" + basicBalance + ", consumptionBalance="
-				+ consumptionBalance + ", savingBalance=" + savingBalance + "]";
+		return "HanaroVO [accountNo=" + accountNo + ", basicBalance=" + basicBalance + ", consumptionBalance="
+				+ consumptionBalance + ", savingBalance=" + savingBalance + ", payDay=" + payDay + ", salary=" + salary
+				+ "]";
 	}
+
 }

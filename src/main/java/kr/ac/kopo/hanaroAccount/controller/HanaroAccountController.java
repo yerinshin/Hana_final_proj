@@ -16,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.kopo.account.service.AccountService;
 import kr.ac.kopo.account.vo.AccountVO;
-import kr.ac.kopo.fixedExpense.service.FixedExpenseService;
-import kr.ac.kopo.fixedExpense.vo.FixedExpenseVO;
 import kr.ac.kopo.hanaroAccount.service.HanaroAccountService;
 import kr.ac.kopo.hanaroAccount.vo.HanaroVO;
 import kr.ac.kopo.hanaroAccount.vo.SplitHistoryVO;
@@ -33,8 +31,7 @@ public class HanaroAccountController {
 	@Autowired
 	private HanaroAccountService hanaroAccService;
 	
-	@Autowired
-	private FixedExpenseService fixedExpenseService;
+
 	
 	//내 하나로 통장 조회
 	@GetMapping("/hanaro/{userCode}")
@@ -159,16 +156,52 @@ public class HanaroAccountController {
 		 * List<SplitHistoryVO> basicHistoryList = hanaroAccService.basicHistory(accountNo);
 		 */		
 		mav.addObject("historyList", historyList);
-		System.out.println("컨트롤러!!! : " +historyList);
+	//	System.out.println("컨트롤러!!! : " +historyList);
 		
-		System.out.println("디테일 컨트롤러");
+	//	System.out.println("디테일 컨트롤러");
 		
 		return mav;
 	}
 	
 	//=======================대시보드 ? 하나로 ? ============================
 	
+	//내 월급 정보 가져오기
+	@ResponseBody
+	@PostMapping("/hanaro/getSalary")
+	public HanaroVO getSalary(@RequestBody MemberVO member) {
+		
+		int userCode = member.getUserCode();
+		System.out.println(userCode);
+			
+		HanaroVO hanaro = hanaroAccService.selectHanaroAcc(userCode);	
+			System.out.println(hanaro);
+		return hanaro;
+	}
+	
+	//내 월급 정보 설정하기
+	@ResponseBody
+	@PostMapping("/hanaro/setSalary")
+	public void setSalary(@RequestBody HanaroVO hanaro, HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
+		int userCode = loginMember.getUserCode();
+		String accountNo = hanaroAccService.selectHanaroAcc(userCode).getAccountNo();
+		
+		hanaro.setAccountNo(accountNo);
+		System.out.println("set!!"+hanaro);
+		
+		hanaroAccService.setSalary(hanaro);
+		
+	}
+	
+	
+	
 	//고정 출금, 고정 잔액이동 설정page
+	
+
+	
+	
+	
 	
 	/*
 		@GetMapping("/hanaro/dashBoard")
@@ -182,7 +215,7 @@ public class HanaroAccountController {
 			return "dashBoard/fixedBudget";
 		}
 */
-		
+		/*
 		@GetMapping("/hanaro/dashBoard/{userCode}")
 		public ModelAndView setFixedBudget(@PathVariable("userCode") int userCode) {
 			AccountVO account = hanaroAccService.selectHanaroInfo(userCode);
@@ -198,15 +231,13 @@ public class HanaroAccountController {
 		}
 		
 		
-		
 		@ResponseBody
 		@PostMapping("/hanaro/fixedExpense")
 		public List<FixedExpenseVO> fixedExpense(@RequestBody MemberVO loginMember){
-			/* System.out.println(userCode); */
-			/*
-			 * List<FixedExpenseVO> fixedExpenseList =
-			 * fixedExpenseService.selectAll(accountNo);
-			 */
+			// System.out.println(userCode); 
+			
+			 // List<FixedExpenseVO> fixedExpenseList = fixedExpenseService.selectAll(accountNo);
+			 
 			
 			AccountVO account = hanaroAccService.selectHanaroInfo(loginMember.getUserCode());
 			String accountNo = account.getAccountNo();
@@ -234,7 +265,7 @@ public class HanaroAccountController {
 	
 		}
 		
-		
+		*/
 
 	
 }
