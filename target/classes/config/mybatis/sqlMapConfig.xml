@@ -23,6 +23,7 @@
 		
 		<typeAlias type="kr.ac.kopo.spending.vo.SpendingInfoVO" alias="spendingInfoVO" />
 		<typeAlias type="kr.ac.kopo.spending.vo.CalendarVO" alias="calendarVO" />			
+		<typeAlias type="kr.ac.kopo.spending.vo.WeeklySpendingVO" alias="weeklySpendingVO" />
 		
 		<typeAlias type="kr.ac.kopo.challenge.vo.ChallengeVO" alias="challengeVO" />
 	</typeAliases>

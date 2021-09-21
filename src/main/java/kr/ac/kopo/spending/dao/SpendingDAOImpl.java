@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import kr.ac.kopo.account.vo.TransactionHistoryVO;
 import kr.ac.kopo.spending.vo.CalendarVO;
+import kr.ac.kopo.spending.vo.DaySpendingVO;
 import kr.ac.kopo.spending.vo.SpendingInfoVO;
+import kr.ac.kopo.spending.vo.WeeklySpendingVO;
 
 @Repository
 public class SpendingDAOImpl implements SpendingDAO{
@@ -56,6 +58,22 @@ public class SpendingDAOImpl implements SpendingDAO{
 		
 		return historyByDate;
 	}
+	
+	//주별 소비(최근6주)
+	public WeeklySpendingVO weeklySpending(String accountNo) {
+		
+		WeeklySpendingVO weeklySpending = sqlSessionTemplate.selectOne("spending.SpendingDAO.weeklySpending", accountNo);
+		return weeklySpending;
+	}
+
+	//요일 별 소비
+	public DaySpendingVO daySpending(String accountNo) {
+		
+		DaySpendingVO daySpending = sqlSessionTemplate.selectOne("spending.SpendingDAO.daySpending",accountNo);
+		return daySpending;
+	}
+	
+	
 
 
 }

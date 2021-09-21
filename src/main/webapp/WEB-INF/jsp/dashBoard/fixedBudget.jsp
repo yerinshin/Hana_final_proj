@@ -64,26 +64,6 @@
      padding: 8px 45px;
 }
 
-/* 	ul.nav.nav-tabs::after {
-	
-		background-color :#00c292;
-
-} */
-
-/*
-.product .title {
-		padding-bottom : 0px;
-	}
-	
-	.product .title h2:after {
-		width : 1140px;
-	}
-	
-	.product .title h2 {
-		font-size : 40px;
-		margin-bottom : 12px;
-	}
-*/
 	.border-box {
 		padding : 40px;
 		border : 2px solid #dddddd; 
@@ -214,6 +194,7 @@ $(document).ready(function() {
 	
 	getSalary() 
 	
+	/*
 	//설정 버튼
 	$('#btn-setSalary').click(function(){
 		
@@ -235,10 +216,33 @@ $(document).ready(function() {
 			}
 		})
 			
-	}) 
+	})
+	*/
+	
+	$(document).on("click", "#btn-setSalary", function(e){
+		
+		let payday = $('#select-payday').val()
+		let tmp_payday = $('#select-payday').val().split(' ');  
+		payday = tmp_payday[1];
+		let salary = $('#totalBudget').val()
+		
+		let data = {payDay : payday, salary : salary}
+		console.log(data)
+		
+		$.ajax({
+			type: 'post',
+			contentType : 'application/json',
+			url : '${pageContext.request.contextPath}/hanaro/setSalary',
+			data : JSON.stringify(data),
+			success : function() {
+				getSalary()
+			}
+		})
+		
+	})
 	
 	//수정버튼
- 	$('#btn-updateSalary').click(function(){
+ 	$(document).on("click", "#btn-updateSalary", function(e){
  		
  	 	let html = $('#updateSalaryTemplate').text()
  		$('#div-salary').html(html)
@@ -273,12 +277,36 @@ $(document).ready(function() {
 			}
 		})
 	} 
-	
+
 	
 	//이체일 설정
-	//생활금
+	//생활금 :l
+	$('#btn-toConsumption').click(function(){
+		
+		let setDate = $('#lSetDate').val()
+		let setMoney = $('#lSetMoney').val() + '원'
+		
+		let splitDate = $('#lSetDate').val().split(' ');  
+		splitDate = splitDate[1];
+		let money = $('#lSetMoney').val() 
+		
+		let data = { splitDate : splitDate , moneyToConsumption : money }
+		
+		$('#div-lSetDate').text(setDate)
+		$('#div-lSetMoney').text(setMoney)
+		
+	})
 	
-	//저축금
+	//저축금:e
+	$('#btn-toSaving').click(function(){
+		
+		let setDate = $('#eSetDate').val()
+		let setMoney = $('#eSetMoney').val() + '원'
+		
+		$('#div-eSetDate').text(setDate)
+		$('#div-eSetMoney').text(setMoney)
+		
+	})
 })
 </script>
 <script>
@@ -436,7 +464,7 @@ function numberWithCommas(x) {
 		 	
 			let totalBudget = $('#totalBudget').val()
 			
-			console.log(totalBudget)
+			console.log("!!!!!!!!!!!!" + totalBudget)
 			let fixed_sum = 0  // 고정지출 합계
 			let cal_result = $('#cal_result').val();
 			console.log(cal_result)
@@ -494,7 +522,8 @@ function numberWithCommas(x) {
 			cal_result = parseInt(totalBudget - fixed_sum)
 			$('#cal_result').val(cal_result);
 			$('#cal_result2').val(numberWithCommas(cal_result));
-			
+			$('#cal_total').val(totalBudget);
+			$('#cal_total2').val(numberWithCommas(totalBudget));	
 			
 			// 기본금 -> 생활비 금액 입력시
 			$('#lSetMoney').on('keyup' ,function(){
@@ -541,7 +570,17 @@ function numberWithCommas(x) {
 				$('#cal_result2').val(numberWithCommas(cal_result))
 			});
 			
-			
+			$(document).on("change keyup", "#totalBudget", function(){
+				let totalBudget = $('#totalBudget').val();	// 한달 예산의 값
+				$('#cal_total').val(totalBudget);		// 총 예산의 값을 변경
+				$('#cal_total2').val(numberWithCommas(totalBudget));
+				
+				
+				cal_result = parseInt(totalBudget - fixed_sum)
+				$('#cal_result').val(cal_result);
+				$('#cal_result2').val(numberWithCommas(cal_result))
+			})
+			/*
 			// 총 예산 변경
 			$('#totalBudget').on('change keyup' ,function(){
 				let totalBudget = $('#totalBudget').val();	// 한달 예산의 값
@@ -554,6 +593,7 @@ function numberWithCommas(x) {
 				$('#cal_result2').val(numberWithCommas(cal_result))
 				
 			});
+			*/
 	});
 </script>
 
@@ -855,11 +895,11 @@ function numberWithCommas(x) {
 									예산 <strong style="color: red;">
 									<input
 										type="hidden" disabled id="cal_total"
-										value="${ onepickInfo.totalBudget }">
+										value="">
 									<input
 										class="input-cal"
 										type="text" disabled id="cal_total2"
-										value="${ onepickInfo.totalBudget }">
+										value="">
 										</strong> 원 중 
 										<strong
 									style="color: blue;">
@@ -881,65 +921,53 @@ function numberWithCommas(x) {
 					  </thead>
 					  <tbody>
 					  	<tr>
-													<td>월 소비</td>
-					  								<td>기본금 → 생활금</td>
-												<td>
-													<div class="col-auto my-1">
-														<input type="text" name="setMoney" class="form-control" id="lSetMoney" value= "${ autoInfo.moneyToLiving }" style="height: 50px;">
-	                                           		</div>
-												</td>
+									<td>월 소비</td>
+					  				<td>기본금 → 생활금</td>
+								<td>
+									<div class="col-auto my-1" id="div-lSetMoney">
+										<input type="text" name="setMoney" class="form-control" id="lSetMoney" value= "${ autoInfo.moneyToLiving }" style="height: 50px;">
+	                                   		</div>
+								</td>
 		
-												<!-- 여기 기본->생활 -->
-												<td>
-												<div class="col-auto my-1">
-													<select name="setDate" class="custom-select mr-sm-2" id="eSetDate" style="height: 50px;">
-										
-															<c:forEach begin="1" end="28" var="x">
-																<option><c:out value="매달 ${x} 일" /></option>
-																<br>
-															</c:forEach>
-													</select>
-												</div>
-												</td>
-												<td><button class="btn-auto">설정</button></td>
-											</tr>
-											<tr>
-											<td>월 저축</td>
-					  						<td>기본금 → 비상금</td>
-												<td>
-													<div class="col-auto my-1">
-														<input type="text" name="setMoney" class="form-control" id="eSetMoney" value="${ autoInfo.moneyToExtra }" style="height: 50px;">
-	                                           		</div>
-	                                           	</td>
-												<!-- 여기 기본 -> 예비 -->
-												<td>
-												<div class="col-auto my-1">
-													<select name="setDate" class="custom-select mr-sm-2" id="eSetDate" style="height: 50px;">
-													
-															<c:forEach begin="1" end="28" var="x">
-																<option><c:out value="매달 ${x} 일" /></option>
-																<br>
-															</c:forEach>
-													</select>
-												</div>
-												</td>
-												<td>
-													<button class="btn-auto">설정</button>
-												</td>
-											</tr>
-					 <!--  <tr>
-					  	<td>월 예산액</td>
-					  	<td>기본금 → 생활금</td>
-					  	<td><input type="text"></td>
-					  	<td></td>
-					  </tr>
-					  <tr>
-					  	<td>월 저축액</td>
-					  	<td>기본금 → 비상금</td>
-					  	<td></td>
-					  	<td></td>
-		
-					  </tr> -->
+								<!-- 여기 기본->생활 -->
+								<td>
+								<div class="col-auto my-1" id="div-lSetDate">
+									<select name="setDate" class="custom-select mr-sm-2" id="lSetDate" style="height: 50px;">
+						
+											<c:forEach begin="1" end="28" var="x">
+												<option><c:out value="매달 ${x} 일" /></option>
+												<br>
+											</c:forEach>
+									</select>
+								</div>
+								</td>
+								<td><button id="btn-toConsumption" class="btn-auto">설정</button></td>
+							</tr>
+							<tr>
+							<td>월 저축</td>
+					  		<td>기본금 → 비상금</td>
+								<td>
+									<div class="col-auto my-1" id="div-eSetMoney">
+										<input type="text" name="setMoney" class="form-control" id="eSetMoney" value="${ autoInfo.moneyToExtra }" style="height: 50px;">
+	                                   		</div>
+	                                   	</td>
+								<!-- 여기 기본 -> 예비 -->
+								<td>
+								<div class="col-auto my-1" id="div-eSetDate">
+									<select name="setDate" class="custom-select mr-sm-2" id="eSetDate" style="height: 50px;">
+									
+											<c:forEach begin="1" end="28" var="x">
+												<option><c:out value="매달 ${x} 일" /></option>
+												<br>
+											</c:forEach>
+									</select>
+								</div>
+								</td>
+								<td>
+									<button id="btn-toSaving" class="btn-auto">설정</button>
+								</td>
+							</tr>
+			
 					  </tbody>
 					</table>
 				

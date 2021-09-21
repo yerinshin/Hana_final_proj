@@ -50,7 +50,7 @@ public class FixedExpenseController {
 			List<FixedExpenseVO> fixedExpenseList = fixedExpenseService.selectAll(accountNo);
 			ModelAndView mav = new ModelAndView("dashBoard/fixedBudget");
 			mav.addObject("fixedExpenseList", fixedExpenseList);
-			mav.addObject(accountNo);
+			mav.addObject("accountNo", accountNo);
 			
 			return mav;
 		}

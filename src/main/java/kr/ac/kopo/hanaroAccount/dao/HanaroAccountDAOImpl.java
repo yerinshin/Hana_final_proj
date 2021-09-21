@@ -73,7 +73,7 @@ public class HanaroAccountDAOImpl implements HanaroAccountDAO {
 	}
 
 	public List<SplitHistoryVO> historyByKind(SplitKindInfoVO splitKindInfo) {
-		
+		System.out.println("내역조회 dao : !!!"+splitKindInfo);
 		List<SplitHistoryVO> historyList = sqlSessionTemplate.selectList("hanaroAccount.HanaroAccountDAO.splitHistoryByKind", splitKindInfo);
 		
 		return historyList;

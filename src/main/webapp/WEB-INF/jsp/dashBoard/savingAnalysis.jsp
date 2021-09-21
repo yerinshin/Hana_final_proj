@@ -225,7 +225,7 @@
     
     table#resultProductList{
     	width : 95%;
-    	 margin: auto; 
+    	margin: auto; 
      	font-size: 20px; 
      	border : 3px solid #f9f9f9;
     }
@@ -273,6 +273,11 @@
 		text-align : left;
 		font-size : 22px;
 		border : 3px solid #f9f9f9;
+	}
+	
+	.read-more {
+		margin-top : 5px;
+		margin-bottom : 20px;
 	}
 </style>
 <script>
@@ -497,9 +502,7 @@ $(document).ready(function(){
  <!-- body -->
 <body class="main-layout">
       <!-- loader  -->
-      <div class="loader_bg">
-         <div class="loader"><img src="${ pageContext.request.contextPath }/resources/images/loading.gif" alt="#" /></div>
-      </div>
+    
       <!-- end loader --> 
       <!-- header -->
       <header>
@@ -587,6 +590,7 @@ $(document).ready(function(){
                         </div>
 						
 					</div>
+					
 					<div class="border-box">
 						<div class="title col">		
 						<h2 id="title-h2">내 저축<strong class="black"> 현황</strong></h2>				
@@ -640,9 +644,12 @@ $(document).ready(function(){
 				    </div>
 				    <!-- Bar Chart area End-->
 
-					
 					</div>
-					 <div id="menu-title"> 추천 예/적금 상품 </div>
+					</div>
+					<div class="border-box">
+						<div class="title col">		
+						<h2 id="title-h2">추천 예/적금<strong class="black"> 상품</strong></h2>				
+						</div>
 					
 					<div class="row">
 					 	<h2 class="col-md-8">금융비서가 찾은 최적의 정기 예금/적금 상품입니다</h2>
@@ -651,6 +658,141 @@ $(document).ready(function(){
 					 		<img style="width : 45px; margin-left : 5px" id="img-search" src="${pageContext.request.contextPath}/resources/icon/research2.png">
 					 		</button>
 					</div>
+					<div>
+					  	<!-- service --> 
+					  	
+					  	<table style="width : 1100px; margin : 40px auto; background: #f5f7fb">
+					  	<tr style="border: 5px white solid;">
+					  		<td width="11%"><img style="width : 60px; margin-left : 40px" src="${pageContext.request.contextPath}/resources/icon/medal1.png"></td>
+					  		<td>
+					  		  <div class="row">
+				                    <div class="col-md-6" style="text-align : center;">
+				                    <h2 style="margin-top : 40px;">하나더예금 <span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
+				                                   
+				                     <h4 id="accountNo">목돈마련의 기본, 재테크의 시작!</h4>
+				                    </div>
+				                    <div class="col-md-3">
+				                     <span style="font-size : 15px">기본 금리</span><h2>2.3%</h2>
+				                     <span style="font-size : 15px">최대 금리</span><h2>2.3%</h2>
+				                    </div>
+				                  	<div class="col-md-2" style="padding-top : 20px">
+				                  	<button class="read-more">상세보기</button>
+				                  	<button class="read-more">상담하기</button>
+				                  	</div>
+				                  	</div>
+					  		</td>
+					  	</tr>
+					  	<tr style="border: 5px white solid;">
+					  		<td><img style="width : 60px; margin-left : 40px" src="${pageContext.request.contextPath}/resources/icon/medal2.png"></td>
+					  		<td>
+					  		  <div class="row">
+				                    <div class="col-md-6" style="text-align : center;">
+				                    <h2 style="margin-top : 40px;">하나더예금 <span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
+				                                   
+				                     <h4 id="accountNo">목돈마련의 기본, 재테크의 시작!</h4>
+				                    </div>
+				                    <div class="col-md-3">
+				                     <span style="font-size : 15px">기본 금리</span><h2>2.3%</h2>
+				                     <span style="font-size : 15px">최대 금리</span><h2>2.3%</h2>
+				                    </div>
+				                  	<div class="col-md-2" style="padding-top : 20px">
+				                  	<button class="read-more">상세보기</button>
+				                  	<button class="read-more">상담하기</button>
+				                  	</div>
+				                  	</div>
+					  		</td>
+					  	</tr>
+					  	<tr style="border: 5px white solid;">
+					  		<td><img style="width : 60px; margin-left : 40px" src="${pageContext.request.contextPath}/resources/icon/medal3.png"></td>
+					  		<td>
+					  		  <div class="row">
+				                    <div class="col-md-6" style="text-align : center;">
+				                    <h2 style="margin-top : 40px;">하나더예금 <span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
+				                                   
+				                     <h4 id="accountNo">목돈마련의 기본, 재테크의 시작!</h4>
+				                    </div>
+				                    <div class="col-md-3">
+				                     <span style="font-size : 15px">기본 금리</span><h2>2.3%</h2>
+				                     <span style="font-size : 15px">최대 금리</span><h2>2.3%</h2>
+				                    </div>
+				                  	<div class="col-md-2" style="padding-top : 20px">
+				                  	<button class="read-more">상세보기</button>
+				                  	<button class="read-more">상담하기</button>
+				                  	</div>
+				                  	</div>
+					  		</td>
+					  	</tr>
+					  	
+					  	</table>
+    <!--   <div class="service">
+         
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="service-box account-box" style="margin :10px auto; width:1000px; height : 180px;">
+                    <div class="row">
+                    <div class="col-md-6">
+                    <h2 style="margin-top : 25px">하나더예금 <span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
+                                   
+                     <h4 id="accountNo">목돈마련의 기본, 재테크의 시작!</h4>
+                    </div>
+                    <div class="col-md-3">
+                     <span>기본 금리</span><h2>2.3%</h2>
+                     <span>최대 금리</span><h2>2.3%</h2>
+                    </div>
+                  	<div class="col-md-2">
+                  	<button class="read-more">상세보기</button>
+                  	<button class="read-more">상담하기</button>
+                  	</div>
+                  	</div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="service-box account-box" style="margin :10px auto; width:1000px; height : 180px;">
+                    <div class="row">
+                    <div class="col-md-6">
+                    <h2 style="margin-top : 25px">하나더예금 <span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
+                                   
+                     <h4 id="accountNo">목돈마련의 기본, 재테크의 시작!</h4>
+                    </div>
+                    <div class="col-md-3">
+                     <span>기본 금리</span><h2>2.3%</h2>
+                     <span>최대 금리</span><h2>2.3%</h2>
+                    </div>
+                  	<div class="col-md-2">
+                  	<button class="read-more">상세보기</button>
+                  	<button class="read-more">상담하기</button>
+                  	</div>
+                  	</div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="service-box account-box" style="margin : 10px auto; width:1000px; height : 180px;">
+                    <div class="row">
+                    <div class="col-md-6">
+                    <h2 style="margin-top : 25px">하나더예금 <span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
+                                   
+                     <h4 id="accountNo">목돈마련의 기본, 재테크의 시작!</h4>
+                    </div>
+                    <div class="col-md-3">
+                     <span>기본 금리</span><h2>2.3%</h2>
+                     <span>최대 금리</span><h2>2.3%</h2>
+                    </div>
+                  	<div class="col-md-2">
+                  	<button class="read-more">상세보기</button>
+                  	<button class="read-more">상담하기</button>
+                  	</div>
+                  	</div>
+                  </div>
+               </div>
+            </div>
+      
+      </div> -->
+					</div>
+					
 					
 						<div class="div-survey">
 					<form>
@@ -877,16 +1019,21 @@ $(document).ready(function(){
 				datasets: [{
 					label: 'Bar Chart',
 					data: {data},
-					backgroundColor: [
-						'rgba(255, 99, 132, 0.2)',
-						'rgb(50,205,50, 0.2)',
-						'rgba(255, 206, 86, 0.2)',
-						'rgba(75, 192, 192, 0.2)',
-						'rgb(50,205,50, 0.2)',
-						'rgb(50,205,50, 0.2)'
-					],
+					backgroundColor: 
+						
+						'rgba(75, 192, 192, 0.8)',
+						/*
+						[
+
+						'rgba(255, 99, 132, 1)',
+						'rgb(50,205,50, 1)',
+						'rgba(255, 206, 86, 1)',
+						
+						'rgb(50,205,50, 1)',
+						'rgb(50,205,50, 1)'
+					],*/
 					borderColor: [
-						'rgba(255,99,132,1)',
+						'rgba(255,99,132,0)',
 						'rgba(54, 162, 235, 1)',
 						'rgba(255, 206, 86, 1)',
 						'rgba(75, 192, 192, 1)',

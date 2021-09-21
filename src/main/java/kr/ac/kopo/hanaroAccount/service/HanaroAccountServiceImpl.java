@@ -78,7 +78,7 @@ public class HanaroAccountServiceImpl implements HanaroAccountService {
 
 	// 거래내역+잔액이동 내역 조회
 	public List<SplitHistoryVO> historyByKind(SplitKindInfoVO splitKindInfo) {
-		System.out.println(splitKindInfo);
+		System.out.println("내역조회 service!!" + splitKindInfo);
 		List<SplitHistoryVO> historyList = hanaroAccountDAO.historyByKind(splitKindInfo);
 //		List<SplitHistoryVO> basicHistory = hanaroAccountDAO.basicHistory(accountNo);
 		

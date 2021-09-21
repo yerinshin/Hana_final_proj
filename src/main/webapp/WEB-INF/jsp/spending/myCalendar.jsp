@@ -59,7 +59,7 @@
 	}
 	
 	section {
-    	width : 1200px;
+    	width : 1300px;
     }
     .nav-tabs>li {
 	    border: 2px solid lightgray;
@@ -120,15 +120,20 @@
     }
     
 #historyDetail {
-	margin-left : 100px;
-	margin-top : 50px;
+/* 	margin-left : 100px;*/
+	padding-left:30px;
+	margin-top : 100px; 
 }
 
 #historyList {
 
-	width : 1000px;
+	width : 400px;
 	font-size : 20px; 
 }
+
+#calendar {
+
+ }
 </style>
 <script>
 $(document).ready(function(){
@@ -164,7 +169,7 @@ $(document).ready(function(){
 			var calendarEl = $('#calendar')[0];
 			// full-calendar 생성하기
 			var calendar = new FullCalendar.Calendar(calendarEl, {
-				height: '800px', // calendar 높이 설정
+				height: '700px', // calendar 높이 설정
 				expandRows: true, // 화면에 맞게 높이 재설정
 				slotMinTime: '08:00', // Day 캘린더에서 시작 시간
 				slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
@@ -298,9 +303,7 @@ $(document).ready(function(){
  <!-- body -->
 <body class="main-layout">
       <!-- loader  -->
-      <div class="loader_bg">
-         <div class="loader"><img src="${ pageContext.request.contextPath }/resources/images/loading.gif" alt="#" /></div>
-      </div>
+ 
       <!-- end loader --> 
       <!-- header -->
       <header>
@@ -343,41 +346,159 @@ $(document).ready(function(){
 							<div class="title col">		
 								<h2 id="title-h2">소비<strong class="black"> 달력</strong></h2>				
 							</div>
-							<div id="calendar-container">
-								<div id="calendar"></div>
+							<div id="calendar-container" class="row">
+								<div id="calendar" class="col-md-8"></div>
+								<div id="historyDetail" class="col-md-4">
+									<h2 id="date"></h2>
+									<table id="historyList">
+									<tr>
+								
+									</tr>
+									</table>
+								</div>
 							</div>	
 							
 							
-							<div id="historyDetail">
+							<!-- <div id="historyDetail">
 							<h2 id="date"></h2>
 							<table id="historyList">
 								<tr>
 							
 								</tr>
 							</table>
-							</div>
+							</div> -->
 
 						</div>
+						
+						<div class="border-box">
+							<div class="title col">		
+								<h2 id="title-h2">주별<strong class="black"> 소비</strong></h2>				
+							</div>
+							일주일에 00만원 정도 써요. 이번주는 0만원 덜썼어요
+							
+						<div class="row">
+			                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			                    <div class="bar-chart-wp mg-t-30 chart-display-nn">
+			                        <canvas height="140vh" width="180vw" id="weeklyChart"></canvas>
+			                    </div>
+			                </div>
+			                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			                    <div class="bar-chart-wp mg-t-30 chart-display-nn">
+			                        <canvas height="140vh" width="180vw" id="dayChart"></canvas>
+			                    </div>
+			                </div>
+               			</div>
+						
+						</div>
+						
 						</div>
 			
 			
 			</div>
-		<%-- 
-			<script src="${ pageContext.request.contextPath }/resources/js/calendar.js"></script>  --%>
+
+			 <script src="${ pageContext.request.contextPath }/resources/template/js/charts/Chart.js"></script>
       	<script src="${ pageContext.request.contextPath }/resources/template/js/vendor/jquery-1.12.4.min.js"></script>
    			 <!-- bootstrap JS
 		============================================ -->
   			  <script src="${ pageContext.request.contextPath }/resources/template/js/bootstrap.min.js"></script>	
       </section> 
       </div>
-</body>
       <%-- footer --%>
       <footer>
          <jsp:include page="/WEB-INF/jsp/include/footer.jsp"></jsp:include>
       </footer>
       <%-- end footer --%>
       
+</body>
       <!-- Javascript files--> 
   		<jsp:include page="/WEB-INF/jsp/include/javascriptFiles.jsp"></jsp:include>
-
+<script>
+(function ($) {
+	 "use strict";
+		
+		/*----------------------------------------*/
+		/*  주별 소비 chart
+		/*----------------------------------------*/
+	 	let week1 = ${weeklySpending.week1}/10000
+	 	let week2 = ${weeklySpending.week2}/10000
+	 	let week3 = ${weeklySpending.week3}/10000
+	 	let week4 = ${weeklySpending.week4}/10000
+	 	let week5 = ${weeklySpending.week5}/10000
+	 	let week6 = ${weeklySpending.week6}/10000
+	 
+		var ctx = document.getElementById("weeklyChart");
+		var weeklyChart = new Chart(ctx, {
+			type: 'horizontalBar',
+			data: {
+				labels: ["8월 3주","8월 4주", "9월 1주", "9월 2주", "9월 3주", "9월 4주"],
+				datasets: [{
+					label: 'Bar Chart',
+					data: [week1, week2, week3, week4, week5, week6],
+					backgroundColor: 
+						'rgb(75, 192, 192)'
+						
+					,
+					borderColor: 
+						'rgb(75, 192, 192)'
+					
+					,
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		});
+		
+		/*----------------------------------------*/
+		/*  요일 별 소비 chart
+		/*----------------------------------------*/
+		
+		
+		let mon = ${daySpending.mon}
+		let tue = ${daySpending.tue}
+		let wed = ${daySpending.wed}
+		let thu = ${daySpending.thu}
+		let fri = ${daySpending.fri}
+		let sat = ${daySpending.sat}
+		let sun = ${daySpending.sun}
+		
+		var ctx = document.getElementById("dayChart");
+		var dayChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ['월','화','수','목','금','토','일'],
+				datasets: [{
+					label: 'Bar Chart',
+					data: [mon, tue, wed, thu, fri, sat, sun],
+					backgroundColor: 
+						'rgb(75, 192, 192)'
+						
+					,
+					borderColor: 
+						'rgb(75, 192, 192)'
+					
+					,
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		});
+		
+})(jQuery); 
+</script>
 </html>
