@@ -81,7 +81,30 @@ public class HanaroAccountServiceImpl implements HanaroAccountService {
 		System.out.println("내역조회 service!!" + splitKindInfo);
 		List<SplitHistoryVO> historyList = hanaroAccountDAO.historyByKind(splitKindInfo);
 //		List<SplitHistoryVO> basicHistory = hanaroAccountDAO.basicHistory(accountNo);
-		
+		String splitFrom = "";
+		String splitTo = "";
+		String splitKind = splitKindInfo.getSplitKind();
+		for(int i =0; i <historyList.size(); i ++) {
+			 splitFrom = historyList.get(i).getSplitFrom();
+			 splitTo = historyList.get(i).getSplitTo();
+			System.out.println("splitFrom : " + splitFrom);
+			System.out.println("splitTo : " + splitTo);
+			
+			  if(splitFrom.equals("basic_balance") && !splitKind.equals("basic_balance")) {
+				  historyList.get(i).setSplitFrom("기본금"); 			   
+			  } else if(splitFrom.equals("consumption_balance") && !splitKind.equals("consumption_balance")) {
+				  historyList.get(i).setSplitFrom("생활금"); 
+			  } else if(splitFrom.equals("saving_balance") && !splitKind.equals("saving_balance")) {
+				  historyList.get(i).setSplitFrom("비상금"); 
+			  } else if (splitTo.equals("basic_balance")) {
+				  historyList.get(i).setSplitTo("기본금");
+			  } else if(splitTo.equals("consumption_balance")) {
+				  historyList.get(i).setSplitTo("생활금");
+			  }else if(splitTo.equals("saving_balance")) {
+				  historyList.get(i).setSplitTo("비상금");
+			  }
+	
+		}
 		System.out.println(historyList);
 		return historyList;
 	}
