@@ -13,12 +13,13 @@
 		margin: 0 auto;
 	} 
 	
-	.main {
+		.main {
 		width : 90%;
-		display : flex;
 		justify-content : center;
-		margin-right: 30px;
+		/* margin-right: 30px; */
+		margin-left: 15px;
 	}
+	
 	
     
     #title {

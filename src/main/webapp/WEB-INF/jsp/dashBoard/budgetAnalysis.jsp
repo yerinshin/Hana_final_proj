@@ -14,6 +14,10 @@
 
 
 <style>
+     body {
+    font-family: 'hana' , verdana, san-serif;
+}
+
 	 #main-layout {
 		width : 90%;
 		margin: 0 auto;
@@ -23,7 +27,8 @@
 		width : 90%;
 		display : flex;
 		justify-content : center;
-		margin-right: 30px;
+		/* margin-right: 30px; */
+		margin-left: 35px;
 	}
 	
 	#title {
@@ -45,7 +50,7 @@
     }
 	
 	section {
-    	width : 1200px;
+    	width : 1300px;
     }
     .nav-tabs>li {
 	    border: 2px solid lightgray;
@@ -235,7 +240,7 @@ $(document).ready(function(){
 			
 			<div class="widget-tabs-list">
 				<ul class="nav nav-tabs">
-				<li class=""><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">고정지출</a></li>
+				<li class=""><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">예산 설정</a></li>
 				<li class="active"><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >예산 현황</a></li>
 				<li class=""><a href="${pageContext.request.contextPath}/dashBoard/savingAnalysis">저축 현황</a></li>
 				<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li>
@@ -285,19 +290,16 @@ $(document).ready(function(){
 				    <div class="bar-chart-area">
 				        <div class="container">
 				       		<div class="row">
-				             	<div class="col-md-1">
-				             	</div>
-				                <div class="col-md-5">
+				             	
+				                <div class="col-md-6">
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
 				                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
 				                    </div>
 				                </div>
-				                <div>
-				                 또래보다 
-				                 고정지출 :
-				                 한달 생활 예산 :
-				                 저축액
-				                 원 많습니다.
+				                <div style="font-size : 25px; padding : 15px;margin-top : 60px; box-shadow: #00000040 0px 0px 19px 0px;background: #f5f7fb; border-radius : 20px; margin-left : 30px;margin-bottom : 70px">
+				                 또래 사용자보다 <br>
+				                 생활비 <b style="font-size : 32px;">35만원 많이</b>쓰고<br> 저축
+				                  <b style="font-size : 32px;">17만원 적게</b>해요
 				                </div>
 				            </div>
 				<!--            <div class="row">
@@ -328,23 +330,20 @@ $(document).ready(function(){
 				    </div>
 				    <!-- Bar Chart area End-->
 												 
-					<div id="menu-title"> 내 또래 상위 10%의 설정 예산 </div>
+					<div id="menu-title"> 비슷한 급여 사용자 평균 설정 예산 </div>
 				 								  <div class="bar-chart-area">
 				        <div class="container">
 				           <div class="row">
-				            	<div class="col-md-1">
-				             	</div>
-				                <div class="col-md-5">
+				         
+				                <div class="col-md-6">
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
 				                        <canvas height="140vh" width="180vw" id="barchart2"></canvas>
 				                    </div>
 				                </div>
-				                 <div>
-				                 또래  10%보다 
-				                 고정지출 :
-				                 한달 생활 예산 :
-				                 저축액
-				                 원 많습니다.
+				               <div style="font-size : 25px; padding : 15px;margin-top : 60px; box-shadow: #00000040 0px 0px 19px 0px;background: #f5f7fb; border-radius : 20px; margin-left : 30px;margin-bottom : 70px">
+				                 비슷한 급여의 사용자들보다 <br>
+				                 생활비 <b style="font-size : 32px;">20만원 많이</b>쓰고<br> 저축
+				                  <b style="font-size : 32px;">60만원 적게</b>해요
 				                </div>
 				            </div>
 				 	
@@ -440,13 +439,23 @@ $(document).ready(function(){
 					scales: {
 					yAxes: [{
 						ticks: {
-							min : 0,
+							min : 20,
 							position: 'top',
-							
+							fontSize: 18,
 						}
-					}]
+					}],
+			xAxes:[{
+				  ticks:{
+				  fontColor:'black',
+				  fontSize: 18,
+				 }
+				}]
 				},
-			
+				 legend: {
+		               	labels : {
+		               		fontSize : 23,          	
+		               	}
+	               	},
 				title: {
 					display: true,
 					text: 'Bar Chart Vertical'
@@ -464,8 +473,8 @@ $(document).ready(function(){
 			data: {
 				labels: ["기본금", "생활금", "비상금"],
 				datasets: [{
-	                label: '또래 사용자',
-					data: [180, 140, 150],
+	                label: '비슷한 급여 사용자',
+					data: [55, 100, 160],
 					borderWidth: 1,
 	                backgroundColor: [
 						'rgba(255, 99, 132, 0.4)',
@@ -499,13 +508,25 @@ $(document).ready(function(){
 					scales: {
 					yAxes: [{
 						ticks: {
-							min : 0,
+							min : 20,
 							position: 'top',
+							fontSize: 18,
 							
 						}
-					}]
+					}],
+					xAxes:[{
+						  ticks:{
+						  fontColor:'black',
+						  fontSize: 18,
+						 }
+						}]
+
 				},
-			
+				 legend: {
+	               	labels : {
+	               		fontSize : 23,          	
+	               	}
+               	},
 				title: {
 					display: true,
 					text: 'Bar Chart Vertical'

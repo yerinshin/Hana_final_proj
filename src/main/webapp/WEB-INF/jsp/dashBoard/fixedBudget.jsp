@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/style.css">
 
 <style>
+
+   body {
+    font-family: 'hana' , verdana, san-serif;
+}
+
 	div.nice-select{
 		display : none;
 	}
@@ -31,7 +36,7 @@
 		width : 90%;
 		display : flex;
 		justify-content : center;
-		margin-right: 30px;
+		margin-left: 35px;
 	}
 	
 	#title {
@@ -154,6 +159,7 @@ color : black;
 	    width: 180px;
 	    font-weight: bold;
 	    margin: 20px 0px;
+	    color: #14b98f;
 	}
 	
 	.input-cal {
@@ -166,7 +172,7 @@ color : black;
 	.input_month {
         background: white;
 	    color: #14b98f;
-	    font-size : 30px;
+	    font-size : 33px;
 	    font-weight: 700;
 	    height: 50px;
 	    width: 370px;
@@ -701,7 +707,7 @@ function numberWithCommas(x) {
 			
 			<div class="widget-tabs-list">
 			<ul class="nav nav-tabs">
-			<li class="active"><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">고정지출</a></li>
+			<li class="active"><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">예산설정</a></li>
 			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >예산 현황</a></li>
 			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/savingAnalysis">저축 현황</a></li>
 			<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li>
@@ -754,7 +760,7 @@ function numberWithCommas(x) {
 									<input class="input_month" type="text"
 										id="totalBudget" name="totalBudget" onkeyup="numberWithCommas(this.value)"
 										value="">
-										<span style="color: #14b98f; font-size : 26px; font-weight: 700;">원</span>					
+										<span style="color: #14b98f; font-size : 28px; font-weight: 700;">원</span>					
 									</div>
 									<div class="col-md-2">
 									<button id="btn-setSalary" class="send" style="width: 80px; border-radius:15px; margin:10px 0;">
@@ -781,14 +787,14 @@ function numberWithCommas(x) {
 						<input class="form-control form-control-lg" type="hidden" 
 						id="fixed_sum" name="fixedSum"
 						value="">
-						<span style="font-size : 26px; color : gray;">
+						<span style="font-size : 26px;">
 						<b>총 월 고정 지출액 :</b> 
 						</span>
 						
 						<input class="" type="text" disabled
 						id="fixed_sum2" name="fixedSum2"
 						value="">		
-						<span style="font-size : 26px; color : gray;">
+						<span style="font-size : 26px;">
 						<b> 원</b> 
 						</span>
 					</div>
@@ -891,7 +897,7 @@ function numberWithCommas(x) {
 					  <thead>
 					  <tr>
 							<th colspan="5"
-									style="text-align: center; background-color: rgb(233, 236, 239); font-size: 27px;">총
+									style="text-align: center; background-color: #ecf4f8; font-size: 27px;">총
 									예산 <strong style="color: red;">
 									<input
 										type="hidden" disabled id="cal_total"

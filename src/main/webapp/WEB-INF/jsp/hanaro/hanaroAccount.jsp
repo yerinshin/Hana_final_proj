@@ -29,6 +29,7 @@
     	/* box-shadow: #00000040 0px 0px 19px 0px; */
     	margin: 30px 10px 50px 20px;
     	padding: 15px 0 15px 25px;
+    	border-radius : 20px;
     }
      
      h3 {
@@ -57,7 +58,7 @@
 	width : 90%;
 		display : flex;
 		justify-content : center;
-		margin-right: 30px;
+		margin-left: 15px;
 	}
 
     
@@ -102,14 +103,17 @@
 	
 	.basic-balance {
 		background-color: rgba(52, 152, 219, 0.25);
+		border: 4px solid rgba(52, 152, 219, 0.4);
 	}
 	
 	.consumption-balance {
 		background-color: rgba(243, 156, 18, 0.25);
+		border: 4px solid rgba(243, 156, 18, 0.4);
 	}
 	
 	.saving-balance {
 	    background-color: rgba(231, 76, 60, 0.25);
+	    border: 4px solid rgba(231, 76, 60, 0.4);
 	}
 	
 	.splitMoney {
@@ -229,7 +233,9 @@
 </style>
 <script>
 	$(document).ready(function() {
-		
+		 function numberWithCommas(x) {
+			    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			} 
 		
 		getHanaroBalance()	
 		
@@ -329,9 +335,9 @@
 					if(hanaroAccount != null) {
 						console.log(hanaroAccount)
 					//	basicBalance = json.basicBalance
-						$('#basicBalance').html( json.basicBalance+ " 원")
-						$('#consumptionBalance').html(json.consumptionBalance + " 원")
-						$('#savingBalance').html(json.savingBalance + " 원")
+						$('#basicBalance').html( numberWithCommas(json.basicBalance)+ " 원")
+						$('#consumptionBalance').html(numberWithCommas(json.consumptionBalance) + " 원")
+						$('#savingBalance').html(numberWithCommas(json.savingBalance) + " 원")
 						
 						$('#b_balance').val(json.basicBalance)
 						$('#c_balance').val(json.consumptionBalance)

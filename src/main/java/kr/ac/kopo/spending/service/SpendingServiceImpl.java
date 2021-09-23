@@ -49,15 +49,17 @@ public class SpendingServiceImpl implements SpendingService{
 		
 		
 		for(CalendarVO spending : spendingList) {
-				spending.setColor("pink");
-				//spending.setTextColor("red");
+				//spending.setColor("pink");
+				spending.setColor("#fff0");
+				spending.setTextColor("red");
 				calendarList.add(spending);
 		}
 		
 		
 		for(CalendarVO income : incomeList) {
-			income.setColor("skyblue");
-			//income.setTextColor("blue");
+			//income.setColor("skyblue");
+			income.setTextColor("blue");
+			income.setColor("#fff0");
 			
 			calendarList.add(income);
 			

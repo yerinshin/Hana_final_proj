@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/style.css">
 
 <style>
+	body{
+ 	font-family: 'hana' , verdana, san-serif;
+    }
 	 #main-layout {
 		width : 90%;
 		margin: 0 auto;
@@ -37,7 +40,7 @@
     	margin-bottom : 20px;
     	padding-bottom : 16px;
     }
-    
+ 
     #menu-title {
     	font-size : 24px;
     	font-weight : bold;
@@ -84,6 +87,11 @@
 		background-color :#00c292;
 
 } */
+
+.fc-col-header {
+	background : #f5f5f5;
+}
+ 
 .fc-h-event .fc-event-title-container {
     height: 24px;
     font-size: 20px;
@@ -99,8 +107,12 @@
     width: 70px;
     height: 45px;
     font-size: 18px;
+    background: #16c89b;
   }
-  
+  .fc .fc-toolbar-title {
+    font-size: 2.6em;
+    margin: 0;
+}
   .fc td, .fc th {
  
     font-size: 20px;
@@ -120,20 +132,45 @@
     }
     
 #historyDetail {
+	border-radius : 20px;
 /* 	margin-left : 100px;*/
-	padding-left:30px;
-	margin-top : 100px; 
+/* 	padding:10px 20px;
+	padding-top: 20px; */
+	margin-top : 20px;
+	margin-bottom : 20px; 
+    background: #fffadf; 
+    height : 620px; 
 }
 
 #historyList {
-
+	padding :20px;
 	width : 400px;
 	font-size : 20px; 
+	 margin-left: 30px;
 }
 
+th {
+	height : 43px; 
+}
 #calendar {
-
+	margin-top:15px;
+	padding: 20px;
  }
+ 
+ .fc .fc-daygrid-day-bg .fc-highlight {
+    z-index: 3;
+    background: #fffadf;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: rgba(188,232,241,.3);
+}
+
+#date {
+	padding: 10px 30px;
+    border-radius: 20px 20px 0 0;
+    background: #fff3b5
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -169,15 +206,15 @@ $(document).ready(function(){
 			var calendarEl = $('#calendar')[0];
 			// full-calendar 생성하기
 			var calendar = new FullCalendar.Calendar(calendarEl, {
-				height: '700px', // calendar 높이 설정
+				height: '750px', // calendar 높이 설정
 				expandRows: true, // 화면에 맞게 높이 재설정
 				slotMinTime: '08:00', // Day 캘린더에서 시작 시간
 				slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
 				// 해더에 표시할 툴바
 				headerToolbar: {
-				left: 'prev,next today',
+				left: 'prev',
 				center: 'title',
-				right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+				right: 'next'
 			}, 
 				 dateClick: function(info) {
 						let userCode = ${ loginMember.userCode }
@@ -185,7 +222,7 @@ $(document).ready(function(){
 	        			//alert('클릭 날짜: ' + date); 
 	        	 		
 	        			let url = '${pageContext.request.contextPath }/myCalendar/historyListByDate/' + date 
-	        			alert(url)
+	        			//alert(url)
 	        			
 	        			let data = { userCode : userCode }
 	        			
@@ -231,13 +268,15 @@ $(document).ready(function(){
 				selectable: true, // 달력 일자 드래그 설정가능
 				nowIndicator: true, // 현재 시간 마크
 				dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
-				//locale: 'ko', // 한국어 설정 
+				locale: 'ko', // 한국어 설정 
+
 				eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
 					console.log(obj);
 				},
 				eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
 					console.log(obj);
 				},
+				
 				eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
 					console.log(obj);
 				},
@@ -246,7 +285,6 @@ $(document).ready(function(){
 				}, */
 				select: function() { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
 					
-				
 						
 						/* 	
 					var title = prompt('Event Title:');
@@ -259,9 +297,9 @@ $(document).ready(function(){
 						}) 
 					} 
 					*/
-				calendar.unselect()
+			/* 	calendar.unselect() */
 				},
-				eventColor : 'white',
+				/* eventColor : 'white', */
 				events:
 					calArr 
 				/*
@@ -346,16 +384,27 @@ $(document).ready(function(){
 							<div class="title col">		
 								<h2 id="title-h2">소비<strong class="black"> 달력</strong></h2>				
 							</div>
+								
 							<div id="calendar-container" class="row">
 								<div id="calendar" class="col-md-8"></div>
-								<div id="historyDetail" class="col-md-4">
+								
+								
+								<div class="col-md-4" style="padding : 0">
+								
+									<h2 >총 수입 : </h2>
+									<h2 >총 지출 : </h2>
+								
+								<div id="historyDetail">
 									<h2 id="date"></h2>
+									
 									<table id="historyList">
 									<tr>
 								
 									</tr>
 									</table>
 								</div>
+								</div>
+								
 							</div>	
 							
 							
@@ -374,15 +423,19 @@ $(document).ready(function(){
 							<div class="title col">		
 								<h2 id="title-h2">주별<strong class="black"> 소비</strong></h2>				
 							</div>
-							일주일에 00만원 정도 써요. 이번주는 0만원 덜썼어요
+							
 							
 						<div class="row">
 			                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			                <div style="font-size : 25px; padding-left : 20px;">일주일에 21만원 정도 써요. <br>이번주는 2만원 덜썼어요</div>
 			                    <div class="bar-chart-wp mg-t-30 chart-display-nn">
 			                        <canvas height="140vh" width="180vw" id="weeklyChart"></canvas>
 			                    </div>
 			                </div>
+			                
+			                
 			                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			                <div style="font-size : 25px;padding-left : 20px;">불 '화'를 즐기는 타입 ..? <br> 화요일 소비를 주의하세요</div>
 			                    <div class="bar-chart-wp mg-t-30 chart-display-nn">
 			                        <canvas height="140vh" width="180vw" id="dayChart"></canvas>
 			                    </div>
@@ -449,9 +502,16 @@ $(document).ready(function(){
 				scales: {
 					yAxes: [{
 						ticks: {
-							beginAtZero:true
+							beginAtZero:true,
+							fontSize: 18,
 						}
-					}]
+					}],
+					xAxes:[{
+						  ticks:{
+						  fontColor:'black',
+						  fontSize: 18,
+						 }
+						}]
 				}
 			}
 		});
@@ -492,9 +552,16 @@ $(document).ready(function(){
 				scales: {
 					yAxes: [{
 						ticks: {
-							beginAtZero:true
+							beginAtZero:true,
+							fontSize: 18,
 						}
-					}]
+					}],
+					xAxes:[{
+						  ticks:{
+						  fontColor:'black',
+						  fontSize: 18,
+						 }
+						}]
 				}
 			}
 		});

@@ -72,6 +72,7 @@
     	/* box-shadow: #00000040 0px 0px 19px 0px; */
     	margin: 30px 10px 50px 20px;
     	padding: 15px 0 15px 25px;
+    	border-radius : 20px;
     }
     
     #accountType {
@@ -162,18 +163,20 @@
     }
     
     .modal-dialog.modal-large .modal-content {
-    	padding: 70px 100px;
+    	padding: 10px 0px;
+    	
     }
     
     .modal-content {
     	
-    	width: 1000px;
-   		height: 1200px;
+    	width: 1100px;
+   		height: 900px;
     }
     
     .modal-large .modal-body h2 {
     	font-size : 28px;
     	color : black;
+    	
     } 
     
     
@@ -195,6 +198,14 @@
 		display : block;
 		margin: 0 auto;
     }
+    
+    .modal-dialog.modal-large {
+   
+    margin-top: 170px;
+    margin-left: 750px;
+}
+
+
     
     .modal-footer > .btn-default {
     	margin-left : 230px;
@@ -234,7 +245,12 @@
   	  
   	}
   	
- 
+ 	#samll-modal {
+     padding: 70px 180px;
+    height: 450px;
+    font-size: 22px;
+    
+ 	}
 </style>
 <script>
 	$(document).ready(function() {
@@ -354,8 +370,9 @@
 	                                    <button id="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
 	                                </div>
 	                                <div class="modal-body">
-	                                    <div>Modal title</div>
-	                                    <p>Curabitur blandit mollis lacus. Nulla sit amet est. Suspendisse nisl elit, rhoncus eget, elementum ac, condimentum eget, diam. Donec mi odio, faucibus at, scelerisque quis, convallis in, nisi. Cras sagittis.</p>
+	                                    <iframe style="width: 100%; height: 750px;"
+											src="${pageContext.request.contextPath }/resources/doc/hanaro_manual.pdf">
+										</iframe>
 	                                </div>
 	                                <div class="modal-footer">
 	                                	<h3>※ 본인은 상품 설명서를 제공받고 그 내용을 충분히 이해하였음을 확인합니다.</h3>
@@ -368,13 +385,23 @@
 	                    
 	                        <div class="modal fade" id="myModal2" role="dialog">
 	                        <div class="modal-dialog modal-large">
-	                            <div class="modal-content">
+	                            <div class="modal-content" id="samll-modal">
 	                                <div class="modal-header">
 	                                    <button id="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
 	                                </div>
 	                                <div class="modal-body">
-	                                    <h2>Modal title</h2>
-	                                    <p>Curabitur blandit mollis lacus. Nulla sit amet est. Suspendisse nisl elit, rhoncus eget, elementum ac, condimentum eget, diam. Donec mi odio, faucibus at, scelerisque quis, convallis in, nisi. Cras sagittis.</p>
+	                                		<b style="font-size : 25px">하나로 통장</b>
+	                                    <table style="border : 3px solid #f5f7ff; width : 100%; height : 100px;margin-top : 15px; text-align : center;">
+	                                    	<tr style="background: #f5f7fa">
+	                                    		<td width="50%"><b>분류</b></td>
+	                                    		<td><b>금리(연율, 세전)</b></td>
+	                                    	<tr>
+	                                    	<tr>
+	                                    		<td>-</td>
+	                                    		<td>0.1%</td>
+	                                    	</tr>
+	                                    	
+	                                    </table>
 	                                </div>
 	                                <div class="modal-footer">
 	                                	<h3>※ 본인은 상품 설명서를 제공받고 그 내용을 충분히 이해하였음을 확인합니다.</h3>

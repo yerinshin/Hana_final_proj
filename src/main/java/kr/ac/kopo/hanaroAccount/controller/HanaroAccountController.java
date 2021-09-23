@@ -70,6 +70,14 @@ public class HanaroAccountController {
 		return hanaro;
 	}
 	
+	@GetMapping("/hanaro/selectJoin")
+	public String selectJoin() {
+		
+		return "hanaro/selectJoin";
+	}
+
+	
+	
 	//통장전환 page 호출
 	@GetMapping("/hanaro/changeToHanaro/{userCode}")
 	public ModelAndView accountList(@PathVariable("userCode") int userCode)  {

@@ -50,39 +50,19 @@
          <div id="main_slider" class="carousel slide banner-main" data-ride="carousel">
 
             <div class="carousel-inner">
+           
+            
                <div class="carousel-item active">
-                  <img class="first-slide" src="${ pageContext.request.contextPath }/resources/images/banner1.png" alt="First slide">
-                  <div class="container">
-                     <div class="carousel-caption relative">
-                        <h1><strong class="black_bold">Welcome <br> </strong>To <br>
-                           <strong class="gray_bold">hana Bank </strong></h1>
-                        <p> 저의 YR Bank에 오신걸 환영합니다. <br>
-                          eader will be distracted by the readable content of a page </p>
-                        <a id="bannerBtn" href="#">see more Products</a>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <img class="second-slide" src="${ pageContext.request.contextPath }/resources/images/banner1.png" alt="Second slide">
-                  <div class="container">
-                     <div class="carousel-caption relative">
-                            <h1><strong class="black_bold">Welcome <br></strong> To <br>
-                           <strong class="gray_bold">hana Bank </strong></h1>
-                        <p> 하나은행에 오신걸 환영합니다. <br>
-                          eader will be distracted by the readable content of a page <br><br></p>
-                        <a id="bannerBtn" href="#">see more Products</a>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
                   <img class="third-slide" src="${ pageContext.request.contextPath }/resources/images/banner1.png" alt="Third slide">
                   <div class="container">
                     <div class="carousel-caption relative">
-                            <h1><strong class="black_bold">Welcome <br></strong> To <br>
-                           <strong class="gray_bold">hana Bank </strong></h1>
-                        <p> 저의 YR Bank에 오신걸 환영합니다. <br>
-                          eader will be distracted by the readable content of a page </p>
-                        <a id="bannerBtn" href="#">see more Products</a>
+                    	<div style="box-shadow: 19px #dddddd;">
+                            <h3 style="font-size : 27px"><strong class="black_bold"> 통장 하나로 다! 되는 자산관리 </strong></h3>
+                           <h1><strong class="black_bold ">hanaro </strong><strong class="black_bold">통장</strong></h1>
+                        <h3 style="font-size : 24px"> #분리형통장 #하나로 </h3>
+                         
+                        <a id="bannerBtn" href="${ pageContext.request.contextPath }/hanaro/selectJoin" style="margin-top : 20px;font-size: 28px; font-weight : bold">지금 가입하기</a>
+                    	</div>
                      </div>
                   </div>
                </div>

@@ -18,7 +18,7 @@
 	body {
 	    /* background: #f8f8ff3b; */
 	    /*#fbfbfb*/
-    font-family: "Noto Sans Korean","Apple SD Gothic Neo","Nanum Barun Gothic","Malgun Gothic","돋옴",Dotum,sans-serif;
+   font-family: 'hana' , verdana, san-serif;
     }
     
  /*    .survey__item{
@@ -99,9 +99,13 @@
 	.main {
 		width : 90%;
 		justify-content : center;
-		margin-right: 30px;
+		/* margin-right: 30px; */
+		margin-left: 35px;
 	}
 	
+	section {
+    	width : 1300px;
+    }
 	#title {
     	color : black;
     	font-size : 28px;
@@ -120,9 +124,6 @@
     	
     }
 	
-	section {
-    	width : 1300px;
-    }
     .nav-tabs>li {
 	    border: 2px solid lightgray;
 	    border-radius: 7px 7px 0 0;
@@ -532,7 +533,7 @@ $(document).ready(function(){
 			
 			<div class="widget-tabs-list">
 				<ul class="nav nav-tabs">
-				<li class=""><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">고정지출</a></li>
+				<li class=""><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">예산설정</a></li>
 				<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >예산 현황</a></li>
 				<li class="active"><a href="${pageContext.request.contextPath}/dashBoard/savingAnalysis">저축 현황</a></li>
 				<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li>
@@ -654,7 +655,7 @@ $(document).ready(function(){
 					<div class="row">
 					 	<h2 class="col-md-8">금융비서가 찾은 최적의 정기 예금/적금 상품입니다</h2>
 					 	<button style="background :white; border : none; font-size : 28px; padding-left : 120px;" id="btn-search" class="col-md-3">
-					 		<b>재검색</b>
+					 		<b>조건검색</b>
 					 		<img style="width : 45px; margin-left : 5px" id="img-search" src="${pageContext.request.contextPath}/resources/icon/research2.png">
 					 		</button>
 					</div>
@@ -667,17 +668,17 @@ $(document).ready(function(){
 					  		<td>
 					  		  <div class="row">
 				                    <div class="col-md-6" style="text-align : center;">
-				                    <h2 style="margin-top : 40px;">하나더예금 <span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
+				                    <h2 style="margin-top : 40px;">하나 원큐 적금<span style="font-size: 19px; color : #009b9d"> 정기적금</span> </h2>
 				                                   
-				                     <h4 id="accountNo">목돈마련의 기본, 재테크의 시작!</h4>
+				                     <h4 id="accountNo">간편하게 우대금리를 제공하는 스마트폰 적금</h4>
 				                    </div>
 				                    <div class="col-md-3">
-				                     <span style="font-size : 15px">기본 금리</span><h2>2.3%</h2>
+				                     <span style="font-size : 15px">기본 금리</span><h2>1.0%</h2>
 				                     <span style="font-size : 15px">최대 금리</span><h2>2.3%</h2>
 				                    </div>
 				                  	<div class="col-md-2" style="padding-top : 20px">
 				                  	<button class="read-more">상세보기</button>
-				                  	<button class="read-more">상담하기</button>
+				                  	<button class="read-more">가입하기</button>
 				                  	</div>
 				                  	</div>
 					  		</td>
@@ -687,37 +688,39 @@ $(document).ready(function(){
 					  		<td>
 					  		  <div class="row">
 				                    <div class="col-md-6" style="text-align : center;">
-				                    <h2 style="margin-top : 40px;">하나더예금 <span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
+				                    <h2 style="margin-top : 40px;">하나 더 예금 <span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
 				                                   
 				                     <h4 id="accountNo">목돈마련의 기본, 재테크의 시작!</h4>
 				                    </div>
 				                    <div class="col-md-3">
-				                     <span style="font-size : 15px">기본 금리</span><h2>2.3%</h2>
-				                     <span style="font-size : 15px">최대 금리</span><h2>2.3%</h2>
+				                     <span style="font-size : 15px">기본 금리</span><h2>0.9%</h2>
+				                     <span style="font-size : 15px">최대 금리</span><h2>1.4%</h2>
 				                    </div>
 				                  	<div class="col-md-2" style="padding-top : 20px">
 				                  	<button class="read-more">상세보기</button>
-				                  	<button class="read-more">상담하기</button>
+				                  	<button class="read-more">가입하기</button>
 				                  	</div>
 				                  	</div>
+					  		
 					  		</td>
 					  	</tr>
 					  	<tr style="border: 5px white solid;">
 					  		<td><img style="width : 60px; margin-left : 40px" src="${pageContext.request.contextPath}/resources/icon/medal3.png"></td>
 					  		<td>
-					  		  <div class="row">
+				
+				                  	  <div class="row">
 				                    <div class="col-md-6" style="text-align : center;">
-				                    <h2 style="margin-top : 40px;">하나더예금 <span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
+				                    <h2 style="margin-top : 40px;">주거래 정기예금<span style="font-size: 19px; color : #009b9d"> 정기예금</span> </h2>
 				                                   
-				                     <h4 id="accountNo">목돈마련의 기본, 재테크의 시작!</h4>
+				                     <h4 id="accountNo"> KEB하나은행 주거래 고객을 위한 주거래 정기예금</h4>
 				                    </div>
 				                    <div class="col-md-3">
-				                     <span style="font-size : 15px">기본 금리</span><h2>2.3%</h2>
-				                     <span style="font-size : 15px">최대 금리</span><h2>2.3%</h2>
+				                     <span style="font-size : 15px">기본 금리</span><h2>0.75%</h2>
+				                     <span style="font-size : 15px">최대 금리</span><h2>1.25%</h2>
 				                    </div>
 				                  	<div class="col-md-2" style="padding-top : 20px">
 				                  	<button class="read-more">상세보기</button>
-				                  	<button class="read-more">상담하기</button>
+				                  	<button class="read-more">가입하기</button>
 				                  	</div>
 				                  	</div>
 					  		</td>

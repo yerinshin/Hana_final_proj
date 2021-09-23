@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/style.css">
 
 <style>
+	body {
+   		font-family: 'hana' , verdana, san-serif;
+    }
+    
 	 #main-layout {
 		width : 90%;
 		margin: 0 auto;

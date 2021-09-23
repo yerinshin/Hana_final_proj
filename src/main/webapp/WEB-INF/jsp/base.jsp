@@ -15,7 +15,7 @@
 	width : 90%;
 		display : flex;
 		justify-content : center;
-		margin-right: 30px;
+		margin-left: 35px;
 	}
 	
 	section {

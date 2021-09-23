@@ -1,33 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-         <!-- header inner -->
+        <!-- header inner -->
          <div class="header">
             <div class="head_top">
-               <div class="container">
+               <div class="" style="width:1500px; margin: auto;">
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                        <div class="top-box">
                         <ul class="sociel_link">
-                         <li> <a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                         <li> <a href="#"><i class="fa fa-twitter"></i></a></li>
-                         <li> <a href="#"><i class="fa fa-instagram"></i></a></li>
-                         <li> <a href="#"><i class="fa fa-linkedin"></i></a></li>
+                         <li> <a href="#"><i class="fa"></i></a></li>
+                    
                      </ul>
                     </div>
                   </div>
                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                        <div class="top-box">
-                       <c:if test="${not empty loginMember}">
-                        <p> ${ loginMember.name } 님 </p>
-                       </c:if>
+                       
                     </div>
                   </div>
                </div>
             </div>
          </div>
-         <div class="container" id="head-top">
+         <div class="" id="head-top" style="width:1500px; margin: auto;">
             <div class="row">
                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
                   <div class="full">
@@ -39,7 +34,7 @@
               
               
               
-               <div class="col-xl-7 col-lg-7 col-md-9 col-sm-9">
+               <div class="col-xl-6">
                   <div class="menu-area">
                      <div class="limit-box">
  
@@ -67,7 +62,7 @@
           </a>
           
          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">             		  	
-     	    <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/changeToHanaro/${loginMember.userCode}">통장전환</a></li>
+     	    <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/selectJoin">상품가입</a></li>
             <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/${loginMember.userCode}">My하나로통장</a></li>
             <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/dashBoard/${loginMember.userCode}">대시보드</a></li>
          </ul>
@@ -92,13 +87,19 @@
                      </div>
                   </div>
                </div>
-               <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+              
+               <div class="col-xl-3 col-lg-2 col-md-2 col-sm-2">
                      <c:choose>
                      	<c:when test="${ empty loginMember }">
-                    	 	<li><a id="loginBtn" class="buy" href="${ pageContext.request.contextPath }/member/login">Login</a></li>
+                    	 	<li><a id="loginBtn" class="buy" href="${ pageContext.request.contextPath }/member/login">로그인</a></li>
+                    	 	<li><a style =" margin :18px 5px; background: white; border: 3px solid #009b9d; padding-top : 7px;width: 141px; height:50px;text-align: center;border-radius: 5px;float: right; color:#009b9d"
+    						id="loginBtn" class="">회원가입</a></li>
                     	</c:when>
                			<c:otherwise>
-                       		<li><a id="loginBtn" class="buy" href="${ pageContext.request.contextPath }/member/logout">Logout</a></li>
+               			 
+                      
+                       		<li><a id="loginBtn" class="buy" href="${ pageContext.request.contextPath }/member/logout">로그아웃</a></li>
+                        <span style="font-size : 24px; float: right; font-weght : 600; margin : 20px 30px; color:black"> ${ loginMember.name } 님 </span>
                      	</c:otherwise>
                      </c:choose>
           		</div>

@@ -31,6 +31,25 @@
     <!-- bootstrap javacript포함 cdn-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <style>
+@font-face {
+    font-family: 'hana';
+    src: url('${ pageContext.request.contextPath }/resources/font/HanaL.ttf') format('truetype');
+    
+}
+
+@font-face {
+    font-family: 'hanaM';
+    src: url('${ pageContext.request.contextPath }/resources/font/HanaM.ttf') format('truetype');
+    
+}
+@font-face {
+    font-family: 'hanaUL';
+    src: url('${ pageContext.request.contextPath }/resources/font/HanaUL.ttf') format('truetype');
+    
+}
+      body {
+    	font-family: 'hana' , verdana, san-serif;
+	}
 
 	 #hana-logo {
 	 	margin-left : 50px;
@@ -81,6 +100,34 @@
 	    line-height: 65px;
     }
     
+    	#title {
+    	color : black;
+    	font-size : 28px;
+    	font-weight : bold;
+/*     	border-bottom: 2px solid #a0a0a0; */
+    	padding-top : 55px;
+    	margin-bottom : 20px;
+    	padding-bottom : 16px;
+    }
+    
+    #menu-title {
+    	font-size : 24px;
+    	font-weight : bold;
+    	margin-bottom : 20px;
+    	
+    }
+    
+    .title {
+		padding-bottom : 0px;
+	}	
+	.title h2{
+	    font-size: 30px;
+	}
+	
+	.title h2:after {
+	    height: 0;
+	   	font-size: 30px;
+	}
 	 
 	 footer {
 	  	margin-top : 150px;

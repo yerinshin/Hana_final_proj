@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/template/css/style.css">
 <!-- 	<script src="/com/js/Chart.PieceLabel.js"></script> -->
 <style>
+	body {
+   		font-family: 'hana' , verdana, san-serif;
+    }
 	 #main-layout {
 		width : 90%;
 		margin: 0 auto;
@@ -79,7 +82,7 @@
 	}
 	#selectMonth{
 	    height: 49px;
-    	width: 150px;
+    	width: 250px;
     	font-size: 23px;
 	}
 	
@@ -233,15 +236,15 @@
 						<div class="bar-chart-area">
 				        <div class="container">
 				        <div>
-				        <div class="col-md-10">
+				        <div class="col-md-9">
 				        </div>
 				         <div>
 				                	<select class="form-control" name="setDate" id="selectMonth" aria-label="Example select with button addon">
-										<option value="202109">9월</option>	
-										<option value="202108">8월</option>
-										<option value="202107">7월</option>
-										<option value="202106">6월</option>
-										<option value="202105">5월</option>
+										<option value="202109">2021년 9월</option>	
+										<option value="202108">2021년 8월</option>
+										<option value="202107">2021년 7월</option>
+										<option value="202106">2021년 6월</option>
+										<option value="202105">2021년 5월</option>
 									</select>
 									</div>
 								
