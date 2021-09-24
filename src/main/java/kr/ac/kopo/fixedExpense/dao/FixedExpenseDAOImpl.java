@@ -22,6 +22,7 @@ public class FixedExpenseDAOImpl implements FixedExpenseDAO {
 	}
 
 	public void insert(FixedExpenseVO fixedExpense) {
+		System.out.println("고정지출 추가 dao :" + fixedExpense);
 		sqlSessionTemplate.insert("fixedExpense.FixedExpenseDAO.insert", fixedExpense);
 	}
 

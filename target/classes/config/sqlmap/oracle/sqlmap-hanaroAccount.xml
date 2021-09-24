@@ -94,7 +94,7 @@
 	<select id="splitHistoryByKind" parameterType="splitKindInfoVO" resultMap="splitHistoryMap">
 		select  split_from, split_to, trans_money, transaction_date, basic_balance, consumption_balance, saving_balance 
 			from tbl_split_history where account_no = #{accountNo} 
-			and split_from = #{splitKind} or split_to = #{splitKind} 
+			and (split_from = #{splitKind} or split_to = #{splitKind} )
 		order by transaction_date desc
 	</select>
 	

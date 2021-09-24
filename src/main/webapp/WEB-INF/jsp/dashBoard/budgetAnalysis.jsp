@@ -138,6 +138,10 @@
 		font-weight : bold;
 		font-size : 22px;
 	}
+	.feedback-text {
+	text-align : center;
+	font-weight : bold;
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -291,60 +295,43 @@ $(document).ready(function(){
 				        <div class="container">
 				       		<div class="row">
 				             	
-				                <div class="col-md-6">
+				                <div class="col-md-8">
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
-				                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
+				                        <canvas height="110vh" width="180vw" id="barchart1"></canvas>
 				                    </div>
 				                </div>
-				                <div style="font-size : 25px; padding : 15px;margin-top : 60px; box-shadow: #00000040 0px 0px 19px 0px;background: #f5f7fb; border-radius : 20px; margin-left : 30px;margin-bottom : 70px">
-				                 또래 사용자보다 <br>
-				                 생활비 <b style="font-size : 32px;">35만원 많이</b>쓰고<br> 저축
-				                  <b style="font-size : 32px;">17만원 적게</b>해요
-				                </div>
+				                 
+				                  <div class ="feedback-text col-md-4" style="font-size : 25px; padding-top : 110px;"> 
+				                  	또래 사용자보다<br><br>
+					                  <q> 생활비는
+					                  <b style="font-size : 32px;"> 35만원 많이 </b>쓰고
+					                  <br>저축은 
+					                  <b style="font-size : 32px;"> 17만원 적게 </b>해요 </q>
+				                  </div>
+				       
 				            </div>
-				<!--            <div class="row">
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				                    <div class="bar-chart-wp">
-				                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
-				                    </div>
-				                </div>
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
-				                        <canvas height="140vh" width="180vw" id="barchart2"></canvas>
-				                    </div>
-				                </div>
-				            </div>
-				            <div class="row">
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				                    <div class="bar-chart-wp mg-t-30 chart-display-nn">
-				                        <canvas height="140vh" width="180vw" id="barchart3"></canvas>
-				                    </div>
-				                </div>
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				                    <div class="bar-chart-wp mg-t-30 chart-display-nn">
-				                        <canvas height="140vh" width="180vw" id="barchart4"></canvas>
-				                    </div>
-				                </div>
-				            </div> -->
+			
 				        </div>
 				    </div>
 				    <!-- Bar Chart area End-->
 												 
-					<div id="menu-title"> 비슷한 급여 사용자 평균 설정 예산 </div>
+					<div id="menu-title"> 비슷한 급여 사용자 평균 예산 </div>
 				 								  <div class="bar-chart-area">
 				        <div class="container">
 				           <div class="row">
 				         
-				                <div class="col-md-6">
+				                <div class="col-md-8">
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
-				                        <canvas height="140vh" width="180vw" id="barchart2"></canvas>
+				                        <canvas height="110vh" width="180vw" id="barchart2"></canvas>
 				                    </div>
 				                </div>
-				               <div style="font-size : 25px; padding : 15px;margin-top : 60px; box-shadow: #00000040 0px 0px 19px 0px;background: #f5f7fb; border-radius : 20px; margin-left : 30px;margin-bottom : 70px">
-				                 비슷한 급여의 사용자들보다 <br>
-				                 생활비 <b style="font-size : 32px;">20만원 많이</b>쓰고<br> 저축
-				                  <b style="font-size : 32px;">60만원 적게</b>해요
-				                </div>
+				                <div class ="feedback-text col-md-4" style="font-size : 25px; padding-top : 110px;"> 
+				                  	비슷한 급여의 사용자보다<br><br>
+					                  <q> 생활비는
+					                  <b style="font-size : 32px;"> 20만원 많이 </b>쓰고
+					                  <br>저축은 
+					                  <b style="font-size : 32px;"> 60만원 적게 </b>해요 </q>
+				                  </div>
 				            </div>
 				 	
 				        </div>
@@ -406,32 +393,21 @@ $(document).ready(function(){
 				datasets: [{
 	                label: '또래 사용자',
 					data: [agesAvgFixedExpense, agesAvgConsumption, agesAvgSaving],
-					borderWidth: 1,
-	                backgroundColor: [
-						'rgba(255, 99, 132, 0.4)',
-						'rgba(255, 99, 132, 0.4)',
-						'rgba(255, 99, 132, 0.4)',
-					],
-					borderColor: [
-						'rgba(255,99,132,1)',
-						'rgba(255,99,132,1)',
-						'rgba(255,99,132,1)',
-						
-					],
+				
+					    backgroundColor:
+		                	'#d6d5d5',
+						borderColor: 
+							'#d6d5d5',
+						borderWidth: 1
+					
 	            }, {
 	                label: '나',
 					data: [myFixedExpense, myConsumption, mySaving],
-	                backgroundColor: [
-						'rgb(50,205,50, 0.4)',
-						'rgb(50,205,50, 0.4)',
-						'rgb(50,205,50, 0.4)'
-					],
-					borderColor: [
-						'rgba(54, 162, 235, 1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(54, 162, 235, 1)',
-					],
-					borderWidth: 1
+					    backgroundColor:
+		                	'rgb(75, 192, 192,0.8)',
+						borderColor: 
+							'rgb(75, 192, 192)',
+						borderWidth: 1
 	            }]
 			},
 			options: {
@@ -453,12 +429,12 @@ $(document).ready(function(){
 				},
 				 legend: {
 		               	labels : {
-		               		fontSize : 23,          	
+		               		fontSize : 22,          	
 		               	}
 	               	},
 				title: {
-					display: true,
-					text: 'Bar Chart Vertical'
+					display: false,
+					
 				}
 			}
 		});
@@ -476,31 +452,20 @@ $(document).ready(function(){
 	                label: '비슷한 급여 사용자',
 					data: [55, 100, 160],
 					borderWidth: 1,
-	                backgroundColor: [
-						'rgba(255, 99, 132, 0.4)',
-						'rgba(255, 99, 132, 0.4)',
-						'rgba(255, 99, 132, 0.4)',
-					],
-					borderColor: [
-						'rgba(255,99,132,1)',
-						'rgba(255,99,132,1)',
-						'rgba(255,99,132,1)',
-						
-					],
+					   backgroundColor:
+		                	'#d6d5d5',
+						borderColor: 
+							'#d6d5d5',
+						borderWidth: 1
+	
 	            }, {
 	                label: '나',
 					data: [myFixedExpense, myConsumption, mySaving],
-	                backgroundColor: [
-						'rgb(50,205,50, 0.4)',
-						'rgb(50,205,50, 0.4)',
-						'rgb(50,205,50, 0.4)'
-					],
-					borderColor: [
-						'rgba(54, 162, 235, 1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(54, 162, 235, 1)',
-					],
-					borderWidth: 1
+					 	backgroundColor:
+		                	'rgb(75, 192, 192,0.8)',
+						borderColor: 
+							'rgb(75, 192, 192)',
+						borderWidth: 1
 	            }]
 			},
 			options: {
@@ -524,12 +489,12 @@ $(document).ready(function(){
 				},
 				 legend: {
 	               	labels : {
-	               		fontSize : 23,          	
+	               		fontSize : 22,          	
 	               	}
                	},
 				title: {
-					display: true,
-					text: 'Bar Chart Vertical'
+					display: false,
+					
 				}
 			}
 		});

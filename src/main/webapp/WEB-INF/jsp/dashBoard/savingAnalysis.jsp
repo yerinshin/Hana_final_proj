@@ -661,8 +661,8 @@ $(document).ready(function(){
 					</div>
 					<div>
 					  	<!-- service --> 
-					  	
-					  	<table style="width : 1100px; margin : 40px auto; background: #f5f7fb">
+					  	<!-- #f5f7fb -->
+					  	<table style="width : 1100px; margin : 40px auto; background: #eff2f7">
 					  	<tr style="border: 5px white solid;">
 					  		<td width="11%"><img style="width : 60px; margin-left : 40px" src="${pageContext.request.contextPath}/resources/icon/medal1.png"></td>
 					  		<td>
@@ -1020,29 +1020,15 @@ $(document).ready(function(){
 			data: {
 				labels: {label},
 				datasets: [{
-					label: 'Bar Chart',
+					label: '한달 저축액',
 					data: {data},
 					backgroundColor: 
 						
 						'rgba(75, 192, 192, 0.8)',
-						/*
-						[
-
-						'rgba(255, 99, 132, 1)',
-						'rgb(50,205,50, 1)',
-						'rgba(255, 206, 86, 1)',
-						
-						'rgb(50,205,50, 1)',
-						'rgb(50,205,50, 1)'
-					],*/
-					borderColor: [
+					
+					borderColor: 	
 						'rgba(255,99,132,0)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(75, 192, 192, 1)'
-					],
+				
 					borderWidth: 1
 				}]
 			},
@@ -1050,9 +1036,16 @@ $(document).ready(function(){
 				scales: {
 					yAxes: [{
 						ticks: {
-							beginAtZero:true
+							beginAtZero:true,
+							fontSize: 18,
 						}
-					}]
+					}],
+					xAxes:[{
+						  ticks:{
+						  fontColor:'black',
+						  fontSize: 18,
+						 }
+						}]
 				}
 			}
 		})
@@ -1067,7 +1060,7 @@ $(document).ready(function(){
 			data: {
 				labels: {label},
 				datasets: [{
-					label: 'line Chart',
+					label: '총 보유 비상금',
 					data: {lineData},
 					fill: true,
 					backgroundColor :'#78d0d085',
@@ -1080,9 +1073,16 @@ $(document).ready(function(){
 				scales: {
 					yAxes: [{
 						ticks: {
-							beginAtZero:true
+							beginAtZero:true,
+							fontSize: 18,
 						}
-					}]
+					}],
+					xAxes:[{
+						  ticks:{
+						  fontColor:'black',
+						  fontSize: 18,
+						 }
+						}]
 				}
 			}
 		})

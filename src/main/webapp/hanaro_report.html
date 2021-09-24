@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>월간 금융리포트</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+							
+		<link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/css/responsive.css">
+      <!-- fevicon -->
+ 
+
+      <link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/css/jquery.mCustomScrollbar.min.css">
+   
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> 
+	<link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/template/css/bootstrap.min.css">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/template/css/style.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+							
+							
+							
+							<!-- Custom Stylesheet -->
+							<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+		
+							
+							<link href="http://localhost:9998/Hana-Project/resources/css/style.css" rel="stylesheet"> 
+							
+							
+							<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+							
+							<script type="text/javascript"> 	
+							var oldTab = [ 1, 1 ];
+								function tabShowHideFunc(t, n, b) { // t = this, n = x번째 탭, b = 탭아닌 버튼으로 탭 컨트롤시..
+									var gStr = t.href.split('.html#')[1]; 		if (!gStr) {
+										gStr = t.href.split('.htm#')[1]; 			if (!gStr) {
+											gStr = t.href.split('#')[1]; 			} 		}
+									gStr1 = gStr.substr(0, gStr.length - 1);
+									var gNum = (t.href).substr((t.href).length - 1, (t.href).length); 
+									if (arguments[2] != undefined) {
+										if (arguments[2] == 'btn') {
+											document.getElementById("email").getElementsByTagName("li")[gNum - 1]
+													.getElementsByTagName("a")[0].click();
+											document.documentElement.scrollTop = 0;
+											document.body.scrollTop = 0;
+										} else if (arguments[2] == 'slide') {
+											document.getElementById("email").getElementsByTagName("li")[3]
+													.getElementsByTagName("a")[0].click();
+											setTimeout(function() {
+												var targetPos = document.getElementById(gStr).offsetTop;
+												window.scroll(0, targetPos); 				}, 200);
+										} else if (arguments[2] == 'voice') {
+											document.getElementById("email").getElementsByTagName("li")[3]
+													.getElementsByTagName("a")[0].click();
+											setTimeout(function() {
+												var targetPos = document.getElementById(gStr).offsetTop;
+												window.scroll(0, targetPos); 				}, 200);
+										} else if (arguments[2] == 'revolg') {
+											document.getElementById("email").getElementsByTagName("li")[3]
+													.getElementsByTagName("a")[0].click();
+											setTimeout(function() {
+												var targetPos = document.getElementById(gStr).offsetTop;
+												window.scroll(0, targetPos); 				}, 200);
+										} else if (arguments[2] == 'revol') {
+											document.getElementById("email").getElementsByTagName("li")[1]
+													.getElementsByTagName("a")[0].click();
+											setTimeout(function() {
+												var targetPos = document.getElementById(gStr).offsetTop;
+												window.scroll(0, targetPos); 				}, 200);
+										} else if (arguments[2] == 'minus') {
+											document.getElementById("email").getElementsByTagName("li")[3]
+													.getElementsByTagName("a")[0].click();
+											setTimeout(function() {
+												var targetPos = document.getElementById(gStr).offsetTop;
+												window.scroll(0, targetPos); 				}, 200);
+										} 		} else {
+										t.parentNode.className = "on";
+										document.getElementById(gStr1 + gNum).style.display = "block";
+										if (oldTab[n - 1] != gNum) {
+											t.parentNode.parentNode.getElementsByTagName("li")[oldTab[n - 1] - 1].className = "";
+											document.getElementById(gStr1 + oldTab[n - 1]).style.display = "none";
+										} 			oldTab[n - 1] = gNum; 		
+										} 	
+									}
+								function cardToggleView() {
+									var displayOn = document.getElementById('cardUseResults').style.display;
+									if (displayOn == 'none') {
+										document.getElementById('cardUseResults').style.display = 'block';
+									} else {
+										document.getElementById('cardUseResults').style.display = 'none';
+									} 	
+									} 	
+								function openJoinDetail(joinCd, splrcvd, slpn) {
+									w = 720; 		
+									h = 260;
+									LeftPosition = (screen.width) ? (screen.width - w) / 2 : 0;
+									TopPosition = (screen.height) ? (screen.height - h) / 2 : 0;
+									url = "http://www.shinhancard.com/hpp/HPPSTMTN/stmCrdA02Pu.shc?retlno="
+											+ joinCd + "&slpn=" + slpn + "&slprcvd=" + splrcvd;
+									window.showModalDialog(url, "", "dialogLeft:" + LeftPosition
+											+ "px; dialogTop:" + TopPosition
+											+ "px; dialogWidth:720px; dialogHeight:260px; status:no;");
+								} </script> 
+								<script> 	
+								$(document).ready(function() {
+									$(".ac-label").click(function(e) { 			
+										e.preventDefault();
+										$check = $(this).prev(); 			
+										if ($check.prop('checked'))
+											$check.prop("checked", false); 			
+										else
+											$check.prop("checked", true); 		
+										}); 	
+									});
+							</script> 
+							<style>
+							 body { 	font-family: 'hana'; }
+							 h3 { 	font-size: 20pt; 	font-family: 'hanaB'; }
+							 .txtNotice{ 	font-size: 10pt; } 
+							.progress { 	height: 20px; } </style> </head>
+							<body> 	
+							<div id="skipNavi">
+									<a href="#content">본문 바로가기</a> 	
+							</div>
+								<div class="wrap"> 		<!-- header 시작-->
+									<div class="header"> 			
+									<h1>hana bank</h1>
+										<!-- 	<div class="topMenu"> 				<a
+												href="https://www.shinhancard.com/mob/MOBFM151N/MOBFM151C01.shc?crustMenuId=ms337"
+												target="_blank" title="새창열림" class="btnCntGray"><span>E-mail상담</span></a>
+											<a
+												href="https://www.shinhancard.com/mob/MOBFM016N/MOBFM016C01.shc?crustMenuId=ms542"
+												target="_blank" title="새창열림" class="btnCntGray"><span>고객정보변경</span></a>
+										</div> -->  		</div> 		<!-- header 끝-->
+									
+									
+									<!-- content 시작 --> 		
+									<div class="content" id="content" style="padding-left: 20px; padding-right: 20px;">
+										<div class="receiveDate"> 				<span class="date"> "
+							+ setYear  </span><span class="txt_emailbill" style="font-size: 25px; margin-left: 34px;"> 월간 금융리포트</span>
+										</div>
+										<ul class="mailGuideTab tab3 emailTab" id="email">
+											<li class="on"><a href="#email01" onclick="tabShowHideFunc(this,1); return false;">요약</a></li>
+											<li class=""><a href="#email02" onclick="tabShowHideFunc(this,1); return false;">주차별 지출</a></li>
+											<li class=""><a href="#email03" onclick="tabShowHideFunc(this,1); return false;">요일별 지출</a></li>
+										</ul>
+										
+										
+										<!-- 요약------------------------------------------------------------------------------------------------------------------------------------ -->
+										<div id="email01" style="display: block;">
+											<h2 class="hide">요약</h2>
+											<!-- <a href="javascript:PTM_ShinhanPrint('B_A_email01');"
+												class="btnCntGray printBtn"><span>인쇄하기</span></a> -->
+											<p class="txtType1"> 					<strong>" + cusName
+							 님</strong> 하나은행을 이용해주셔서 감사합니다.<br> <strong>" + setMonth </strong>
+												금융리포트입니다. 				</p> 
+											<div class="cardInfo mgtS">
+												<span class="cardInfoli01"> <strong>상품명 : 하나원픽 통장</strong>
+												</span> <span class="cardInfoli02"> <strong>계좌번호 :
+							+  accNo (하나은행)</strong>
+												</span> 				</div> 
+											<!-- 월간 예산 구성------------------------------------------------------------------------------------------------------------------------------------ -->
+											<h3>예산구성</h3> 				<p class="txtNotice">" + setYear  "
+							+  cusName  님께서 설정하신 예산구성입니다.</p> 				<!-- 예산구성 시작 -->
+											<div class="cardLife"> 					<div class="row">
+													
+														 <div class="col-md-7">
+				                    <div class="doughnut-chart-wp sm-res-mg-t-30 chart-display-nn">
+				                        <canvas height="140vh" width="180vw" id="doughnutchart"></canvas>
+				                    </div>
+				                </div>					
+												</div> 					<!-- 예산구성 끝 -->  
+											
+											
+											
+												<!-- 요일별 평균지출액------------------------------------------------------------------------------------------------------------------------------------ -->
+
+					<!-- <div class="accordion-wn-wp"> -->
+                       
+                        
+                                <div class="accordion-stn">
+                                    <div class="panel-group" data-collapse-color="nk-green" id="accordionGreen" role="tablist" aria-multiselectable="true">
+                                        <div class="panel panel-collapse notika-accrodion-cus">
+                                            <div class="panel-heading" role="tab">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordionGreen" href="#accordionGreen-one" aria-expanded="false" class="collapsed">
+															Collapse Green #1
+														</a>
+                                                </h4>
+                                            </div>
+                                            <div id="accordionGreen-one" class="collapse" role="tabpanel" aria-expanded="false" style="height: 0px;">
+                                                <div class="panel-body">
+                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry cry then richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf msr noontemporem, sunt aliqua put a bird on it squid single-origin coffee nullassumendan shoreditch et.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-collapse notika-accrodion-cus">
+                                            <div class="panel-heading" role="tab">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionGreen" href="#accordionGreen-two" aria-expanded="false">
+															Collapse Green #2
+														</a>
+                                                </h4>
+                                            </div>
+                                            <div id="accordionGreen-two" class="collapse" role="tabpanel" aria-expanded="false" style="height: 0px;">
+                                                <div class="panel-body">
+                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry cry then richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf msr noontemporem, sunt aliqua put a bird on it squid single-origin coffee nullassumendan shoreditch et.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-collapse notika-accrodion-cus">
+                                            <div class="panel-heading active" role="tab">
+                                                <h4 class="panel-title">
+                                                    <a class="" data-toggle="collapse" data-parent="#accordionGreen" href="#accordionGreen-three" aria-expanded="true">
+															Collapse Green #3
+														</a>
+                                                </h4>
+                                            </div>
+                                            <div id="accordionGreen-three" class="collapse in" role="tabpanel" aria-expanded="true" style="">
+                                                <div class="panel-body">
+                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry cry then richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf msr noontemporem, sunt aliqua put a bird on it squid single-origin coffee nullassumendan shoreditch et.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                      
+					<!-- 	</div>  -->	
+					
+											<!-- accordion item 3 -- end -->
+																</div>
+												<!-- 예산리뷰 끝 --> 				</div>
+										</div>
+										<!-- 요약 끝------------------------------------------------------------------------------------------------------------------------------------ -->
+							   
+										<!-- 주차별 지출현황------------------------------------------------------------------------------------------------------------------------------------ -->
+										<div id="email02" style="display: none;">
+											<h2 class="hide">주차별 지출현황</h2> 
+											<h3>주차별 지출현황</h3>
+											<p class="txtNotice">이번달 주차별 지출현황을 확인할 수 있습니다.</p> 
+											<div class="col-md-12" style="margin-top: 50px;">
+												<div class="card">
+													<div class="card-body">
+														<!-- <h4 class="card-title" style="font-size: 14pt; font-weight: 800;">"
+							+ setMonth  주차별 지출</h4> --> 							
+														<h5 class="mt-3" style="font-size: 12pt; font-weight: 800;">
+															1주차 <span class="float-right">" + perW1 %</span>
+														</h5>
+													
+														
+														<h5 class="mt-3" style="font-size: 12pt; font-weight: 800;">
+															4주차 <span class="float-right">"+ perW4 %</span>
+														</h5>
+														
+													</div> 					</div>
+											</div> 			</div> 			<!-- 주차별 지출현황 끝 -->
+							   
+										
+										
+										
+										
+										<!-- 요일별 평균지출액------------------------------------------------------------------------------------------------------------------------------------ -->
+										<div id="email03" style="display: none;">  				
+										<h3>요일별 평균지출액</h3>
+											<p class="txtNotice">이번달 요일별 지출현황을 확인할 수 있습니다.</p> 
+											<div class="graph tabCon" id="franchrule01" style="display: block; margin-top: 50px; ">
+												<div class="col-lg-12">
+													<div class="card">
+														<div class="card-body">
+															<canvas id="singelBarChart" width="500" height="250"></canvas>
+														</div> 						</div>
+												</div> 				</div>
+											<!-- 요일별 평균지출액 끝 --> 			</div> 		
+									<div class="pageTop"> 			
+									<a href="#skipNavi">위로 가기</a>
+									</div> 		
+									<div class="footer" style="width: 839px;"></div>
+								 	<br>  
+								 
+								 	<script>
+								 	(function ($) {
+								 		 "use strict";
+
+								 			var ctx = document.getElementById("doughnutchart")
+								 			var doughnutchart = new Chart(ctx, {
+								 			    type: 'doughnut',
+								 			    data: {
+								 			    	labels: [
+								 			    	    'Red',
+								 			    	    'Blue',
+								 			    	    'Yellow'
+								 			    	  ],
+								 			    	  datasets: [{
+								 			    	    label: 'My First Dataset',
+								 			    	    data: [200000, 200000, 400000],
+								 			    	    backgroundColor: [
+								 			    	      'rgb(255, 99, 132)',
+								 			    	      'rgb(54, 162, 235)',
+								 			    	      'rgb(255, 205, 86)',
+								 			    	      'rgb(54, 205, 86)'
+								 			    	    ],
+								 			    	    hoverOffset: 4
+								 			    	  }]
+								 			    },
+								 			    options: {
+								 			      title: {
+								 			        display: true,
+								 			        text: 'Predicted world population (millions) in 2050'
+								 			      }
+								 			    }
+								 			});
+								 			
+								 	})(jQuery); 
+								
+							
+							
+							/* let draw = Chart.controllers.line.prototype.draw;
+							Chart.controllers.line = Chart.controllers.line.extend({
+							    draw: function () {        
+							    	draw.apply(this, arguments);
+							        let nk = this.chart.chart.ctx;         
+							        let _stroke = nk.stroke;
+							        nk.stroke = function () {            
+							        	nk.save();
+							            nk.shadowColor = '#ddd';             
+							            nk.shadowBlur = 10;
+							            nk.shadowOffsetX = 0;            
+							            nk.shadowOffsetY = 4;
+							            _stroke.apply(this, arguments)            
+							            nk.restore();
+							        }     } });  */
+							</script>  
+								<script src="http://localhost:9998/Hana-Project/resources/template/js/plugins.js"></script>
+      	
+								    <script src="http://localhost:9998/Hana-Project/resources/template/js/charts/Chart.js"></script>
+      						<script src="http://localhost:9998/Hana-Project/resources/template/js/vendor/jquery-1.12.4.min.js"></script>
+  							<script src="http://localhost:9998/Hana-Project/resources/template/js/bootstrap.min.js"></script>	
+							<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+							<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+							<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+							
+</body></html>

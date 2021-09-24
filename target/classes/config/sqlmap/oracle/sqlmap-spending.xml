@@ -40,14 +40,14 @@
 	<!-- 캘린더 날짜 별 소비 -->
 	<select id="spendingByDate" parameterType="string" resultMap="calendarMap">
 		select to_char(transaction_date, 'yyyy-mm-dd') as start_date, sum(trans_money) as title
-				from tbl_transaction_history where my_acc_no='081000000010' <![CDATA[ and trans_money < 0]]>
+				from tbl_transaction_history where my_acc_no=#{accountNo} <![CDATA[ and trans_money < 0]]>
 		group by to_char(transaction_date, 'yyyy-mm-dd')
 	</select>
 	
 	<!-- 캘린더 날짜 별 수입 -->
 	<select id="incomeByDate" parameterType="string" resultMap="calendarMap">
 		select to_char(transaction_date, 'yyyy-mm-dd') as start_date, '+'||sum(trans_money) as title
-				from tbl_transaction_history where my_acc_no='081000000010' <![CDATA[ and  trans_money > 0]]>
+				from tbl_transaction_history where my_acc_no=#{accountNo} <![CDATA[ and  trans_money > 0]]>
 		group by to_char(transaction_date, 'yyyy-mm-dd')
 	</select>
 	

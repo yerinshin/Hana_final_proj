@@ -167,6 +167,7 @@ color : black;
 		text-align : right;
 		font-size : 30px;
 		padding-right : 10px;
+		border : none;
 	}
 	
 	.input_month {
@@ -319,7 +320,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 	
 
-	var myAccNo = ${accountNo}
+	var myAccNo = '${accountNo}'
 /* 	var totalExpense = 0 */
 	getFixedExpense() 
 	
@@ -897,7 +898,7 @@ function numberWithCommas(x) {
 					  <thead>
 					  <tr>
 							<th colspan="5"
-									style="text-align: center; background-color: #ecf4f8; font-size: 27px;">총
+									style="text-align: center; background-color: #e2e9f5; font-size: 27px;">총
 									예산 <strong style="color: red;">
 									<input
 										type="hidden" disabled id="cal_total"

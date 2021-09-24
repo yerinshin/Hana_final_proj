@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> 
+	<link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/template/css/bootstrap.min.css">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/template/css/style.css">
+
+	<script type="text/javascript"> 	
+	var oldTab = [ 1, 1 ];
+		function tabShowHideFunc(t, n, b) { // t = this, n = x번째 탭, b = 탭아닌 버튼으로 탭 컨트롤시..
+			var gStr = t.href.split('.html#')[1]; 		
+		if (!gStr) {
+				gStr = t.href.split('.htm#')[1]; 			
+				if (!gStr) {
+					gStr = t.href.split('#')[1]; 			} 		}
+			gStr1 = gStr.substr(0, gStr.length - 1);
+			var gNum = (t.href).substr((t.href).length - 1, (t.href).length); 
+			if (arguments[2] != undefined) {
+				if (arguments[2] == 'btn') {
+					document.getElementById("email").getElementsByTagName("li")[gNum - 1]
+							.getElementsByTagName("a")[0].click();
+					document.documentElement.scrollTop = 0;
+					document.body.scrollTop = 0;
+				} else if (arguments[2] == 'slide') {
+					document.getElementById("email").getElementsByTagName("li")[3]
+							.getElementsByTagName("a")[0].click();
+					setTimeout(function() {
+						var targetPos = document.getElementById(gStr).offsetTop;
+						window.scroll(0, targetPos); 				}, 200);
+				} else if (arguments[2] == 'voice') {
+					document.getElementById("email").getElementsByTagName("li")[3]
+							.getElementsByTagName("a")[0].click();
+					setTimeout(function() {
+						var targetPos = document.getElementById(gStr).offsetTop;
+						window.scroll(0, targetPos); 				}, 200);
+				} else if (arguments[2] == 'revolg') {
+					document.getElementById("email").getElementsByTagName("li")[3]
+							.getElementsByTagName("a")[0].click();
+					setTimeout(function() {
+						var targetPos = document.getElementById(gStr).offsetTop;
+						window.scroll(0, targetPos); 				}, 200);
+				} else if (arguments[2] == 'revol') {
+					document.getElementById("email").getElementsByTagName("li")[1]
+							.getElementsByTagName("a")[0].click();
+					setTimeout(function() {
+						var targetPos = document.getElementById(gStr).offsetTop;
+						window.scroll(0, targetPos); 				}, 200);
+				} else if (arguments[2] == 'minus') {
+					document.getElementById("email").getElementsByTagName("li")[3]
+							.getElementsByTagName("a")[0].click();
+					setTimeout(function() {
+						var targetPos = document.getElementById(gStr).offsetTop;
+						window.scroll(0, targetPos); 				}, 200);
+				} 		} else {
+				t.parentNode.className = "on col-md-4";
+				document.getElementById(gStr1 + gNum).style.display = "block";
+				if (oldTab[n - 1] != gNum) {
+					t.parentNode.parentNode.getElementsByTagName("li")[oldTab[n - 1] - 1].className = "col-md-4";
+					document.getElementById(gStr1 + oldTab[n - 1]).style.display = "none";
+				} 			oldTab[n - 1] = gNum; 		
+				} 	
+			}
+		/* function cardToggleView() {
+			var displayOn = document.getElementById('cardUseResults').style.display;
+			if (displayOn == 'none') {
+				document.getElementById('cardUseResults').style.display = 'block';
+			} else {
+				document.getElementById('cardUseResults').style.display = 'none';
+			} 	
+			} 	
+		function openJoinDetail(joinCd, splrcvd, slpn) {
+			w = 720; 		
+			h = 260;
+			LeftPosition = (screen.width) ? (screen.width - w) / 2 : 0;
+			TopPosition = (screen.height) ? (screen.height - h) / 2 : 0;
+			url = "http://www.shinhancard.com/hpp/HPPSTMTN/stmCrdA02Pu.shc?retlno="
+					+ joinCd + "&slpn=" + slpn + "&slprcvd=" + splrcvd;
+			window.showModalDialog(url, "", "dialogLeft:" + LeftPosition
+					+ "px; dialogTop:" + TopPosition
+					+ "px; dialogWidth:720px; dialogHeight:260px; status:no;");
+		}  */
+		</script> 
+		<script> 	
+		$(document).ready(function() {
+			$(".ac-label").click(function(e) { 			
+				e.preventDefault();
+				$check = $(this).prev(); 			
+				if ($check.prop('checked'))
+					$check.prop("checked", false); 			
+				else
+					$check.prop("checked", true); 		
+				}); 	
+			});
+	</script> 
+	<style>
+
+	 body {
+	 	 margin : 0 auto;
+	 	 width : 60%; 	
+		 font-family: 'hana'; 
+		 font-size : 17pt;
+	 }
+	 span {
+	 	 font-family: 'hana'; 
+		 font-size : 17pt;
+	 }
+	 h3 { 	
+		 font-size: 20pt; 	
+		 font-family: 'hanaB'; 
+	}
+	
+	h1 {
+		font-size: 35pt; 
+		font-family: 'hanaB'; 
+	}
+	
+	.div-body {
+		background-color : #009b9d;
+	}
+	
+	.header {
+		 height : 140px;
+		 padding : 30px;
+	}
+	
+	.content {
+		margin: 20px 10px; 
+		padding : 40px 60px; 
+		background : white;
+	}
+	
+	#email {
+		margin-top : 50px;
+		text-align : center;
+		
+	}
+	
+	li {
+	
+		padding-top :5px;
+		background-color : #dddddd;
+		height : 40px;
+	}
+	 </style>
+</head>
+<body>
+<div class="div-body container">
+
+<div class="header"> 			
+	<h2>hana bank</h2>
+</div>
+<div class="content" id="content" >
+	
+	<h1> 2021년 9월 <span style="font-size : 18pt"> &nbsp;&nbsp;&nbsp;하나로통장 월간 금융 리포트 </span></h1> 
+	
+	<!-- 탭 선택 -->
+	<ul class="mailGuideTab tab3 emailTab row" id="email">
+	
+		<li class="on col-md-4"><a href="#email01" onclick="tabShowHideFunc(this,1); return false;">요약</a></li>
+		<li class="col-md-4"><a href="#email02" onclick="tabShowHideFunc(this,1); return false;">주차별 지출</a></li>
+		<li class="col-md-4"><a href="#email03" onclick="tabShowHideFunc(this,1); return false;">요일별 지출</a></li>
+	</ul>
+	
+	<!----------------------------------------- 첫번째 탭 ---------------------------------------------->
+	<div id="email01" style="display: block;">
+	
+	신예린 님 하나은행을 이용해주셔서 감사합니다.<br>
+	9월 하나로 통장 금융 리포트입니다.
+	
+	
+	</div>
+	
+	<!----------------------------------------- 두번째 탭 ---------------------------------------------->
+	<div id="email02" style="display: none;">
+	22
+	</div>									
+	
+	<!----------------------------------------- 세번째 탭 ---------------------------------------------->
+	<div id="email03" style="display: none;">  	
+	33
+	</div>
+</div>
+</div>
+</body>
+	<script src="http://localhost:9998/Hana-Project/resources/template/js/plugins.js"></script>
+ 	<script src="http://localhost:9998/Hana-Project/resources/template/js/charts/Chart.js"></script>
+	<script src="http://localhost:9998/Hana-Project/resources/template/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="http://localhost:9998/Hana-Project/resources/template/js/bootstrap.min.js"></script>	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</html>

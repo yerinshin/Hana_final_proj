@@ -171,6 +171,14 @@ th {
     border-radius: 20px 20px 0 0;
     background: #fff3b5
 }
+
+.feedback-text {
+	text-align : center;
+	font-weight : bold;
+}
+q {
+	/* color : #4bc0c0; */
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -427,7 +435,7 @@ $(document).ready(function(){
 							
 						<div class="row">
 			                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			                <div style="font-size : 25px; padding-left : 20px;">일주일에 21만원 정도 써요. <br>이번주는 2만원 덜썼어요</div>
+			                <div class ="feedback-text" style="font-size : 25px; padding-left : 20px;"><q> 일주일에 21만원 정도 써요. <br>이번주는 2만원 덜썼어요 </q></div>
 			                    <div class="bar-chart-wp mg-t-30 chart-display-nn">
 			                        <canvas height="140vh" width="180vw" id="weeklyChart"></canvas>
 			                    </div>
@@ -435,7 +443,7 @@ $(document).ready(function(){
 			                
 			                
 			                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			                <div style="font-size : 25px;padding-left : 20px;">불 '화'를 즐기는 타입 ..? <br> 화요일 소비를 주의하세요</div>
+			                <div class ="feedback-text" style="font-size : 25px;padding-left : 20px;"><q> 불 '화'를 즐기는 타입 ..? <br> 화요일 소비를 주의하세요! </q></div>
 			                    <div class="bar-chart-wp mg-t-30 chart-display-nn">
 			                        <canvas height="140vh" width="180vw" id="dayChart"></canvas>
 			                    </div>

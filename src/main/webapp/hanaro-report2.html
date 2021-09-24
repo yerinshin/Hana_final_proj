@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> 
+	<link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/template/css/bootstrap.min.css">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/template/css/style.css">
+    <link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/css/style.css">
+
+	<script type="text/javascript"> 	
+	var oldTab = [ 1, 1 ];
+		function tabShowHideFunc(t, n, b) { // t = this, n = x번째 탭, b = 탭아닌 버튼으로 탭 컨트롤시..
+			var gStr = t.href.split('.html#')[1]; 		
+		if (!gStr) {
+				gStr = t.href.split('.htm#')[1]; 			
+				if (!gStr) {
+					gStr = t.href.split('#')[1]; 			} 		}
+			gStr1 = gStr.substr(0, gStr.length - 1);
+			var gNum = (t.href).substr((t.href).length - 1, (t.href).length); 
+			if (arguments[2] != undefined) {
+				if (arguments[2] == 'btn') {
+					document.getElementById("email").getElementsByTagName("li")[gNum - 1]
+							.getElementsByTagName("a")[0].click();
+					document.documentElement.scrollTop = 0;
+					document.body.scrollTop = 0;
+				} else if (arguments[2] == 'slide') {
+					document.getElementById("email").getElementsByTagName("li")[3]
+							.getElementsByTagName("a")[0].click();
+					setTimeout(function() {
+						var targetPos = document.getElementById(gStr).offsetTop;
+						window.scroll(0, targetPos); 				}, 200);
+				} else if (arguments[2] == 'voice') {
+					document.getElementById("email").getElementsByTagName("li")[3]
+							.getElementsByTagName("a")[0].click();
+					setTimeout(function() {
+						var targetPos = document.getElementById(gStr).offsetTop;
+						window.scroll(0, targetPos); 				}, 200);
+				} else if (arguments[2] == 'revolg') {
+					document.getElementById("email").getElementsByTagName("li")[3]
+							.getElementsByTagName("a")[0].click();
+					setTimeout(function() {
+						var targetPos = document.getElementById(gStr).offsetTop;
+						window.scroll(0, targetPos); 				}, 200);
+				} else if (arguments[2] == 'revol') {
+					document.getElementById("email").getElementsByTagName("li")[1]
+							.getElementsByTagName("a")[0].click();
+					setTimeout(function() {
+						var targetPos = document.getElementById(gStr).offsetTop;
+						window.scroll(0, targetPos); 				}, 200);
+				} else if (arguments[2] == 'minus') {
+					document.getElementById("email").getElementsByTagName("li")[3]
+							.getElementsByTagName("a")[0].click();
+					setTimeout(function() {
+						var targetPos = document.getElementById(gStr).offsetTop;
+						window.scroll(0, targetPos); 				}, 200);
+				} 		} else {
+				t.parentNode.className = "on col-md-4";
+				document.getElementById(gStr1 + gNum).style.display = "block";
+				if (oldTab[n - 1] != gNum) {
+					t.parentNode.parentNode.getElementsByTagName("li")[oldTab[n - 1] - 1].className = "col-md-4";
+					document.getElementById(gStr1 + oldTab[n - 1]).style.display = "none";
+				} 			oldTab[n - 1] = gNum; 		
+				} 	
+			}
+		/* function cardToggleView() {
+			var displayOn = document.getElementById('cardUseResults').style.display;
+			if (displayOn == 'none') {
+				document.getElementById('cardUseResults').style.display = 'block';
+			} else {
+				document.getElementById('cardUseResults').style.display = 'none';
+			} 	
+			} 	
+		function openJoinDetail(joinCd, splrcvd, slpn) {
+			w = 720; 		
+			h = 260;
+			LeftPosition = (screen.width) ? (screen.width - w) / 2 : 0;
+			TopPosition = (screen.height) ? (screen.height - h) / 2 : 0;
+			url = "http://www.shinhancard.com/hpp/HPPSTMTN/stmCrdA02Pu.shc?retlno="
+					+ joinCd + "&slpn=" + slpn + "&slprcvd=" + splrcvd;
+			window.showModalDialog(url, "", "dialogLeft:" + LeftPosition
+					+ "px; dialogTop:" + TopPosition
+					+ "px; dialogWidth:720px; dialogHeight:260px; status:no;");
+		}  */
+		</script> 
+		<script> 	
+		$(document).ready(function() {
+			$(".ac-label").click(function(e) { 			
+				e.preventDefault();
+				$check = $(this).prev(); 			
+				if ($check.prop('checked'))
+					$check.prop("checked", false); 			
+				else
+					$check.prop("checked", true); 		
+				}); 
+			
+			/* var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+			var collapseList = collapseElementList.map(function (collapseEl) {
+			  return new bootstrap.Collapse(collapseEl)
+			}) */
+			});
+	</script> 
+	<style>
+
+	 body {
+	 	 margin : 0 auto;
+	 	 width : 60%; 	
+		 font-family: 'hana'; 
+		 font-size : 17pt;
+	 }
+	 span {
+	 	 font-family: 'hana'; 
+		 font-size : 17pt;
+	 }
+	 
+	 .span-big {
+	 	font-size: 25pt;
+	 }
+	 
+	 h3 { 	
+		 font-size: 20pt; 	
+		 font-family: 'hanaB'; 
+	}
+	
+	h1 {
+		font-size: 35pt; 
+	}
+	
+	.div-body {
+		background-color : #009b9d;
+	}
+	
+	.header-div {
+		 height : 110px;
+		 padding : 30px;
+	}
+	
+	.content {
+		margin: 20px 10px; 
+		padding : 40px 60px; 
+		background : white;
+	}
+	
+	#email {
+		margin-top : 50px;
+		text-align : center;
+		
+	}
+	
+	li {
+		background-color : #dddddd;
+		height : 40px;
+	}
+	
+	.on {
+		background : #4bc0c0;	
+	}
+	
+	.on > a {
+		color : white;
+	}
+	
+	.select-div {
+		padding : 30px 0px;
+	}
+	
+	#accountInfo {
+		margin-top : 30px;
+		padding : 10px 50px;
+		border-top : 2px solid #4bc0c0;
+		border-bottom : 2px solid #4bc0c0;
+		height : 60px;
+	}
+	
+	.title{
+		margin-top : 50px;
+		padding-bottom :40px;
+		font-size: 30pt;  
+		color : #009b9d;
+	}
+	
+	.service {
+		padding : 0 20px;
+	}
+	
+	.service .service-box {
+    padding: 15px 20px;
+    }
+    
+    .piechart {
+    	margin : 0 auto;
+    }
+    
+    table {
+    	text-align :center;
+    
+    }
+    .collapse {
+  
+    display: none;
+  
+}
+
+.collapsing {
+  height: 0;
+  overflow: hidden;
+
+}
+
+</style>
+</head>
+<body>
+<div class="div-body container">
+
+<div class="header-div"> 			
+	<h2>hana bank</h2>
+</div>
+<div class="content" id="content" >
+	
+	<h1 id="h1"> 2021년 9월 <span style="font-size : 18pt"> &nbsp;&nbsp;&nbsp;하나로통장 월간 금융 리포트 </span></h1> 
+	
+	<!-- 탭 선택 -->
+	<ul class="mailGuideTab tab3 emailTab row" id="email">
+	
+		<li class="on col-md-4"><a href="#email01" onclick="tabShowHideFunc(this,1); return false;">요약</a></li>
+		<li class="col-md-4"><a href="#email02" onclick="tabShowHideFunc(this,1); return false;">9월 소비</a></li>
+		<li class="col-md-4"><a href="#email03" onclick="tabShowHideFunc(this,1); return false;">도전 현황</a></li>
+	</ul>
+	
+	<!----------------------------------------- 첫번째 탭 ---------------------------------------------->
+	<div class="select-div" id="email01" style="display: block;">
+	
+		<span class="span-big">신예린 님</span> 
+		하나은행을 이용해주셔서 감사합니다.<br>
+		9월 하나로 통장 금융 리포트입니다.
+		
+		<div id="accountInfo">
+			상품명 : 하나로 통장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;계좌번호 : 
+		</div>
+		
+		<div class="title"> 9월 달성 Title </div>
+	
+	
+	
+		<div class="service">  
+	      <div class="row">
+	       		
+	       		<div class="col-md-4">
+	           	<div class="service-box account-add-box" id="add-box">
+	           		카페인 중독자<br> #커피
+	           	</div> 
+	           </div>
+	        <div class="col-md-4">
+	           <div class="service-box account-add-box" id="add-box">
+	           		내 발은 소중해 <br> #택시
+	           </div> 
+	        </div>
+	        <div class="col-md-4">
+	           <div class="service-box account-add-box" id="add-box">
+					지름신<br> #쇼핑        
+	           </div> 
+	        </div>
+	      	
+	        
+	          
+	        </div>
+	      </div>
+	      
+	      
+	     <div class="title"> 예산 구성</div>
+	     	
+	     	
+	     	<div class="row">
+	     	
+	     	<div class="col-md-6 piechart">
+			   <canvas height="140vh" width="180vw" id="pieChart"></canvas>
+			</div>
+			<div>
+					<q>순자산이 늘었어요!</q><br>
+					2021년 9월 수입 : 2,300,000원<br>
+					2021년 9월 지출 : 1,500,000원
+				<table style="width : 50%; margin-top : 15px;">
+					<tr>
+					<td>분류</td>
+					<td>사용/저축 금액</td>
+					<td>예산 대비</td>
+					</tr>
+					<tr>
+					<td>고정지출</td>
+					<td>450,000원</td>
+					<td>+2만원</td>
+					</tr>
+					<tr>
+					<td>생활비</td>
+					<td>150,000원</td>
+					<td>-20만원</td>
+					</tr>
+					<tr>
+					<td>비상금</td>
+					<td>300,000원</td>
+					<td>+2만원</td>
+					</tr>
+				</table>
+				
+			</div>
+	     	</div>
+	
+
+
+	</div>
+	
+	<!----------------------------------------- 두번째 탭 ---------------------------------------------->
+	<div class="select-div" id="email02" style="display: none;">
+		
+		<div class="title"> Top3 소비 카테고리 / TOP소비 장소</div>
+		<div class="row">
+			<div class="col-md-3">
+				2021년 8월
+			<table>
+				<tr>
+				<th>TOP1</th>
+				<td></td>
+				</tr>
+				<tr>
+				<th>TOP2</th>
+				<td></td>
+				</tr>
+				<tr>
+				<th>TOP3</th>
+				<td></td>
+				</tr>
+			</table>
+			</div>
+			<div class="col-md-9">
+				2021년 9월
+				<table>
+				<tr>
+					<th>TOP1</th>
+					<td></td>
+					</tr>
+					<tr>
+					<th>TOP2</th>
+					<td></td>
+					</tr>
+					<tr>
+					<th>TOP3</th>
+					<td></td>
+				</tr>
+				</table>
+			</div>
+		</div>
+		
+								
+	<!-- 아코디언.. -->
+	<div class="title"> 일자별 지출 TOP3</div>
+				<div class="accordion-stn">
+                    <div class="panel-group" data-collapse-color="nk-green" id="accordionGreen" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-collapse notika-accrodion-cus">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordionGreen" href="#accordionGreen-one" aria-expanded="false" class="collapsed">
+				Collapse Green #1
+			</a>
+                                </h4>
+                            </div>
+                            <div id="accordionGreen-one" class="collapse" role="tabpanel" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body">
+                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry cry then richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf msr noontemporem, sunt aliqua put a bird on it squid single-origin coffee nullassumendan shoreditch et.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-collapse notika-accrodion-cus">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionGreen" href="#accordionGreen-two" aria-expanded="false">
+				Collapse Green #2
+			</a>
+                                </h4>
+                            </div>
+                            <div id="accordionGreen-two" class="collapse" role="tabpanel" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body">
+                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry cry then richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf msr noontemporem, sunt aliqua put a bird on it squid single-origin coffee nullassumendan shoreditch et.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-collapse notika-accrodion-cus">
+                            <div class="panel-heading active" role="tab">
+                                <h4 class="panel-title">
+                                    <a class="" data-toggle="collapse" data-parent="#accordionGreen" href="#accordionGreen-three" aria-expanded="true">
+				Collapse Green #3
+			</a>
+                                </h4>
+                            </div>
+                            <div id="accordionGreen-three" class="collapse in" role="tabpanel" aria-expanded="true" style="">
+                                <div class="panel-body">
+                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry cry then richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf msr noontemporem, sunt aliqua put a bird on it squid single-origin coffee nullassumendan shoreditch et.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- 아코디언 end -->
+	
+</div>
+	<!----------------------------------------- 세번째 탭 ---------------------------------------------->
+	<div class="select-div" id="email03" style="display: none;">  	
+	33
+	</div>
+</div>
+</div>
+</body>
+<script>
+(function ($) {
+	 "use strict";
+
+		var ctx = document.getElementById("pieChart")
+		var pieChart = new Chart(ctx, {
+		    type: 'pie',
+		    data: {
+		    	labels: [
+		    	    '기본금',
+		    	    '생활비',
+		    	    '비상금'
+		    	  ],
+		    	  datasets: [{
+		    	    label: 'My First Dataset',
+		    	    data: [200000, 200000, 400000],
+		    	    backgroundColor: [
+		    	      'rgba(52, 152, 219, 0.5)',
+		    	      'rgba(243, 156, 18, 0.5)',
+		    	      'rgba(231, 76, 60, 0.5)',
+		    	   
+		    	    ],
+		    	 
+		    	  }]
+		    },
+		 
+		});
+		
+})(jQuery); 
+</script>
+
+	<script src="http://localhost:9998/Hana-Project/resources/template/js/plugins.js"></script>
+ 	<script src="http://localhost:9998/Hana-Project/resources/template/js/charts/Chart.js"></script>
+	<script src="http://localhost:9998/Hana-Project/resources/template/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="http://localhost:9998/Hana-Project/resources/template/js/bootstrap.min.js"></script>	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</html>

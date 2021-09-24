@@ -27,7 +27,7 @@
     }
     
     .card:hover {
-  		background : #dddddd70;
+  		background : #ddddddb5;
 	}
     
     .card-deck{
