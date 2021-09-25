@@ -24,20 +24,28 @@ public class SpendingDAOImpl implements SpendingDAO{
 		List<SpendingInfoVO> spendingList = sqlSessionTemplate.selectList("spending.SpendingDAO.spendingByCategory", spendingInfo);
 		return spendingList;
 	}
-	/*
-	 * public List<TransactionHistoryVO> spendingByCategory(String accountNo) {
-	 * 
-	 * List<TransactionHistoryVO> spendingList =
-	 * sqlSessionTemplate.selectList("spending.SpendingDAO.spendingByCategory",
-	 * accountNo); return spendingList; }
-	 */
 
 	public List<String> topSpending(SpendingInfoVO spendingInfo) {
 		
 		List<String> topSpendingList = sqlSessionTemplate.selectList("spending.SpendingDAO.topSpending", spendingInfo);
 		return topSpendingList;
 	}
+	
+	//캘린더 : 한달 총 수입
+	public int incomeByMonth(SpendingInfoVO spendingInfo) {
+		
+		int incomeTotal = sqlSessionTemplate.selectOne("spending.SpendingDAO.incomeByMonth", spendingInfo);
+		
+		return incomeTotal;
+	}
 
+	//캘린더 : 한달 총 지출
+	public int spendingMonth(SpendingInfoVO spendingInfo) {
+		int incomeTotal = sqlSessionTemplate.selectOne("spending.SpendingDAO.spendingByMonth", spendingInfo);
+		return incomeTotal;
+	}
+	
+	
 	//캘린더 : 일별 지출 금액
 	public List<CalendarVO> spendingByDate(String accountNo) {	
 		List<CalendarVO> spendingList = sqlSessionTemplate.selectList("spending.SpendingDAO.spendingByDate" , accountNo);
@@ -72,7 +80,8 @@ public class SpendingDAOImpl implements SpendingDAO{
 		DaySpendingVO daySpending = sqlSessionTemplate.selectOne("spending.SpendingDAO.daySpending",accountNo);
 		return daySpending;
 	}
-	
+
+
 	
 
 

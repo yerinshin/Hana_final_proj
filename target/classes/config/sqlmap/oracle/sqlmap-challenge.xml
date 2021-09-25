@@ -16,7 +16,7 @@
 	
 	<!-- 도전하기 리스트 뽑기 -->
 	<select id="challengeList" parameterType="string" resultMap="challengeMap">
-		select * from tbl_challenge where account_no=#{accountNo}
+		select * from tbl_challenge where to_char(reg_date, 'mm') = to_char(sysdate, 'mm') and account_no=#{accountNo}
 	</select>
 	
 	<!-- 도전하기 추가 -->

@@ -1079,7 +1079,7 @@ $(document).ready(function(){
 					}],
 					xAxes:[{
 						  ticks:{
-						  fontColor:'black',
+						  fontColor:'white',
 						  fontSize: 18,
 						 }
 						}]

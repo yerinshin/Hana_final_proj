@@ -12,10 +12,12 @@ import kr.ac.kopo.spending.vo.WeeklySpendingVO;
 public interface SpendingService {
 	
 	//List<TransactionHistoryVO> spendingByCategory(String accountNo);
+	//카테고리 별 소비
 	List<SpendingInfoVO> spendingByCategory(SpendingInfoVO spendingInfo);
-
+	
+	
 	List<String> topSpending(SpendingInfoVO spendingInfo);
-
+	
 	List<CalendarVO> calendarListByDate(String accountNo);
 
 	List<TransactionHistoryVO> historyByDate(Map<String, String> map);

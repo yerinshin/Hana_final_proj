@@ -37,14 +37,32 @@
 		<result column="color" property="color" />
 	</resultMap> 
 	
-	<!-- 캘린더 날짜 별 소비 -->
+	
+	<!-- 한달 총 수입 -->
+	<select id="incomeByMonth" parameterType="spendingInfoVO" resultType="int">
+		select sum(trans_money) 
+			from tbl_transaction_history 
+			where my_acc_no =#{accountNo} and <![CDATA[ trans_money > 0 ]]> and to_char(transaction_date, 'yyyymm') = #{yearMonth}
+		order by transaction_date desc
+	</select>
+	
+	<!-- 한달 총 지출 -->
+	<select id="spendingByMonth" parameterType="spendingInfoVO" resultType="int">
+		select sum(trans_money) 
+			from tbl_transaction_history 
+			where my_acc_no =#{accountNo} and <![CDATA[ trans_money < 0 ]]> and to_char(transaction_date, 'yyyymm') = #{yearMonth}
+		order by transaction_date desc
+	</select>
+	
+	
+	<!-- 캘린더 일자 별 소비 -->
 	<select id="spendingByDate" parameterType="string" resultMap="calendarMap">
 		select to_char(transaction_date, 'yyyy-mm-dd') as start_date, sum(trans_money) as title
 				from tbl_transaction_history where my_acc_no=#{accountNo} <![CDATA[ and trans_money < 0]]>
 		group by to_char(transaction_date, 'yyyy-mm-dd')
 	</select>
 	
-	<!-- 캘린더 날짜 별 수입 -->
+	<!-- 캘린더 일자 별 수입 -->
 	<select id="incomeByDate" parameterType="string" resultMap="calendarMap">
 		select to_char(transaction_date, 'yyyy-mm-dd') as start_date, '+'||sum(trans_money) as title
 				from tbl_transaction_history where my_acc_no=#{accountNo} <![CDATA[ and  trans_money > 0]]>
@@ -57,8 +75,10 @@
 			where my_acc_no = #{accountNo}
 				and to_char(transaction_date, 'yyyy-mm-dd') = #{date}
 	</select>
-
-	<!-- 월 별 카테고리 별 사용금액 -->
+	
+	
+	
+	<!-- 월 별 카테고리 별 소비금액 -->
 	<select id="spendingByCategory" parameterType="spendingInfoVO" resultType="spendingInfoVO">
 		select  nvl(category , '기타') as category, -sum(trans_money) as spendingMoney
 			from tbl_transaction_history

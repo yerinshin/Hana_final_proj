@@ -1,15 +1,66 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="report.ReportDAO">
+
+	<resultMap type="challengeVO" id="challengeMap">
+		<result column="challenge_code" property="code" />
+		<result column="account_no" property="accountNo" />
+		<result column="category" property="category" />
+		<result column="title" property="title" />
+		<result column="penalty_rate" property="penaltyRate" />
+		<result column="saving_goal" property="savingGoal" />
+		<result column="penalty_total" property="penaltyTotal" />
+	</resultMap>
 	
 	
-	<select id="login" parameterType="memberVO" resultMap="memberMap">
-		select user_code, id, password, name, ss1, ss2, email, tel,
-				last_open_acc_date, type		
-			 from tbl_member
-		where id = #{id} and password = #{password}
+	
+	<!-- 하나로통장 보유 멤버 -->
+	<select id="reportMemberList" resultType="reportVO">
+		select m.user_code as userCode, m.name as name, m.email as email, a.account_no as accountNo 
+			from tbl_member m , tbl_account a
+		where m.user_code = a.user_code and a.account_type = '하나로통장' and email = 'bubi0106@naver.com'	and name = '신예린'
 	</select>
+	
+	<!-- 예산구성 -->
+	<!-- 월 총수입 -->
+	<select id="incomeTotal" parameterType="string" resultType="int">
+		select sum(trans_money) 
+				from tbl_transaction_history 
+				where my_acc_no =#{accountNo} and <![CDATA[ trans_money > 0 ]]> and to_char(transaction_date, 'yyyymm') = to_char(sysdate, 'yyyymm')
+			order by transaction_date desc
+	</select>
+	<!-- 월 총지출 -->
+	<select id="spendingTotal" parameterType="string" resultType="int">
+		select -sum(trans_money) 
+				from tbl_transaction_history 
+				where my_acc_no =#{accountNo} and <![CDATA[ trans_money < 0 ]]> and to_char(transaction_date, 'yyyymm') = to_char(sysdate, 'yyyymm')
+			order by transaction_date desc
+	</select>
+	
+	<!-- 실제 사용액 -->
+	<select id="realSpent" parameterType="string" resultType="monthlyBudgetVO">
+		select 
+			(select -sum(trans_money) 
+				from tbl_transaction_history 
+				where my_acc_no =#{accountNo} and <![CDATA[ trans_money < 0 ]]> and to_char(transaction_date, 'yyyymm') = to_char(sysdate, 'yyyymm') and transaction_code = '11003') as fixedExpense,
+			(select -sum(trans_money) 
+						from tbl_transaction_history 
+						where my_acc_no =#{accountNo} and <![CDATA[  trans_money < 0 ]]> and to_char(transaction_date, 'yyyymm') = to_char(sysdate, 'yyyymm') and transaction_code = '11005') as consumption          
+			 ,(select fromSaving-toSaving from(
+			      select 
+			        (select sum(trans_money) from tbl_split_history where account_no = #{accountNo} and to_char(transaction_date, 'yyyymm') = to_char(sysdate, 'yyyymm') and split_from = 'saving_balance') as toSaving
+			         ,(select sum(trans_money) from tbl_split_history where account_no = #{accountNo} and to_char(transaction_date, 'yyyymm') = to_char(sysdate, 'yyyymm') and split_to = 'saving_balance') as fromSaving
+			         from dual)) as saving
+		from dual
+	</select>
+	
+	
+	<!-- 저번달 도전하기 리스트 뽑기 -->
+	<select id="challengeList" parameterType="string" resultMap="challengeMap">
+		select * from tbl_challenge where to_char(reg_date, 'mm') = to_char(sysdate-30, 'mm') and account_no=#{accountNo}
+	</select>
+	
 </mapper>
- -->
+ 

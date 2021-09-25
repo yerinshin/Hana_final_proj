@@ -335,8 +335,17 @@ $(document).ready(function(){
 		})
 	
 	}
+	
+
+		
+		$('.fc-prev-button').click( function(){ alert('dd')})
+		
+	
+		
+
 })
 </script>
+
 <script id="spendingTemplate" type="text/template">
 	<tr>
 		<th>{category}</th>
