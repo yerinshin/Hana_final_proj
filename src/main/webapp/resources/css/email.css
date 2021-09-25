@@ -1,0 +1,136 @@
+	 body {
+	 	 margin : 0 auto;
+	 	 width : 60%; 	
+		 font-family: 'hana'; 
+		 font-size : 17pt;
+	 }
+	 span {
+	 	 font-family: 'hana'; 
+		 font-size : 17pt;
+	 }
+	 
+	 .span-big {
+	 	font-size: 25pt;
+	 }
+	 
+	 h3 { 	
+		 font-size: 20pt; 	
+		 font-family: 'hanaB'; 
+	}
+	
+	h2 {
+		font-size: 23pt; 
+	}
+	h1 {
+		font-size: 33pt; 
+	}
+	
+	.div-body {
+		background-color : #009b9d;
+	}
+	
+	.header-div {
+		 height : 110px;
+		 padding : 30px;
+	}
+	
+	.content {
+		margin: 20px 10px; 
+		padding : 40px 60px; 
+		background : white;
+	}
+	
+	#email {
+		margin-top : 50px;
+		text-align : center;
+		
+	}
+	
+	li {
+		background-color : #dddddd;
+		height : 40px;
+	}
+	
+	.on {
+		background : #4bc0c0;	
+	}
+	
+	.on > a {
+		color : white;
+	}
+	
+	.select-div {
+		padding : 30px 0px;
+	}
+	
+	#accountInfo {
+		margin-top : 30px;
+		padding : 10px 50px;
+		border-top : 2px solid #4bc0c0;
+		border-bottom : 2px solid #4bc0c0;
+		height : 60px;
+	}
+	
+	.title{
+		margin-top : 50px;
+		padding-bottom :40px;
+		font-size: 30pt;  
+		color : #009b9d;
+	}
+	
+	.service {
+		padding : 0 20px;
+	}
+	
+	.service .service-box {
+    padding: 15px 20px;
+    }
+    
+    .piechart {
+    	margin : 0 auto;
+    }
+    
+    table {
+    	text-align :center;
+    
+    }
+    .collapse {  
+    display: none;
+	}
+	
+	.collapsing {
+	  height: 0;
+	  overflow: hidden;
+	
+	}
+	
+	.challenge {
+		background-color: rgb(222 238 249);
+	    	border-radius: 20px;
+	}
+
+	#penalty-box {
+		background-color: rgb(255, 6, 6, 0.85);
+    	border-radius: 40px;
+    	color: white;
+    	height: 35px;
+    	padding-top: 5px;
+    	margin-bottom: 20px;
+	}
+	
+	#nickname {
+		margin : 5px;
+	}
+	
+	.challengeTotal {
+		text-align : center;
+		margin-bottom : 50px;
+		border-left :5px solid #4bc0c0;
+		border-right : 5px solid #4bc0c0;
+	}
+	
+	.challengeResult {	
+		margin : 15px 0;
+		background-color :rgb(46 204 113); 
+		color : white;
+	}

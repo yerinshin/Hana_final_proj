@@ -1,0 +1,15 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="report.ReportDAO">
+	
+	
+	<select id="login" parameterType="memberVO" resultMap="memberMap">
+		select user_code, id, password, name, ss1, ss2, email, tel,
+				last_open_acc_date, type		
+			 from tbl_member
+		where id = #{id} and password = #{password}
+	</select>
+</mapper>
+ -->

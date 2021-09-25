@@ -10,6 +10,7 @@
 		============================================ -->
     <link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/template/css/style.css">
     <link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/css/style.css">
+    <link rel="stylesheet" href="http://localhost:9998/Hana-Project/resources/css/email.css">
 
 	<script type="text/javascript"> 	
 	var oldTab = [ 1, 1 ];
@@ -66,25 +67,7 @@
 				} 			oldTab[n - 1] = gNum; 		
 				} 	
 			}
-		/* function cardToggleView() {
-			var displayOn = document.getElementById('cardUseResults').style.display;
-			if (displayOn == 'none') {
-				document.getElementById('cardUseResults').style.display = 'block';
-			} else {
-				document.getElementById('cardUseResults').style.display = 'none';
-			} 	
-			} 	
-		function openJoinDetail(joinCd, splrcvd, slpn) {
-			w = 720; 		
-			h = 260;
-			LeftPosition = (screen.width) ? (screen.width - w) / 2 : 0;
-			TopPosition = (screen.height) ? (screen.height - h) / 2 : 0;
-			url = "http://www.shinhancard.com/hpp/HPPSTMTN/stmCrdA02Pu.shc?retlno="
-					+ joinCd + "&slpn=" + slpn + "&slprcvd=" + splrcvd;
-			window.showModalDialog(url, "", "dialogLeft:" + LeftPosition
-					+ "px; dialogTop:" + TopPosition
-					+ "px; dialogWidth:720px; dialogHeight:260px; status:no;");
-		}  */
+
 		</script> 
 		<script> 	
 		$(document).ready(function() {
@@ -96,121 +79,10 @@
 				else
 					$check.prop("checked", true); 		
 				}); 
-			
-			/* var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
-			var collapseList = collapseElementList.map(function (collapseEl) {
-			  return new bootstrap.Collapse(collapseEl)
-			}) */
+
 			});
 	</script> 
-	<style>
 
-	 body {
-	 	 margin : 0 auto;
-	 	 width : 60%; 	
-		 font-family: 'hana'; 
-		 font-size : 17pt;
-	 }
-	 span {
-	 	 font-family: 'hana'; 
-		 font-size : 17pt;
-	 }
-	 
-	 .span-big {
-	 	font-size: 25pt;
-	 }
-	 
-	 h3 { 	
-		 font-size: 20pt; 	
-		 font-family: 'hanaB'; 
-	}
-	
-	h1 {
-		font-size: 35pt; 
-	}
-	
-	.div-body {
-		background-color : #009b9d;
-	}
-	
-	.header-div {
-		 height : 110px;
-		 padding : 30px;
-	}
-	
-	.content {
-		margin: 20px 10px; 
-		padding : 40px 60px; 
-		background : white;
-	}
-	
-	#email {
-		margin-top : 50px;
-		text-align : center;
-		
-	}
-	
-	li {
-		background-color : #dddddd;
-		height : 40px;
-	}
-	
-	.on {
-		background : #4bc0c0;	
-	}
-	
-	.on > a {
-		color : white;
-	}
-	
-	.select-div {
-		padding : 30px 0px;
-	}
-	
-	#accountInfo {
-		margin-top : 30px;
-		padding : 10px 50px;
-		border-top : 2px solid #4bc0c0;
-		border-bottom : 2px solid #4bc0c0;
-		height : 60px;
-	}
-	
-	.title{
-		margin-top : 50px;
-		padding-bottom :40px;
-		font-size: 30pt;  
-		color : #009b9d;
-	}
-	
-	.service {
-		padding : 0 20px;
-	}
-	
-	.service .service-box {
-    padding: 15px 20px;
-    }
-    
-    .piechart {
-    	margin : 0 auto;
-    }
-    
-    table {
-    	text-align :center;
-    
-    }
-    .collapse {
-  
-    display: none;
-  
-}
-
-.collapsing {
-  height: 0;
-  overflow: hidden;
-
-}
-
-</style>
 </head>
 <body>
 <div class="div-body container">
@@ -315,7 +187,44 @@
 	<!----------------------------------------- 두번째 탭 ---------------------------------------------->
 	<div class="select-div" id="email02" style="display: none;">
 		
-		<div class="title"> Top3 소비 카테고리 / TOP소비 장소</div>
+		<div class="title"> Top3 소비 카테고리 / 사용처</div>
+		<div class="row">
+			<div class="col-md-6">
+				카테고리
+			<table>
+				<tr>
+				<th>TOP1</th>
+				<td></td>
+				</tr>
+				<tr>
+				<th>TOP2</th>
+				<td></td>
+				</tr>
+				<tr>
+				<th>TOP3</th>
+				<td></td>
+				</tr>
+			</table>
+			</div>
+			<div class="col-md-6">
+				사용처
+				<table>
+				<tr>
+					<th>TOP1</th>
+					<td></td>
+					</tr>
+					<tr>
+					<th>TOP2</th>
+					<td></td>
+					</tr>
+					<tr>
+					<th>TOP3</th>
+					<td></td>
+				</tr>
+				</table>
+			</div>
+		</div>
+		<div class="title"> 갑자기 늘어난 지출</div>
 		<div class="row">
 			<div class="col-md-3">
 				2021년 8월
@@ -362,13 +271,19 @@
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordionGreen" href="#accordionGreen-one" aria-expanded="false" class="collapsed">
-				Collapse Green #1
+				TOP1  날짜 ex) 2021년 09월 23일
 			</a>
                                 </h4>
                             </div>
                             <div id="accordionGreen-one" class="collapse" role="tabpanel" aria-expanded="false" style="height: 0px;">
                                 <div class="panel-body">
-                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry cry then richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf msr noontemporem, sunt aliqua put a bird on it squid single-origin coffee nullassumendan shoreditch et.</p>
+   									<table>
+   									<tr>
+   										<th>no</th>
+   										<th>사용처</th>
+   										<th>금액</th>
+   									<tr>
+   									</table>
                                 </div>
                             </div>
                         </div>
@@ -406,7 +321,70 @@
 </div>
 	<!----------------------------------------- 세번째 탭 ---------------------------------------------->
 	<div class="select-div" id="email03" style="display: none;">  	
-	33
+		<div class="title"> 9월 도전 결과 </div>
+			<h2 class="challengeTotal"> 09월 도전하기 패널티로 <br>
+           <br>비상금에 총 18,000원이 저축되었습니다.</h2>
+		<div class="service">  
+	      <div class="row">
+			<div class="col-md-6">
+                  <div class="service-box account-box challenge">
+                  <div class="row">
+                   <h2 id="nickname" class="col-md-9"> 
+                     커피 값 아끼기
+                  </h2>
+                  <h3 class="col-md-2" id="penalty-box">
+                     30%
+                  </h3>
+                
+                  </div>
+            	<div class="challengeResult" style="background : red">실패</div>
+                  <div class="row">
+                  	<div class="col-md-6">지출액</div>
+                  	<div class="col-md-6">목표금액</div>
+                  	
+                  </div>
+                  <div class="row">
+                     <h2 id="balance" class="col-md-6">
+                    	 560,000
+                      </h2>
+                     <h2 id="balance" class="col-md-6">
+                    	 500,000원
+                      </h2>
+                  </div>
+                  </div>
+           </div>
+			<div class="col-md-6">
+                  <div class="service-box account-box challenge">
+                  <div class="row">
+                   <h2 id="nickname" class="col-md-9"> 
+                     교통비 아끼기
+                  </h2>
+                  <h3 class="col-md-2" id="penalty-box">
+                     30%
+                  </h3>
+                
+                  </div>
+            	<div class="challengeResult">성공</div>
+                  <div class="row">
+                  	<div class="col-md-6">지출액</div>
+                  	<div class="col-md-6">목표금액</div>
+                  	
+                  </div>
+                  <div class="row">
+                     <h2 id="balance" class="col-md-6">
+                    	 50,000
+                      </h2>
+                     <h2 id="balance" class="col-md-6">
+                    	 100,000원
+                      </h2>
+                  </div>
+                  </div>
+	           </div>
+	           </div>         
+           </div>
+           
+
+           
 	</div>
 </div>
 </div>
