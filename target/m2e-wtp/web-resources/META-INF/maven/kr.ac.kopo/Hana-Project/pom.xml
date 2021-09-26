@@ -101,6 +101,7 @@
 	    <artifactId>jackson-annotations</artifactId>
 	    <version>2.12.4</version>
 	</dependency>
+	<!-- mail -->
 	 <dependency>
         <groupId>javax.mail</groupId>
         <artifactId>mail</artifactId>
@@ -111,6 +112,14 @@
         <artifactId>spring-context-support</artifactId>
         <version>5.3.9</version>
     </dependency> 
+  	
+  	<!-- sms -->
+  	<dependency>
+	    <groupId>net.nurigo</groupId>
+	    <artifactId>javaSDK</artifactId>
+	    <version>2.2</version>
+	</dependency>
   	</dependencies>
+  	
 
 </project>

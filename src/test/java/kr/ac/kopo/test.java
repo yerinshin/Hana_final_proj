@@ -7,10 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.mail.internet.MimeMessage;
 
+import org.json.simple.JSONObject;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,7 +32,10 @@ import kr.ac.kopo.fixedExpense.service.FixedExpenseService;
 import kr.ac.kopo.report.dao.ReportDAO;
 import kr.ac.kopo.report.vo.ReportVO;
 import kr.ac.kopo.spending.vo.SpendingInfoVO;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
+@EnableScheduling 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:config/spring/spring-mvc.xml"})
 public class test {
@@ -53,6 +59,30 @@ public class test {
 		assertNotNull(fixedExpenseService);    	//dataSource가 가지고 있는 값이 null이 아닌지만 확인
 	}
 	
+	@Test
+	public void sendSms() {
+
+        String api_key = "NCS9XWBKWK5YKNTD";
+        String api_secret = "IO9LVLNUVWWJ5ZRDFEEMLR9TRZHQWLEF";
+        Message coolsms = new Message(api_key, api_secret);
+        HashMap<String, String> params = new HashMap<String, String>();
+
+        params.put("to", "01047520453");
+        params.put("from", "01047520453");
+        params.put("type", "SMS");
+        params.put("text", "sms 테스트!");
+        params.put("app_version", "test app 1.2");
+
+        try {
+            JSONObject obj = (JSONObject) coolsms.send(params);
+            System.out.println(obj.toString());
+        } catch (CoolsmsException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCode());
+        }
+	}
+	
+	@Ignore
 	@Test
 	public void monthlyReportCreate() throws IOException {
 		
@@ -238,7 +268,7 @@ public class test {
 						+ "	<ul class=\"mailGuideTab tab3 emailTab row\" id=\"email\">\r\n"
 						+ "	\r\n"
 						+ "		<li class=\"on col-md-4\"><a href=\"#email01\" onclick=\"tabShowHideFunc(this,1); return false;\">요약</a></li>\r\n"
-						+ "		<li class=\"col-md-4\"><a href=\"#email02\" onclick=\"tabShowHideFunc(this,1); return false;\">"+nowMonth +"월 소비</a></li>\r\n"
+						+ "		<li class=\"col-md-4\"><a href=\"#email02\" onclick=\"tabShowHideFunc(this,1); return false;\">"+nowMonth +" 소비</a></li>\r\n"
 						+ "		<li class=\"col-md-4\"><a href=\"#email03\" onclick=\"tabShowHideFunc(this,1); return false;\">도전 현황</a></li>\r\n"
 						+ "	</ul>\r\n"
 						+ "	\r\n";
@@ -247,12 +277,12 @@ public class test {
 					str += "	<!----------------------------------------- 첫번째 탭 ---------------------------------------------->\r\n"
 						+ "	<div class=\"select-div\" id=\"email01\" style=\"display: block;\">\r\n"
 						+ "	\r\n"
-						+ "		<span class=\"span-big\"> "+ name +"</span> \r\n"
+						+ "		<span class=\"span-big\"> "+ name +"님</span> \r\n"
 						+ "		하나은행을 이용해주셔서 감사합니다.<br>\r\n"
 							+ nowMonth + " 하나로 통장 금융 리포트입니다.\r\n"
 						+ "		\r\n"
 						+ "		<div id=\"accountInfo\">\r\n"
-						+ "			상품명 : 하나로 통장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;계좌번호 : "+accountNo	
+						+ "			상품명 : 하나로 통장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;계좌번호 : "+accountNo	
 						+ "</div>\r\n"
 						+ "		\r\n"
 						+ "		<div class=\"title\">" + nowMonth + " 달성 Title </div>\r\n"
@@ -421,9 +451,9 @@ public class test {
 						+ "                                <div class=\"panel-body\">\r\n"
 						+ "   									<table>\r\n"
 						+ "   									<tr>\r\n"
-						+ "   										<th>no</th>\r\n"
-						+ "   										<th>사용처</th>\r\n"
-						+ "   										<th>금액</th>\r\n"
+						+ "   										<td>no</td>\r\n"
+						+ "   										<td>사용처</td>\r\n"
+						+ "   										<td>금액</td>\r\n"
 						+ "   									<tr>\r\n"
 						+ "   									</table>\r\n"
 						+ "                                </div>\r\n"
@@ -586,7 +616,7 @@ public class test {
 		
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void monthlyReportExecute() {
 		

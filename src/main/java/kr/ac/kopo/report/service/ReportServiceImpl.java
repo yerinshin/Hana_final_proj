@@ -14,11 +14,20 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+//@Component
 @Service
 public class ReportServiceImpl implements ReportService {
 	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	
+	//@Scheduled(fixedDelay=3000)
+	public void schedulerTest() {
+		//monthlyReportExecute();
+		//monthlyReportExecute();
+		System.out.println("test성공??");
+	}
 	
 	
 	public void monthlyReportCreate() throws IOException {
@@ -31,8 +40,8 @@ public class ReportServiceImpl implements ReportService {
 			
 			bs = new BufferedOutputStream(new FileOutputStream("C:\\Users\\HP\\Desktop\\java\\spring-workspace\\Hana-Project\\src\\main\\webapp\\hanaro_report_try.html"));
 			
-			bs.write(str.getBytes()); // Byte형으로만 넣을 수 있음
-			System.out.println("완료");
+		//	bs.write(str.getBytes()); // Byte형으로만 넣을 수 있음
+		//	System.out.println("완료");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
