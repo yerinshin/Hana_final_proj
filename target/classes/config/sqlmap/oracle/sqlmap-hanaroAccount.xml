@@ -92,7 +92,8 @@
 	
 	<!-- 잔액이동, 거래 내역 : 동적쿼리 -->
 	<select id="splitHistoryByKind" parameterType="splitKindInfoVO" resultMap="splitHistoryMap">
-		select  split_from, split_to, trans_money, transaction_date, basic_balance, consumption_balance, saving_balance 
+		select  split_from, split_to, trans_money, to_char(transaction_date,'mm/dd hh:mi') as transaction_date, 
+				memo, basic_balance, consumption_balance, saving_balance 
 			from tbl_split_history where account_no = #{accountNo} 
 			and (split_from = #{splitKind} or split_to = #{splitKind} )
 		order by transaction_date desc

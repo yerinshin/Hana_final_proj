@@ -14,7 +14,26 @@
 		<result column="penalty_total" property="penaltyTotal" />
 	</resultMap>
 	
+	<!-- 문자알림 아직 안간(이제 가야하는) 패널티 발생 목록과 유저정보 -->
+	<select id="smsList" resultType="smsVO">
+	    select m.name as name, m.tel as tel, c.account_no as accountNo, 
+	    		c.code as logCode ,c.category as category, c.penalty_money as penaltyMoney 
+	    		from tbl_member m, tbl_challenge_log c 
+           where m.user_code in 
+           				( select user_code from tbl_account where account_no in c.account_no) 
+           		and c.flag = 'N'
+	</select>
 	
+	<!-- 알림 완료 시 log update flag N->Y -->
+	<update id="changeFlag" parameterType ="list">
+		update tbl_challenge_log 
+			set flag='Y' 
+		where code IN
+		<foreach collection="list" item="item" index="index" separator="," open="("  close=")">
+			#{item.logCode}
+		</foreach>
+		
+	</update>
 	
 	<!-- 하나로통장 보유 멤버 -->
 	<select id="reportMemberList" resultType="reportVO">

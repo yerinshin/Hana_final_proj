@@ -62,12 +62,12 @@
 	}
 	
 	#trans-info-col {
-		width : 35%;
+		width : 25%;
 	}
 	
-	#trans-money-col {
+/* 	#trans-money-col {
 		padding-left : 100px;
-	}
+	} */
 	th#balance-col {
 		padding-left : 30px;
 	}
@@ -78,15 +78,21 @@
 	th#send-trans-money {
 		color : #d74351;
 		text-align:right;
-		padding-right :150px;
+		padding-right :120px; 
 	}
 	
 	th#receive-trans-money {
 		color : #0c7ffa;
 		text-align:right;
-		padding-right :150px;
+		padding-right :120px;
 	}
 	
+	.table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+}
 	.readmore {
 	
 	}
@@ -185,6 +191,7 @@
 					    <tr>
 					      <th scope="col" id="trans-date-col">날짜</th>
 					      <th scope="col" id="trans-info-col">거래정보</th>
+					      <th></th>
 					      <th scope="col" id="trans-money-col">금액</th>
 					   	  <th scope="col" id="balance-col">잔액</th>
 					    </tr>
@@ -197,10 +204,12 @@
 					   <c:choose>
 					    <c:when test="${ consumptionHistory.splitFrom eq 'consumption_balance' }"> 
 					      <td>${ consumptionHistory.splitTo }</td>
+					        <td>${ consumptionHistory.memo }</td>
 					      <th scope="row" id="send-trans-money">  -${ consumptionHistory.transMoney }원</th>
 					     </c:when>
 					     <c:otherwise>
 					      <td>${ consumptionHistory.splitFrom}</td>
+					        <td>${ consumptionHistory.memo }</td>
 					      <th scope="row" id="receive-trans-money"> +${ consumptionHistory.transMoney } 원</th>
 					    </c:otherwise>
 					    </c:choose>

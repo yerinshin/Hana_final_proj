@@ -8,12 +8,26 @@ import org.springframework.stereotype.Repository;
 
 import kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO;
 import kr.ac.kopo.report.vo.ReportVO;
+import kr.ac.kopo.report.vo.SmsVO;
 
 @Repository
 public class ReportDAOImpl implements ReportDAO{
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
+	
+	public List<SmsVO> smsList() {
+		
+		List<SmsVO> smsList = sqlSessionTemplate.selectList("report.ReportDAO.smsList");
+		return smsList;
+	}
+	
+	public void changeFlag(List<SmsVO> smsList) {
+		
+		sqlSessionTemplate.update("report.ReportDAO.changeFlag", smsList);
+	}
+
+	
 	
 	public List<ReportVO> reportMemberList() {
 		
@@ -36,5 +50,9 @@ public class ReportDAOImpl implements ReportDAO{
 		MonthlyBudgetVO realSpent = sqlSessionTemplate.selectOne("report.ReportDAO.realSpent", accountNo);
 		return realSpent;
 	}
+
+
+	
+
 
 }

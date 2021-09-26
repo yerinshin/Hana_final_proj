@@ -28,5 +28,6 @@
 		<typeAlias type="kr.ac.kopo.challenge.vo.ChallengeVO" alias="challengeVO" />
 		
 		<typeAlias type="kr.ac.kopo.report.vo.ReportVO" alias="reportVO" />
+		<typeAlias type="kr.ac.kopo.report.vo.SmsVO" alias="smsVO" />
 	</typeAliases>
 </configuration>
