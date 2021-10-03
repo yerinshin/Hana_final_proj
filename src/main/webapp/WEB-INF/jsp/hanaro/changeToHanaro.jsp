@@ -13,7 +13,7 @@
 		margin: 0 auto;
 	} 
 	
-		.main {
+	.main {
 		width : 90%;
 		justify-content : center;
 		/* margin-right: 30px; */

@@ -55,7 +55,7 @@ public class SmsServiceImpl{
 			 HashMap<String, String> params = new HashMap<String, String>();
 			 
 			 params.put("from", "01047520453");
-			 params.put("to", "01047520453"); 
+			 params.put("to", tel); 
 			 params.put("type","SMS"); 
 			 params.put("text", text); 
 			 params.put("app_version", "test app 1.2");

@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.kopo.account.vo.TransactionHistoryVO;
+import kr.ac.kopo.dashBoard.service.DashBoardService;
+import kr.ac.kopo.dashBoard.vo.MonthlyBudgetVO;
 import kr.ac.kopo.hanaroAccount.service.HanaroAccountService;
+import kr.ac.kopo.hanaroAccount.vo.HanaroVO;
 import kr.ac.kopo.member.vo.MemberVO;
 import kr.ac.kopo.spending.service.SpendingService;
 import kr.ac.kopo.spending.vo.CalendarVO;
@@ -33,6 +36,9 @@ public class SpendingController {
 
 	@Autowired
 	private HanaroAccountService hanaroAccService;
+	
+	@Autowired
+	private DashBoardService dashBoardservice;
 	/*
 	@GetMapping("/spending/myCalendar")
 	public String myCalendar() {
@@ -59,7 +65,27 @@ public class SpendingController {
 		String accountNo = hanaroAccService.selectHanaroAcc(userCode).getAccountNo();
 		
 		
+		
+		
+		 
+
+
+		//내 하나로통장 잔액 조회
+		HanaroVO hanaro = hanaroAccService.selectHanaroAcc(userCode);
+		
+		//내 설정 고정, 생활, 비상금 조회
+		MonthlyBudgetVO myMonthlyBudget = dashBoardservice.myMonthlyBudget(accountNo);
+	
+		
+		
+		
+		
+		
+		
+		
 		ModelAndView mav = new ModelAndView("spending/myCalendar");
+		mav.addObject("hanaro",hanaro);
+		mav.addObject("myMonthlyBudget", myMonthlyBudget);
 		
 		//주별 소비
 		WeeklySpendingVO weeklySpending = spendingService.weeklySpending(accountNo);

@@ -31,7 +31,7 @@
 		<result column="split_from" property="splitFrom"/>
 		<result column="split_to" property="splitTo"/>
 		<result column="trans_money" property="transMoney"/>
-		<result column="transaction_date" property="transDate"/>
+		<result column="trans_date" property="transDate"/>
 		<result column="split_date" property="transDate"/>
 		<result column="memo" property="memo"/>
 		<result column="basic_balance" property="basicBalance"/>
@@ -92,7 +92,7 @@
 	
 	<!-- 잔액이동, 거래 내역 : 동적쿼리 -->
 	<select id="splitHistoryByKind" parameterType="splitKindInfoVO" resultMap="splitHistoryMap">
-		select  split_from, split_to, trans_money, to_char(transaction_date,'mm/dd hh:mi') as transaction_date, 
+		select  split_from, split_to, trans_money, to_char(transaction_date,'mm/dd hh:mi') as trans_date, 
 				memo, basic_balance, consumption_balance, saving_balance 
 			from tbl_split_history where account_no = #{accountNo} 
 			and (split_from = #{splitKind} or split_to = #{splitKind} )

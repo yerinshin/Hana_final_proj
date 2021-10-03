@@ -195,6 +195,9 @@ color : black;
 </style>
 <script>
 $(document).ready(function() {
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	} 
 	
 	let userCode = ${loginMember.userCode}	//usercode	
  	
@@ -274,6 +277,7 @@ $(document).ready(function() {
 				if(hanaroAccount.payDay != null){
 					html = $('#getSalaryTemplate').text()
 					html = html.replace(/\{salary\}/gi, hanaroAccount.salary)
+								.replace(/\{salary2\}/gi, numberWithCommas(hanaroAccount.salary))
 								.replace(/\{payDay\}/gi, hanaroAccount.payDay)	
 					console.log(html)
 				} else {
@@ -356,7 +360,7 @@ $(document).ready(function() {
 			url : '${pageContext.request.contextPath}/addFixedExpense',
 			data : JSON.stringify(data),
 			success : function() {
-				alert('추가완료')
+				//alert('추가완료')
 				getFixedExpense()
 		 		$('#expenseInfo').val('')
 				$('#transDate').val('')
@@ -387,7 +391,7 @@ $(document).ready(function() {
 			url : '${pageContext.request.contextPath}/deleteFixedExpense',
 			data : JSON.stringify(data),
 			success : function() {
-				alert('삭제완료')
+				//alert('삭제완료')
 				getFixedExpense()
 				
 			}
@@ -501,7 +505,7 @@ function numberWithCommas(x) {
 				$('#fixed_sum').val(sum);			// 값 변경
 				$('#fixed_sum2').val(numberWithCommas(sum));	//콤마찍어서 보여줌
 				$('#cal_result').val(result);
-				$('#cal_result2').val(result);
+				$('#cal_result2').val(numberWithCommas(result));
 				
 				
 			});
@@ -520,7 +524,7 @@ function numberWithCommas(x) {
 				$('#fixed_sum').val(sum);			// 값 변경
 				$('#fixed_sum2').val(numberWithCommas(sum));	//콤마찍어서 보여줌
 				$('#cal_result').val(result);
-				$('#cal_result2').val(result);
+				$('#cal_result2').val(numberWithCommas(result));
 				
 				
 			});
@@ -661,10 +665,16 @@ function numberWithCommas(x) {
 			 <h2 id="title-h2">월<strong class="black">급여액 </strong></h2>
 		</div>
 		<div class="col-md-5">
-			<input class="input_month" type="text"
+			<input class="input_month" type="hidden"
 				style="border : none; width : 300px;"
 				id="totalBudget" name="totalBudget" onkeyup="numberWithCommas(this.value)"
-				value="{salary}"><span style="font-size : 22px; font-weight: 700;">원 (매달 {payDay}일)</span>						
+				value="{salary}">						
+		
+
+		<input class="input_month" type="text"
+				style="border : none; width : 300px;"
+				id="totalBudget" name="totalBudget" onkeyup="numberWithCommas(this.value)"
+				value="{salary2}"><span style="font-size : 22px; font-weight: 700;">원 (매달 {payDay}일)</span>						
 		</div>
 		<div class="col-md-2">
 		<button id="btn-updateSalary" class="send" style="width: 80px; border-radius:15px; margin:10px 0;">
@@ -928,8 +938,8 @@ function numberWithCommas(x) {
 					  </thead>
 					  <tbody>
 					  	<tr>
-									<td>월 소비</td>
-					  				<td>기본금 → 생활금</td>
+									<td><b style="color : #009b9d">월 생활비</b></td>
+					  				<td><b>기본금 → 생활금</b></td>
 								<td>
 									<div class="col-auto my-1" id="div-lSetMoney">
 										<input type="text" name="setMoney" class="form-control" id="lSetMoney" value= "${ autoInfo.moneyToLiving }" style="height: 50px;">
@@ -951,8 +961,8 @@ function numberWithCommas(x) {
 								<td><button id="btn-toConsumption" class="btn-auto">설정</button></td>
 							</tr>
 							<tr>
-							<td>월 저축</td>
-					  		<td>기본금 → 비상금</td>
+							<td><b style="color : #009b9d">월 저축액</b></td>
+					  		<td><b>기본금 → 비상금</b></td>
 								<td>
 									<div class="col-auto my-1" id="div-eSetMoney">
 										<input type="text" name="setMoney" class="form-control" id="eSetMoney" value="${ autoInfo.moneyToExtra }" style="height: 50px;">

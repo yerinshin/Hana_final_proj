@@ -558,7 +558,13 @@ $(document).ready(function(){
 						 		<button class="send">추천 상품<br> 보러가기</button>
 						 	</div>
 							</c:when>
-							<c:otherwise> ... </c:otherwise>
+							<c:otherwise>
+							<img src="${pageContext.request.contextPath}/resources/icon/caution3.png"/>
+								하나로 통장 비상금 한도의  <span style="font-size : 32px; color : red;"><fmt:formatNumber value="${savingBalance/5000000}" type="percent"/></span> 가 채워졌어요.<br>
+							<div class="col-md-2">
+						 		<button class="send">추천 상품<br> 보러가기</button>
+						 	</div>
+							</c:otherwise>
 						</c:choose>
 						
 						 </div>
@@ -577,14 +583,7 @@ $(document).ready(function(){
 					  		</span>
 					  	  </div>
 						</div>
-                    <%--     <div class="skill-content-3 ongoing-tsk">
-                            <div class="skill progress">
-                       
-                                <div class="progress progress-bt">
-                                    <div class="progress-bar wow fadeInLeft" data-progress="${savingBalance/5000000}" style="width: ${savingBalance/5000000*100}%" data-wow-duration="1.5s" data-wow-delay="1.2s"><span><fmt:formatNumber value="${savingBalance/5000000}" type="percent"/></span> </div>
-                                </div>
-                            </div>
-                            </div> --%>
+                
                          
                         </div>
                   		
@@ -608,39 +607,16 @@ $(document).ready(function(){
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
 				                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
 				                    </div>
-				                    <h2>(최근 6개월)한달 평균 저축액 : 80만원</h2>	
+				                    <h2><span style="font-size : 20px;">(최근 6개월)</span>한달 평균 저축액 : 76.3만원</h2>	
 				                </div>
 				                <div class="col-md-6">
 				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
 				                        <canvas height="140vh" width="180vw" id="linechart"></canvas>
 				                    </div>
-				                    <h2> 하나로 통장 총 보유 저축금 : 480만원</h2>
+				                    <h2> 하나로 통장 총 보유 저축금 : 459.4만원</h2>
 				                </div>
 				            </div>
-				<!--            <div class="row">
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				                    <div class="bar-chart-wp">
-				                        <canvas height="140vh" width="180vw" id="barchart1"></canvas>
-				                    </div>
-				                </div>
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				                    <div class="bar-chart-wp sm-res-mg-t-30 chart-display-nn">
-				                        <canvas height="140vh" width="180vw" id="barchart2"></canvas>
-				                    </div>
-				                </div>
-				            </div>
-				            <div class="row">
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				                    <div class="bar-chart-wp mg-t-30 chart-display-nn">
-				                        <canvas height="140vh" width="180vw" id="barchart3"></canvas>
-				                    </div>
-				                </div>
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				                    <div class="bar-chart-wp mg-t-30 chart-display-nn">
-				                        <canvas height="140vh" width="180vw" id="barchart4"></canvas>
-				                    </div>
-				                </div>
-				            </div> -->
+		
 				        
 				    </div>
 				    <!-- Bar Chart area End-->

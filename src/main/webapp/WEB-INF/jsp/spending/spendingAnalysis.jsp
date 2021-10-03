@@ -80,6 +80,11 @@
 	div.nice-select{
 		display : none;
 	}
+	
+	#topSpending{
+		text-align : center;
+	}
+	
 	#selectMonth{
 	    height: 49px;
     	width: 250px;
@@ -149,11 +154,15 @@
     
     .modal-content {
     	padding : 40px 40px;
-    	margin-top: 300px;
+    	margin-top: 220px;
     	width: 850px;
-   		height: 600px;
+   		height: 630px;
     }
-    
+    .modal-dialog.modal-large {
+    width: 910px;
+    margin-top: 110px;
+    margin-left: 650px;
+}
     #btn-close {
 	    width: 40px;
     	height: 40px;
@@ -183,6 +192,8 @@
 		height : 67px;
 		font-size : 23px;
 	}
+	
+
 </style>
 
 </head>
@@ -220,8 +231,8 @@
 			
 		<div class="widget-tabs-list">
 			<ul class="nav nav-tabs">
-				<li class=""><a href="${pageContext.request.contextPath}/spending/myCalendar">가계부</a></li>
-				<li class="active"><a href="${pageContext.request.contextPath}/spending/spendingAnalysis" >소비현황</a></li>
+				<li class=""><a href="${pageContext.request.contextPath}/spending/myCalendar">소비현황</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/spending/spendingAnalysis" >카테고리별 소비</a></li>
 				<li class=""><a href="${pageContext.request.contextPath}/spending/challenge">도전하기</a></li>
 			</ul>
 			
@@ -312,19 +323,31 @@
 	                              <button id="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
 	                          </div>
 	                          <div class="modal-body">
-	                             <h2>쇼핑 줄이기</h2>
+	                             <h2 style="font-size : 35px; text-align: center; color : #009b9d; margin-bottom : 45px">쇼핑 줄이기 <span style="font-size : 35px; color :black">도전</span></h2>
 	                             
+	    
 	                             <div class="row">
-	                             <h2 class="col-md-6">이번달 도전 예산 : </h2>
+	                             <h2 class="col-md-6" style="font-size : 22px">지난달 '쇼핑' 지출 : </h2>
+	                             <div class="col-md-6">
+	                             <h2 style="text-align : right;padding-right : 7px; font-size : 22px">456,200원</h2>
+	                             </div>
+	                             </div>
+	                             <div class="row">
+	                             <h2 class="col-md-6" style="font-size : 22px">이번달 오늘까지 지출 : </h2>
+	                             <div class="col-md-6">
+	                             <h2 style="text-align : right;padding-right : 7px;font-size : 20px">165,600원</h2>
+	                             </div>
+	                             </div>
+	                             <div class="row" style="text-align:center">
+	                             <h2 class="col-md-6" style="padding-top:17px;">도전 예산 : </h2>
 	                             <div class="col-md-6">
 	                             <input class="form-control modal-input" type="text" placeholder="(원)" name="savingGoal"/>
 	                             </div>
 	                             </div>
-	                             <h4>이번 달 오늘까지(1일 ~ 15일) 쇼핑 예산 : {100000원}</h4>
-	                             <h4>지난 달 쇼핑 예산 : {300000원}</h4>
 	                             
-	                               <div class="row">
-	                               <h2 class="col-md-6">패널티 : </h2>
+	                             
+	                               <div class="row" style="text-align:center">
+	                               <h2 class="col-md-6" style="padding-top:17px">패널티 : </h2>
 	                               <div class="col-md-6">
 	                             	<select class="form-control modal-input" name="penaltyRate" id="penaltyRate">
 										<option value="0.1">10%</option>	
@@ -333,8 +356,8 @@
 									</select>
 	                               </div>
 									</div>
-									<h4 style="color : red;"> *도전 금액을 넘어간 소비가 발생할 경우,
-									소비금액의 패널티의 비율 만큼 생활금에서 비상금으로 저축됩니다.</h4>
+									<h4 style="color : red; font-size : 23px; margin-bottom :20px"> *초과 소비 발생 시!<br>
+									소비금액의 패널티의 비율만큼 [생활금에서 비상금으로] 저축됩니다.</h4>
 	                          </div>
 	                          <div class="modal-footer">
 	                             <button type="submit" class="btn btn-default" >확인</button>

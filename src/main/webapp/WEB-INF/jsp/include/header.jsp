@@ -64,7 +64,7 @@
          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">             		  	
      	    <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/selectJoin">상품가입</a></li>
             <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/${loginMember.userCode}">My하나로통장</a></li>
-            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/dashBoard/${loginMember.userCode}">대시보드</a></li>
+            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/hanaro/dashBoard/${loginMember.userCode}">예산설정</a></li>
          </ul>
          </li>
          
@@ -73,14 +73,26 @@
            	 내 소비
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/spending/myCalendar">가계부</a></li>
-            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/account/accountList.do">소비현황</a></li>
-            <li><a class="dropdown-item" href="#">도전하기</a></li>
+            <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/spending/myCalendar">소비현황</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/spending/spendingAnalysis">카테고리별 소비</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/spending/challenge">도전하기</a></li>
+          </ul>
+      	</li>
+         	<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           	 대시보드
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+<%--             <li><a class="dropdown-item" href="${ pageContext.request.contextPath }/spending/myCalendar">내 예산</a></li> --%>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis">예산현황</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/dashBoard/savingAnalysis">저축현황</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/dashBoard/savingAnalysis">추천상품</a></li>
+        
           </ul>
       	</li>
         
       
-	    <li> <a href="${ pageContext.request.contextPath }/hanaro/dashBoard">대시보드</a> </li>
+<%-- 	    <li> <a href="${ pageContext.request.contextPath }/hanaro/dashBoard">대시보드</a> </li> --%>
 	              
       </ul>
       </nav>

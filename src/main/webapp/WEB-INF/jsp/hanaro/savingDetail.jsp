@@ -75,8 +75,8 @@
 	}
 	th#send-trans-money {
 		color : #d74351;
-		text-align:right;
-		padding-right :150px;
+	/* 	text-align:right;
+		padding-right :150px; */
 	}
 	
 	th#receive-trans-money {

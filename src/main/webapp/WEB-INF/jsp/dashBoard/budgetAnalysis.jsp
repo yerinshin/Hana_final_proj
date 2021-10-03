@@ -247,7 +247,7 @@ $(document).ready(function(){
 				<li class=""><a href="${pageContext.request.contextPath}/hanaro/dashBoard/${loginMember.userCode}">예산 설정</a></li>
 				<li class="active"><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >예산 현황</a></li>
 				<li class=""><a href="${pageContext.request.contextPath}/dashBoard/savingAnalysis">저축 현황</a></li>
-				<li class=""><a href="${pageContext.request.contextPath}/dashBoard/budgetAnalysis" >추천 상품</a></li>
+	
 				</ul>
 	
 				<!-- --------------------- 내용 ------------------------ -->

@@ -230,6 +230,16 @@
   	height : 460px;
   	text-align : center;
 }
+
+#checkImg {
+margin-top : 70px;
+	margin-bottom  : 50px;
+}
+
+#complete{
+	margin-top : 30px;
+	margin-right : 170px;
+}
 </style>
 <script>
 	$(document).ready(function() {
@@ -631,12 +641,12 @@ $('#saving-balance').click(function(){
 	                      </div>
 	             <div class="choose_bg">
           					<div class="white_bg">
-			                          
+			                          	<div><img id="checkImg" src="${pageContext.request.contextPath}/resources/images/check.png"></div>
 			                            <h2> 잔액이동이 완료되었습니다</h2>            		
 			                           
 				                      <div class="modal-footer">
 				                    	<div class="col-md-12">
-				                          		<button class=" btn btn-default" id="splitFromSaving" data-dismiss="modal"
+				                          		<button class=" btn btn-default" id="complete" data-dismiss="modal"
 				                          		data-toggle="modal">확인</button> 
 				                    	</div>
 				                    

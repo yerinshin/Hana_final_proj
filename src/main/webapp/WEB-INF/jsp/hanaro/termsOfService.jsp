@@ -202,7 +202,7 @@
     .modal-dialog.modal-large {
    
     margin-top: 170px;
-    margin-left: 750px;
+    margin-left: 550px;
 }
 
 
@@ -251,6 +251,20 @@
     font-size: 22px;
     
  	}
+ 	table {
+ 	text-align : center;
+ 	height : 450px;
+ 	
+ 	}
+ 	
+ 	th{
+ 	text-align :center;
+ 	}
+ 	td {
+ 	 	border : 1px solid #dddddd;
+ 		text-align : center;
+ 		background : white;
+ 	}
 </style>
 <script>
 	$(document).ready(function() {
@@ -267,6 +281,15 @@
 		})	
 	})	
 	
+	// 체크박스 전체 선택
+	$('#allcheck').on('click', function(){ 
+	
+		/* if(checked) { $('.check-group').prop('checked', true); } 
+		else { 
+			$(this).closest('.agreement-container').find('.input-check').prop('checked', false); }  */
+		});
+
+
 	
 	function doSubmit()	{
 		
@@ -283,6 +306,16 @@
 		return true
 	}	
 	
+</script>
+<script>
+$(document).on('click','#chk_all',function(){
+    if($('#chk_all').is(':checked')){
+       $('.check_group').prop('checked',true);
+    }else{
+       $('check_group').prop('checked',false);
+    }
+});
+
 </script>
 </head>
  <!-- body -->
@@ -334,7 +367,7 @@
 	    </div>
 	    		
 	    	<form action="${ pageContext.request.contextPath}/hanaro/termsOfService" method="post"
-	    			name="confirmForm" onsubmit="return doSubmit()">	
+	    			name="confirmForm">	
 	    	<input type="hidden" name="accountNo" value="${ account.accountNo }">
 	    	<input type="hidden" name="userCode"  value="${ loginMember.userCode }">
 	    	
@@ -417,7 +450,33 @@
                 
                 	
       		<div id="menu-title">상품 정보 확인 및 약관 동의 </div>
-      		
+      		<table id="tableTitle" style="width : 95%; margin: auto; font-size: 20px; background: #f9f9f9; border-top : 5px solid #14b98f;">
+      		<tr>
+      		<th colspan="2"> 통장약관</th>
+      		</tr>
+      		<tr>
+      		<tr>
+      		<td><b> 통장전환 약관 전체 동의</b></td>
+      		<td><input name="checkTerm1" id="chk_all" type="checkbox" value="agree"> <label class="inpSchClass00" for="checkbox1">전체동의</label></td>
+      		</tr>
+      		<tr>
+      		<td>예금거래 기본 약관</td>
+      		<td><input name="checkTerm1" class="check_group" type="checkbox" value="agree"> <label class="inpSchClass00" for="checkbox1">약관동의</label></td></td>
+      		</tr>
+      		<tr>
+      		<td>입출금이 자유로운 예금 약관</td>
+      		<td><input name="checkTerm1" class="check_group" type="checkbox" value="agree"> <label class="inpSchClass00" for="checkbox1">약관동의</label></td></td>
+      		</tr>
+      		<tr>
+      		<td>비과세 종합저축 특약</td>
+      		<td><input name="checkTerm1" class="check_group" type="checkbox" value="agree"> <label class="inpSchClass00" for="checkbox1">약관동의</label></td></td>
+      		</tr>
+      		<tr>
+      		<td>하나로 통장 특약</td>
+      		<td><input name="checkTerm1" class="check_group" type="checkbox" value="agree"> <label class="inpSchClass00" for="checkbox1">약관동의</label></td></td>
+      		</tr>
+      		</table>
+      		<!--  
       		<div class="termTitle"><%-- <img src="${ pageContext.request.contextPath }/resources/icon/radio-check.png">  --%>하나로 통장 특약</div>
 	      		<textarea class="terms" cols = "100" rows = "6" >
 	      			
@@ -443,18 +502,23 @@
 			    </div>
 
              
-                   
+           -->
+           <div class="col-md-12" style="font-size : 20px;" >
+           <div style="margin-left : 300px; margin-top : 30px;">
+                   <input name="checkTerm1" type="checkbox" value="agree"> <label class="inpSchClass00" for="checkbox1">
+본인은 위 안내에 이해하고 동의합니다</label>
+           </div>
+           </div>
               <div class="row send-btn"> 
 				<!-- 	<button class="read-more" id="goListBtn">목록</button>
                        <button class="read-more" id="updateBtn" >수정</button> -->
-				<button type="submit" class="send" id="submitBtn">확인</button>
+				<button type="submit" class="send" id="submitBtn" data-toggle="modal" data-target="#confirm-modal">확인</button>
 				<button class="send" id="cancleBtn">취소</button>
 					
               </div>
               
             </form>
                
-           
 	<script src="${ pageContext.request.contextPath }/resources/template/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->

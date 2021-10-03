@@ -104,22 +104,22 @@
 		select 
    			nvl((select -sum(trans_money) from tbl_transaction_history 
           		 where my_acc_no=#{accountNo} 
-            	and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-7,1)-35 and next_day(sysdate-7,1)-29 AND TRANSACTION_CODE='11005') ,0) week1,
+            	and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-14-7,1)-35 and next_day(sysdate-14-7,1)-29 AND TRANSACTION_CODE='11005') ,0) week1,
     		nvl((select -sum(trans_money) from tbl_transaction_history 
             	where my_acc_no=#{accountNo}  
-           		and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-7,1)-28 and next_day(sysdate-7,1)-22 AND TRANSACTION_CODE='11005') ,0) week2,
+           		and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-14-7,1)-28 and next_day(sysdate-14-7,1)-22 AND TRANSACTION_CODE='11005') ,0) week2,
      		nvl((select -sum(trans_money) from tbl_transaction_history 
             	where my_acc_no=#{accountNo} 
-            	and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-7,1)-21 and next_day(sysdate-7,1)-15 AND TRANSACTION_CODE='11005') ,0) week3,
+            	and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-14-7,1)-21 and next_day(sysdate-14-7,1)-15 AND TRANSACTION_CODE='11005') ,0) week3,
     		nvl((select -sum(trans_money) from tbl_transaction_history 
             	where my_acc_no=#{accountNo}  
-            	and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-7,1)-14 and next_day(sysdate-7,1)-8 AND TRANSACTION_CODE='11005') ,0) week4,
+            	and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-14-7,1)-14 and next_day(sysdate-14-7,1)-8 AND TRANSACTION_CODE='11005') ,0) week4,
     		nvl((select -sum(trans_money) from tbl_transaction_history 
             	where my_acc_no=#{accountNo}  
-            	and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-7,1)-7 and next_day(sysdate-7,1)-1 AND TRANSACTION_CODE='11005') ,0) week5,
+            	and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-14-7,1)-7 and next_day(sysdate-14-7,1)-1 AND TRANSACTION_CODE='11005') ,0) week5,
      		nvl((select -sum(trans_money) from tbl_transaction_history 
             	where my_acc_no=#{accountNo}  
-            	and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-7,1) and sysdate AND TRANSACTION_CODE='11005') ,0) week6
+            	and to_char(transaction_date , 'yy/mm/dd') between next_day(sysdate-14-7,1) and (sysdate-14) AND TRANSACTION_CODE='11005') ,0) week6
 		from dual
 	</select>
 	
@@ -128,25 +128,25 @@
 		select
 			nvl((select -sum(trans_money) 
 				from tbl_transaction_history 
-				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate,'mm') and to_char(transaction_date, 'd') = '2'),0) mon
+				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate-14,'mm') and to_char(transaction_date-14, 'd') = '2'),0) mon
 			,nvl((select -sum(trans_money) 
 				from tbl_transaction_history 
-				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate,'mm') and to_char(transaction_date, 'd') = '3'),0) tue
+				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate-14,'mm') and to_char(transaction_date-14, 'd') = '3'),0) tue
 			,nvl((select -sum(trans_money) 
 				from tbl_transaction_history 
-				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate,'mm') and to_char(transaction_date, 'd') = '4'),0) wed
+				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate-14,'mm') and to_char(transaction_date-14, 'd') = '4'),0) wed
 			,nvl((select -sum(trans_money) 
 				from tbl_transaction_history 
-				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate,'mm') and to_char(transaction_date, 'd') = '5'),0) thu
+				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate-14,'mm') and to_char(transaction_date-14, 'd') = '5'),0) thu
 			,nvl((select -sum(trans_money) 
 				from tbl_transaction_history 
-				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate,'mm') and to_char(transaction_date, 'd') = '6'),0) fri
+				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate-14,'mm') and to_char(transaction_date-14, 'd') = '6'),0) fri
 			,nvl((select -sum(trans_money) 
 				from tbl_transaction_history 
-				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate,'mm') and to_char(transaction_date, 'd') ='7'),0) sat
+				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate-14,'mm') and to_char(transaction_date-14, 'd') ='7'),0) sat
 			,nvl((select -sum(trans_money) 
 				from tbl_transaction_history 
-				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate,'mm') and to_char(transaction_date, 'd')  = '1'),0) sun
+				where my_acc_no = #{accountNo} and transaction_code='11005' and to_char(transaction_date, 'mm') = to_char(sysdate-14,'mm') and to_char(transaction_date-14, 'd')  = '1'),0) sun
 		from dual	
 	</select>
 	

@@ -59,7 +59,52 @@ public class test {
 		//System.out.println("dataSource : " + dataSource);
 		assertNotNull(fixedExpenseService);    	//dataSource가 가지고 있는 값이 null이 아닌지만 확인
 	}
+	//@Ignore
+	@Test
+	public void smsCreate2() {
+
+		
+		
 	
+				
+				
+				String text = "[하나은행]\n";
+				text += "강하나님 [쇼핑 줄이기] 초과소비 패널티 발생!\n";
+				text += "이동 : 생활금 → 비상금\n";
+				//text += "[" + penaltyMoney +"원]";
+				text += "[25020원]";
+				
+				System.out.println("text : \n"+text);
+				
+				
+				
+				String api_key = "NCS9XWBKWK5YKNTD"; 
+				String api_secret = "IO9LVLNUVWWJ5ZRDFEEMLR9TRZHQWLEF"; 
+				Message coolsms = new Message(api_key,api_secret); 
+				HashMap<String, String> params = new HashMap<String, String>();
+				
+				params.put("from", "01047520453");
+				params.put("to", "01047520453"); 
+				params.put("type","SMS"); 
+				params.put("text", text); 
+				params.put("app_version", "test app 1.2");
+				
+				try { JSONObject obj = (JSONObject) coolsms.send(params);
+				System.out.println(obj.toString());
+				
+				} catch (CoolsmsException e) { 
+					System.out.println(e.getMessage());
+					System.out.println(e.getCode()); 
+				}
+				
+				
+				
+				
+				
+		
+		
+	}
+	@Ignore
 	@Test
 	public void smsCreate() {
 		List<SmsVO> smsList = reportDAO.smsList();
@@ -74,17 +119,18 @@ public class test {
 		while(i < smsList.size()) {
 			String name = smsList.get(i).getName();
 			String tel = smsList.get(i).getTel();
-			String accountNo = smsList.get(i).getAccountNo();
+			//String accountNo = smsList.get(i).getAccountNo();
 			String category = smsList.get(i).getCategory();
 			int penaltyMoney = smsList.get(i).getPenaltyMoney();
-			int logCode = smsList.get(i).getLogCode();
+			//int logCode = smsList.get(i).getLogCode();
 			
 			
 			
 			String text = "[하나은행]\n";
-			text += "홍길동님 [쇼핑 줄이기] 초과소비 패널티 발생!\n";
+			text += name +" 님 [" +category+ "줄이기] 초과소비 패널티 발생!\n";
 			text += "이동 : 생활금 → 비상금\n";
 			text += "[" + penaltyMoney +"원]";
+			
 			
 			System.out.println("text : \n"+text);
 			
@@ -96,7 +142,7 @@ public class test {
 			 HashMap<String, String> params = new HashMap<String, String>();
 			 
 			 params.put("from", "01047520453");
-			 params.put("to", "01047520453"); 
+			 params.put("to", tel); 
 			 params.put("type","SMS"); 
 			 params.put("text", text); 
 			 params.put("app_version", "test app 1.2");
@@ -343,7 +389,7 @@ public class test {
 					str += "	<!----------------------------------------- 첫번째 탭 ---------------------------------------------->\r\n"
 						+ "	<div class=\"select-div\" id=\"email01\" style=\"display: block;\">\r\n"
 						+ "	\r\n"
-						+ "		<span class=\"span-big\"> "+ name +"님</span> \r\n"
+						+ "		<span class=\"span-big\"> 강하나님</span> \r\n"
 						+ "		하나은행을 이용해주셔서 감사합니다.<br>\r\n"
 							+ nowMonth + " 하나로 통장 금융 리포트입니다.\r\n"
 						+ "		\r\n"
@@ -682,13 +728,13 @@ public class test {
 		
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void monthlyReportExecute() {
 		
 		String setfrom = "dpfls0106@naver.com";
 		String tomail = "bubi0106@naver.com";
-		String title = "제목입니다";
+		String title = "강하나님 08월 하나로통장 금융리포트입니다";
 		String content = "내용입니다";
 		
 		String filename = "C:\\Users\\HP\\Desktop\\java\\spring-workspace\\Hana-Project\\src\\main\\webapp\\hanaro_report.html";
@@ -730,14 +776,12 @@ public class test {
 					+ "					<div\r\n"
 					+ "						style=\"line-height: 1.5; color: #555555; font-size: 14px; font-family: AppleSDGothicNeo-light, 'malgun gothic', 'dotum', '돋움', sans-serif;\">\r\n"
 					+ "						<!-- 비주얼영역 -->\r\n" + "						<div>\r\n"
-					+ "							<img\r\n"
-					+ "								src=\"http://localhost:9999/resources/images/email/email_content_header.png\"\r\n"
-					+ "								alt=\"신한카드 이용대금 명세서\" border=\"0\" width=\"100%\" loading=\"lazy\">\r\n"
+					+ "							"
 					+ "						</div>\r\n"
 					+ "						<div style=\"padding: 6% 6% 7%;\">\r\n"
 					+ "							<div\r\n"
-					+ "								style=\"color: #0050a9; font-size: 16px; font-weight: bold; padding-bottom: 3%; border-bottom: 1px solid #dbdbdb; margin-bottom: 3%;\">2020년\r\n"
-					+ "								09월 금융리포트</div>\r\n"
+					+ "								style=\"color: #0050a9; font-size: 16px; font-weight: bold; padding-bottom: 3%; border-bottom: 1px solid #dbdbdb; margin-bottom: 3%;\">2021년\r\n"
+					+ "								08월 금융리포트</div>\r\n"
 					+ "							<div style=\"font-size: 16px; color: #000; font-weight: bold;\">이메일\r\n"
 					+ "								금융리포트 확인방법</div>\r\n"
 					+ "							<div\r\n"
@@ -760,11 +804,11 @@ public class test {
 					+ "												alt=\"나의 예산\" loading=\"lazy\"></td>\r\n"
 					+ "											<td><img\r\n"
 					+ "												src=\"http://localhost:9999/resources/images/email/billing.png\"\r\n"
-					+ "												alt=\"지출 관리\" style=\"margin-left: 14px;\"\r\n"
+					+ "												alt=\"소비 관리\" style=\"margin-left: 14px;\"\r\n"
 					+ "												loading=\"lazy\"></td>\r\n"
 					+ "											<td><img\r\n"
 					+ "												src=\"http://localhost:9999/resources/images/email/balance.png\"\r\n"
-					+ "												alt=\"또래 비교\" loading=\"lazy\"></td>\r\n"
+					+ "												alt=\"도전 현황\" loading=\"lazy\"></td>\r\n"
 					+ "										</tr>\r\n"
 					+ "										<tr>\r\n"
 					+ "											<td style=\"padding: 15px 3px 5px; vertical-align: top;\"><div\r\n"

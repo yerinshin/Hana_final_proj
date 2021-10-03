@@ -157,9 +157,62 @@ div.challengeList {
     	padding-top: 5px;
     	margin-bottom: 20px;
 	}
-	
+	   .modals-default-cl {
+		margin-top : 30px;
+    } 
+     .modal-dialog.modal-large .modal-content {
+    	padding: 70px 100px;
+    }
+    
+    .modal-content {
+    	padding : 40px 40px;
+    	margin-top: 220px;
+    	width: 850px;
+   		height: 630px;
+    }
+    .modal-dialog.modal-large {
+    width: 910px;
+    margin-top: 110px;
+    margin-left: 650px;
+}
+    #btn-close {
+	    width: 40px;
+    	height: 40px;
+    	font-size: 32px;
+    	padding : 0 0 10px 0;
+    }
+    div.nice-select{
+		display : none;
+	}
+    .modal-large .modal-body h2 {
+    	font-size : 28px;
+    	color : black;
+    } 
+    .modals-default-cl {
+    	margin-top : 0px;
+    }
+    
+    .modal-footer {
+		
+		display : block;
+		margin: 0 auto;
+    }
+    
+    .modal-footer > .btn-default {
+    	height : 50px;
+    	font-size : 25px;
+    }
+    
+    
+   .modal-input, #penaltyRate {
+		height : 67px;
+		font-size : 23px;
+	}
 	
 </style>
+<script>
+
+</script>
 </head>
  <!-- body -->
 <body class="main-layout">
@@ -189,14 +242,14 @@ div.challengeList {
 			</aside>
    
       <section>
-		<div id="title" class="titlepage">대시보드</div>
+		<div id="title" class="titlepage">내 소비</div>
 			
 			
 			
 		<div class="widget-tabs-list">
 			<ul class="nav nav-tabs">
-				<li class=""><a href="${pageContext.request.contextPath}/spending/myCalendar">가계부</a></li>
-				<li class=""><a href="${pageContext.request.contextPath}/spending/spendingAnalysis" >소비현황</a></li>
+				<li class=""><a href="${pageContext.request.contextPath}/spending/myCalendar">소비현황</a></li>
+				<li class=""><a href="${pageContext.request.contextPath}/spending/spendingAnalysis" >카테고리별 소비</a></li>
 				<li class="active"><a href="${pageContext.request.contextPath}/spending/challenge">도전하기</a></li>
 			</ul>
 			
@@ -215,34 +268,6 @@ div.challengeList {
         
             <div class="container challengeList">
             <div class="row">
-<!--                   <div class="col-md-6">
-                  <div class="service-box account-box">
-                  <div class="row">
-                  <div id="nickname" class="col-md-9"> 
-                     커피 값 아끼기
-                  </div>
-                  <div class="col-md-2" id="penalty-box">
-                     <h4 id="accountNo">30%</h4>
-                  </div>
-                  </div>
-                  <div class="row">
-                  	<div class="col-md-6">현재 지출액</div>
-                  	<div class="col-md-6">목표금액</div>
-                  </div>
-                  <div class="row">
-                     <h1 id="balance" class="col-md-6"> 23500원</h1>
-                     <h1 id="balance" class="col-md-6"> 50000원</h1>
-                  </div>
-             
-                  <div class="progress">
-  					<div class="progress-bar" role="progressbar" style="width: 45%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">45%</div>
-                  	<button id="btn-read-more" class="col-md-5 read-more">이체</button>
-                  	<button id="btn-read-more" class="col-md-5 read-more">이용내역</button>
-                 
-                  </div>
-                  </div>
-               </div> -->
-				
 				
 				
 			<c:forEach items="${ challengeList }" var="challenge" varStatus="loop">	
@@ -316,14 +341,91 @@ div.challengeList {
             
                
                <div class="col-md-6">
+      
                   <div class="service-box account-add-box" id="add-box">
+                  <div class="modals-default-cl">
                   <div>
                   <img src="${pageContext.request.contextPath}/resources/icon/service5.png">
                   </div>
                   	<div>
                   	<div class="col-md-3"></div>
-                     <button id="btn-read-more btn-add" class="col-md-6 read-more">도전 추가하기</button>
+                     <button id="btn-read-more btn-add" class="col-md-6 read-more" data-toggle="modal" data-target="#myModalthree">도전 추가하기</button>
                   	</div>
+                  	
+                  	     <!-- --------------------------------------------모달 ------------------- -->
+				 <div class="modal fade" id="myModalthree" role="dialog">
+	             <div class="modal-dialog modal-large">
+	                       <form action="${pageContext.request.contextPath}/insert" method="post">
+	                     	<input id="title" type="hidden" name="title" value="">
+	                     	<input id="category" type="hidden" name="category" value="">
+	                     
+	                     <div class="modal-content">
+	                          <div class="modal-header">
+	                              <button id="btn-close" type="button" class="close" data-dismiss="modal">&times;</button>
+	                          </div>
+	                          <div class="modal-body">
+	                             <h2 style="font-size : 35px; text-align: center; color : #009b9d; margin-bottom : 45px"></h2>
+	                             
+	    
+	                            
+	                             
+	                             <div class="row" style="text-align:center">
+	                             <h2 class="col-md-6" style="padding-top:17px;">도전 선택 : </h2>
+	                             <div class="col-md-6">
+	                             <select class="form-control modal-input" name="categoryChallenge" id="challengeCatefory">
+										<option value="식사">식사</option>	
+										<option value="교통/차량">교통비</option>
+										<option value="쇼핑">쇼핑</option>
+										<option value="미용">미용</option>
+										<option value="교육비">교육비</option>
+										<option value="카페">카페</option>
+										<option value="문화생활">문화생활</option>
+										<option value="장보기">장보기</option>
+										<option value="여행">여행</option>
+										<option value="숙박">숙박</option>
+										<option value="의료">의료</option>
+									</select>
+	                             </div>
+	                             </div>
+	                             <div class="row" style="text-align:center">
+	                             <h2 class="col-md-6" style="padding-top:17px;">도전 예산 : </h2>
+	                             <div class="col-md-6">
+	                             <input class="form-control modal-input" type="text" placeholder="(원)" name="savingGoal"/>
+	                             </div>
+	                             </div>
+	                             
+	                             
+	                               <div class="row" style="text-align:center">
+	                               <h2 class="col-md-6" style="padding-top:17px">패널티 : </h2>
+	                               <div class="col-md-6">
+	                             	<select class="form-control modal-input" name="penaltyRate" id="penaltyRate">
+										<option value="0.1">10%</option>	
+										<option value="0.2">20%</option>
+										<option value="0.3">30%</option>
+									</select>
+	                               </div>
+									</div>
+									<h4 style="color : red; font-size : 23px; margin-bottom :20px"> *초과 소비 발생 시!<br>
+									소비금액의 패널티의 비율만큼 [생활금에서 비상금으로] 저축됩니다.</h4>
+	                          </div>
+	                          <div class="modal-footer">
+	                             <button type="submit" class="btn btn-default" >확인</button>
+	                        	   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                          </div>
+	                     </div>
+	                       </form>
+	                  </div>
+	              </div>
+				
+			<!-- --------------------------------ㅁ-------모달 끝 ------->	
+                  	
+                  	
+                  	
+                  	
+                  	
+                  	
+                  	</div>
+
                   	</div> 
                   </div>
                </div>
@@ -331,9 +433,7 @@ div.challengeList {
               
             </div>
          </div>
-				
-				
-				
+    
 			</div>
 			
 			
