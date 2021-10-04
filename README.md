@@ -30,7 +30,7 @@
 
 |항목|내용||
 |-----|---------------------------|----|
-|이름 |신예린|![jooheeHan](./profile.jpg)|
+|이름 |신예린|<img src="./profile.jpg" width="130px">|
 |연락처 | dpfls0106@naver.com|
 |skill set| Frontend - HTML, CSS, Javascript|
 | | Backend - Java, Spring, Oracle, Python, Django |
